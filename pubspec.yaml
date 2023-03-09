@@ -1,0 +1,41 @@
+name: nemr_portfolio
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_hooks: ^0.18.6
+  gradient_borders: ^1.0.0
+  hooks_riverpod: ^2.3.0
+  rive: ^0.10.2
+  seo: ^0.0.4
+  url_launcher: ^6.1.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+  uses-material-design: false
+  assets:
+    - assets/
+  fonts:
+    - family: Quantico
+      fonts:
+        - asset: fonts/Quantico-Regular.ttf
+        - asset: fonts/Quantico-Bold.ttf
+          weight: 700
+    - family: VT323
+      fonts:
+        - asset: fonts/VT323.ttf
+          weight: 700
