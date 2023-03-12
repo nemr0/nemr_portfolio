@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:seo/html/seo_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:nemr_portfolio/UI/style/constants/text.dart';
+import 'link_button.dart';
 
-import '../../../style/constants/text.dart';
-
+/// All links I have in a [Wrap] Widget
 class LinksWidget extends StatelessWidget {
   const LinksWidget({Key? key}) : super(key: key);
 
@@ -36,31 +35,6 @@ class LinksWidget extends StatelessWidget {
           link: kURLDribble,
         ),
       ],
-    );
-  }
-}
-
-class LinkButton extends StatelessWidget {
-  const LinkButton({
-    super.key,
-    required this.asset,
-    required this.link,
-  });
-
-  final String asset;
-  final String link;
-
-  @override
-  Widget build(BuildContext context) {
-    return Seo.link(
-      href: link,
-      anchor: asset,
-      child: CupertinoButton(
-          onPressed: () => launchUrl(Uri.parse(link)),
-          child: Image.asset(
-            'assets/$asset.png',
-            fit: BoxFit.contain,
-          )),
     );
   }
 }

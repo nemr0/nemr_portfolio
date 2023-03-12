@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../style/constants/colors.dart';
 
-/// A container with background image
+/// A Container with background image
 class BackgroundWidget extends StatelessWidget {
   const BackgroundWidget({
     super.key,

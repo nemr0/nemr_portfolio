@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/avatar_window/avatar_icon.dart';
-import 'package:nemr_portfolio/UI/widgets/windows/avatar_window/links_widget.dart';
 import 'package:seo/html/seo_widget.dart';
 
-import '../../../providers/is_minimized_provider.dart';
+import '../../../providers/is_minimized_providers.dart';
 import '../../../style/constants/text_styles.dart';
-import '../../custom_paint/name_paint.dart';
+import '../../custom_paint/name_painter.dart';
 import '../window.dart';
+import 'links_widget.dart';
 
-class AvatarWindow extends HookConsumerWidget {
+/// About Me Window with my avatar and links
+class AboutMeWindow extends HookConsumerWidget {
   final double height;
   final double width;
   // final void Function(bool val)? onMinimized;
 
-  const AvatarWindow({
+  const AboutMeWindow({
     Key? key,
     required this.height,
     required this.width,
@@ -26,7 +27,7 @@ class AvatarWindow extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final animationCTR = useAnimationController(
         duration: const Duration(seconds: 1),
-        upperBound: width * .04,
+        upperBound: width * .035,
         animationBehavior: AnimationBehavior.preserve);
     useEffect(() {
       animationCTR.forward();
@@ -44,7 +45,7 @@ class AvatarWindow extends HookConsumerWidget {
       const Flexible(
         child: FittedBox(
           child: Text.rich(
-            TextSpan(style: kTSName, text: 'Omar Elnemr', children: [
+            TextSpan(style: kTSTitle, text: 'Omar Elnemr', children: [
               TextSpan(text: '\nmobile apps dev', style: kTSSubName)
             ]),
             textAlign: TextAlign.end,
@@ -58,7 +59,7 @@ class AvatarWindow extends HookConsumerWidget {
             return CustomPaint(
               size: Size(width * .04,
                   (animationCTR.value * 3.2142857142857144).toDouble()),
-              painter: NameContainerPaint(),
+              painter: GradientContainerPaint(),
             );
           },
         ),

@@ -15,13 +15,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// using seo package
     return SeoController(
       enabled: true,
+
+      /// widget tree observer
       tree: WidgetTree(context: context),
+
+      /// cupertino app
       child: const CupertinoApp(
         debugShowCheckedModeBanner: false,
         title: 'Omar Elnemr',
         theme: theme,
+
+        /// Start point
         home: MainScreen(),
       ),
     );

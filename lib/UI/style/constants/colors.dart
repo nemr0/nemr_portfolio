@@ -17,3 +17,6 @@ const Color kContainerBgColor = Color(0x26000000);
 
 /// one of [kContainerGradient] colors
 const Color kGradientColor = Color(0xffC5BFBF);
+
+/// TextField Color
+const Color kTFColor = Color(0xff1C1C1E);

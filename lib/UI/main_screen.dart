@@ -15,7 +15,7 @@ class MainScreen extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.landscape;
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
-    Widget avatarWidget() => AvatarWindow(
+    Widget avatarWidget() => AboutMeWindow(
           height: isLandscape ? height * .54 : height * .42,
           width: isLandscape ? width * .3 : width * .6,
         );
@@ -24,43 +24,42 @@ class MainScreen extends StatelessWidget {
           width: width * .5,
         );
     return BackgroundWidget(
-      child: Center(
-        child: isLandscape
-            ? Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      flex: 8,
-                      child:
-                          SizedBox(height: height * .5, child: avatarWidget()),
-                    ),
-                    Spacer(),
-                    Flexible(flex: 12, child: detailsWidget()),
-                  ],
-                ),
-              )
-            : ListView(
-                // mainAxisSize: MainAxisSize.max,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                shrinkWrap: true,
-
+      child: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          /// Landscape
+          if (orientation == Orientation.landscape) {
+            return Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: avatarWidget(),
+                  Flexible(
+                    flex: 8,
+                    child: SizedBox(height: height * .5, child: avatarWidget()),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: detailsWidget(),
-                  ),
+                  const Spacer(),
+                  Flexible(flex: 12, child: detailsWidget()),
                 ],
               ),
+            );
+          } else {
+            /// Portrait
+            return ListView(
+              // mainAxisSize: MainAxisSize.max,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              shrinkWrap: true,
+
+              children: [
+                avatarWidget(),
+                const SizedBox(
+                  height: 20,
+                ),
+                detailsWidget(),
+              ],
+            );
+          }
+        },
       ),
     );
   }

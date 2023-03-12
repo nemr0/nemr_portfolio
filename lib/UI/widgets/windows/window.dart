@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../style/constants/colors.dart';
-import '../custom_paint/window_paint.dart';
+import '../custom_paint/window_painter.dart';
 
 class Window extends HookConsumerWidget {
   const Window({
@@ -26,44 +26,44 @@ class Window extends HookConsumerWidget {
     final isMinimized = ref.watch(isMin.notifier);
     final isHover = useState<bool>(false);
     const Duration duration = Duration(milliseconds: 300);
-    return CustomPaint(
-      willChange: true,
-      painter: WindowPaint(),
-      child: MouseRegion(
-        onEnter: (_) => isHover.value = true,
-        onExit: (_) => isHover.value = false,
-        child: AnimatedContainer(
-          padding: isHover.value
-              ? const EdgeInsets.all(30)
-              : const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          duration: duration,
-          child: Stack(children: [
-            Center(child: child),
-            Positioned(
-                left: 5,
-                top: 5,
-                child: MouseRegion(
-                  cursor: isMinimized.state
-                      ? SystemMouseCursors.zoomIn
-                      : SystemMouseCursors.zoomOut,
-                  child: GestureDetector(
-                    onTap: () => isMinimized.update((state) => !state),
-                    // onMinimized!(isMinimized.state);
-                    child: AnimatedContainer(
-                      duration: duration,
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color:
-                              isMinimized.state ? kGreenColor : kYellowColor),
+    return AnimatedPadding(
+      padding: isHover.value == true
+          ? const EdgeInsets.all(20)
+          : const EdgeInsets.all(30),
+      duration: duration,
+      child: CustomPaint(
+        willChange: true,
+        painter: WindowPainter(),
+        child: MouseRegion(
+          onEnter: (_) => isHover.value = true,
+          onExit: (_) => isHover.value = false,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Stack(children: [
+              Center(child: child),
+              Positioned(
+                  left: 5,
+                  top: 5,
+                  child: MouseRegion(
+                    cursor: isMinimized.state
+                        ? SystemMouseCursors.zoomIn
+                        : SystemMouseCursors.zoomOut,
+                    child: GestureDetector(
+                      onTap: () => isMinimized.update((state) => !state),
+                      // onMinimized!(isMinimized.state);
+                      child: AnimatedContainer(
+                        duration: duration,
+                        width: 15,
+                        height: 15,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color:
+                                isMinimized.state ? kGreenColor : kYellowColor),
+                      ),
                     ),
-                  ),
-                ))
-          ]),
+                  ))
+            ]),
+          ),
         ),
       ),
     );

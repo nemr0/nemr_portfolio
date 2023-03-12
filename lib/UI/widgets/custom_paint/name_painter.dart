@@ -3,7 +3,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:nemr_portfolio/UI/style/constants/colors.dart';
 
-class NameContainerPaint extends CustomPainter {
+/// Gradient Flag beside my name
+class GradientContainerPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0Fill = Paint()..style = PaintingStyle.fill;

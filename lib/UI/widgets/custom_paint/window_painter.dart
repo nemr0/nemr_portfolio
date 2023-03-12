@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:nemr_portfolio/UI/style/constants/colors.dart';
 import 'dart:ui' as ui;
 
-class WindowPaint extends CustomPainter {
+/// A Window with Gradient Stroke and 15% Black
+class WindowPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0Stroke = Paint()

@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:nemr_portfolio/UI/providers/is_minimized_provider.dart';
+import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
 import 'package:nemr_portfolio/UI/style/constants/colors.dart';
 import 'package:nemr_portfolio/UI/style/constants/text_styles.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/window.dart';
 
+import 'custom_cupertino_textfield.dart';
+
+/// a window that separated with three Sliding Segmented Controls
+/// "Project" , "Experience" and, "Contact"
 class DetailsWindow extends HookConsumerWidget {
   const DetailsWindow({
     Key? key,
@@ -25,7 +29,7 @@ class DetailsWindow extends HookConsumerWidget {
             ? const FittedBox(
                 child: Text(
                   "ABOUT ME!",
-                  style: kTSName,
+                  style: kTSTitle,
                 ),
               )
             : Column(
@@ -51,15 +55,61 @@ class DetailsWindow extends HookConsumerWidget {
                         ),
                       },
                       onValueChanged: (v) {}
+
+                      // TODO: Uncomment bellow line after implementing Projects & Experience
                       // segmentedValue.value = v!
                       ),
-                  ListView(
-                    shrinkWrap: true,
-                    children: [
-                      CupertinoTextField(),
-                    ],
-                  )
+                  if (segmentedValue.value == 2) const ContactMeWindow()
                 ],
               ));
+  }
+}
+
+class ContactMeWindow extends HookWidget {
+  const ContactMeWindow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final emailCTR = useTextEditingController();
+
+    return OrientationBuilder(
+      builder: (BuildContext context, Orientation orientation) {
+        /// making it scrollable in landscape state
+        if (orientation == Orientation.landscape) {
+          return ListView(
+            shrinkWrap: true,
+            children: [
+              CCTextField(
+                placeholder: 'Email',
+                controller: emailCTR,
+                icon: CupertinoIcons.mail_solid,
+                inputType: TextInputType.emailAddress,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          );
+        } else
+
+        /// [Orientation.portrait]
+        {
+          /// as all widget is scrollable in portrait mode just
+          /// wrapping in a column
+          return Column(
+            children: [
+              CCTextField(
+                placeholder: 'Email',
+                controller: emailCTR,
+                icon: CupertinoIcons.mail_solid,
+                inputType: TextInputType.emailAddress,
+              ),
+            ],
+          );
+        }
+      },
+    );
   }
 }
