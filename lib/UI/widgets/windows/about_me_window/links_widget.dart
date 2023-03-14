@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nemr_portfolio/UI/style/constants/text.dart';
+import '../../../../config/text.dart';
 import 'link_button.dart';
 
 /// All links I have in a [Wrap] Widget

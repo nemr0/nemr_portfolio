@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nemr_portfolio/UI/widgets/background_widget.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/about_me_window/about_me_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/details_window.dart';
-
-import 'widgets/windows/avatar_window/avatar_window.dart';
 
 /// Where everything is rendered
 class MainScreen extends StatelessWidget {

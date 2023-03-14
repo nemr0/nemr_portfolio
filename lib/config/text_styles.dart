@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nemr_portfolio/UI/style/constants/colors.dart';
-import 'package:nemr_portfolio/UI/style/constants/font_families.dart';
+
+import 'colors.dart';
+import 'font_families.dart';
 
 /// used for my name & titles
 const TextStyle kTSTitle = TextStyle(

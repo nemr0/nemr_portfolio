@@ -1,7 +1,8 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
-import 'package:nemr_portfolio/UI/style/constants/colors.dart';
+
+import '../../../config/colors.dart';
 
 /// Gradient Flag beside my name
 class GradientContainerPaint extends CustomPainter {

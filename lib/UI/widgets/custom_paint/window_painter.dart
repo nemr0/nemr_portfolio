@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nemr_portfolio/UI/style/constants/colors.dart';
 import 'dart:ui' as ui;
+
+import '../../../config/colors.dart';
 
 /// A Window with Gradient Stroke and 15% Black
 class WindowPainter extends CustomPainter {

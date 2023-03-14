@@ -9,12 +9,16 @@ environment:
   sdk: '>=2.19.2 <3.0.0'
 dependencies:
   cupertino_icons: ^1.0.5
+  emailjs: ^1.1.0
   flutter:
     sdk: flutter
 
+  flutter_dotenv: ^5.0.2
   flutter_hooks: ^0.18.6
+  g_recaptcha_v3: ^0.0.5
   gradient_borders: ^1.0.0
   hooks_riverpod: ^2.3.0
+  http: ^0.13.5
   rive: ^0.10.2
   seo: ^0.0.4
   url_launcher: ^6.1.10
@@ -30,6 +34,7 @@ flutter:
   uses-material-design: false
   assets:
     - assets/
+    - .env
   fonts:
     - family: Quantico
       fonts:

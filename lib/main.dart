@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/main_screen.dart';
+import 'package:nemr_portfolio/service/recaptcha_service.dart';
 import 'package:seo/seo.dart';
 import 'UI/style/theme.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  await RecaptchaService.initiate();
+
   runApp(const ProviderScope(
     child: MyApp(),
   ));

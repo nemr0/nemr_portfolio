@@ -1,36 +1,26 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nemr_portfolio/UI/style/constants/colors.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-/// TextField Config
-class TextFieldConfig {
-  final String placeholder;
-  final IconData icon;
-  final TextInputType inputType;
-  final TextInputAction? inputAction;
-  TextFieldConfig({
-    required this.placeholder,
-    required this.icon,
-    required this.inputType,
-    this.inputAction,
-  });
-}
+import '../../../../config/colors.dart';
 
 /// Custom Cupertino Text Field
-class CCTextField extends StatelessWidget {
+class CCTextField extends HookWidget {
   const CCTextField({
     super.key,
-    this.controller,
+    required this.controller,
+    this.onEditingCompleted,
     required this.placeholder,
     required this.icon,
     required this.inputType,
+    this.textInputFormatter,
     this.inputAction,
-    this.onEditingCompleted,
+    this.maxLines,
+    this.minLines,
+    required this.validator,
   });
 
-  /// TextEditingController
-  final TextEditingController? controller;
-
-  /// Text before typing in the textfield
+  /// Text before typing in the text-field
   final String placeholder;
 
   /// left icon
@@ -42,10 +32,21 @@ class CCTextField extends StatelessWidget {
   ///  keyboard button preferences
   final TextInputAction? inputAction;
 
+  final String? Function(String s) validator;
+  final int? maxLines;
+  final int? minLines;
+
+  /// allowed inputs (leave it null to allow all)
+  final List<TextInputFormatter>? textInputFormatter;
+
+  /// TextEditingController
+  final TextEditingController controller;
+
   /// on keyboard button press or on focus change
   final VoidCallback? onEditingCompleted;
   @override
   Widget build(BuildContext context) {
+    final error = useState<String?>(null);
     final width = MediaQuery.of(context).size.width;
     final orientation = MediaQuery.of(context).orientation;
     return Padding(
@@ -56,17 +57,27 @@ class CCTextField extends StatelessWidget {
               orientation == Orientation.landscape ? width * .1 : width * .05),
       child: CupertinoTextField(
         controller: controller,
-        placeholder: placeholder,
+        minLines: minLines,
+        maxLines: maxLines,
+        placeholder: error.value ?? placeholder,
+        placeholderStyle: error.value == null
+            ? const TextStyle(
+                fontWeight: FontWeight.w400,
+                color: CupertinoColors.placeholderText)
+            : const TextStyle(color: CupertinoColors.destructiveRed),
         prefix: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Icon(icon),
         ),
         decoration: BoxDecoration(
             color: kTFColor, borderRadius: BorderRadius.circular(10)),
-        onEditingComplete: onEditingCompleted,
+        onEditingComplete: () {
+          error.value = validator(controller.text);
+        },
         keyboardType: inputType,
         textInputAction: inputAction ?? TextInputAction.next,
         keyboardAppearance: Brightness.dark,
+        inputFormatters: textInputFormatter,
       ),
     );
   }
