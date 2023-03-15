@@ -36,11 +36,11 @@ flutter:
     - assets/
     - .env
   fonts:
-    - family: Quantico
+    - family: Roboto Mono
       fonts:
-        - asset: fonts/Quantico-Regular.ttf
-        - asset: fonts/Quantico-Bold.ttf
-          weight: 700
+        - asset: fonts/RobotoMono.ttf
+        - asset: fonts/RobotoMono-Italic.ttf
+
     - family: VT323
       fonts:
         - asset: fonts/VT323.ttf

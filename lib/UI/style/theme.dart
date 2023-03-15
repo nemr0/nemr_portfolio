@@ -7,7 +7,7 @@ const CupertinoThemeData theme = CupertinoThemeData(
   brightness: Brightness.dark,
   textTheme: CupertinoTextThemeData(
       primaryColor: kPrimaryColor,
-      textStyle: TextStyle(fontFamily: kQuanticoFamily)),
+      textStyle: TextStyle(fontFamily: kRobotoMonoFamily)),
   scaffoldBackgroundColor: kBgColor,
   primaryColor: kPrimaryColor,
 );

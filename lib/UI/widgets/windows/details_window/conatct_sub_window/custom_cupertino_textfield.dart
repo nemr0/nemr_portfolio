@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../../config/colors.dart';
+import '../../../../../config/colors.dart';
 
 /// Custom Cupertino Text Field
 class CCTextField extends HookWidget {
@@ -18,7 +18,10 @@ class CCTextField extends HookWidget {
     this.maxLines,
     this.minLines,
     required this.validator,
-  });
+  }) : assert(
+          (maxLines == null) || (minLines == null) || (maxLines >= minLines),
+          "minLines can't be greater than maxLines",
+        );
 
   /// Text before typing in the text-field
   final String placeholder;
@@ -32,7 +35,7 @@ class CCTextField extends HookWidget {
   ///  keyboard button preferences
   final TextInputAction? inputAction;
 
-  final String? Function(String s) validator;
+  final String? Function(String? s)? validator;
   final int? maxLines;
   final int? minLines;
 
@@ -47,6 +50,7 @@ class CCTextField extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final error = useState<String?>(null);
+
     final width = MediaQuery.of(context).size.width;
     final orientation = MediaQuery.of(context).orientation;
     return Padding(
@@ -55,25 +59,24 @@ class CCTextField extends HookWidget {
           bottom: 8.0,
           right:
               orientation == Orientation.landscape ? width * .1 : width * .05),
-      child: CupertinoTextField(
+      child: CupertinoTextFormFieldRow(
+        validator: validator,
         controller: controller,
         minLines: minLines,
         maxLines: maxLines,
-        placeholder: error.value ?? placeholder,
+        placeholder: placeholder,
         placeholderStyle: error.value == null
             ? const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: CupertinoColors.placeholderText)
             : const TextStyle(color: CupertinoColors.destructiveRed),
+        style: const TextStyle(color: CupertinoColors.extraLightBackgroundGray),
         prefix: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(right: 8.0),
           child: Icon(icon),
         ),
         decoration: BoxDecoration(
             color: kTFColor, borderRadius: BorderRadius.circular(10)),
-        onEditingComplete: () {
-          error.value = validator(controller.text);
-        },
         keyboardType: inputType,
         textInputAction: inputAction ?? TextInputAction.next,
         keyboardAppearance: Brightness.dark,

@@ -9,19 +9,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Gets Orientation
-    final bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
-    Widget avatarWidget() => AboutMeWindow(
-          height: isLandscape ? height * .54 : height * .42,
-          width: isLandscape ? width * .3 : width * .6,
-        );
-    Widget detailsWidget() => DetailsWindow(
-          height: height * .9,
-          width: width * .5,
-        );
     return BackgroundWidget(
       child: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -32,13 +19,13 @@ class MainScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: const [
                   Flexible(
                     flex: 8,
-                    child: SizedBox(height: height * .5, child: avatarWidget()),
+                    child: AboutMeWindow(),
                   ),
-                  const Spacer(),
-                  Flexible(flex: 12, child: detailsWidget()),
+                  Spacer(),
+                  Flexible(flex: 12, child: DetailsWindow()),
                 ],
               ),
             );
@@ -49,12 +36,12 @@ class MainScreen extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               shrinkWrap: true,
 
-              children: [
-                avatarWidget(),
-                const SizedBox(
+              children: const [
+                AboutMeWindow(),
+                SizedBox(
                   height: 20,
                 ),
-                detailsWidget(),
+                DetailsWindow(),
               ],
             );
           }

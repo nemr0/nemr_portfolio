@@ -13,21 +13,25 @@ import 'links_widget.dart';
 
 /// About Me Window with my avatar and links
 class AboutMeWindow extends HookConsumerWidget {
-  final double height;
-  final double width;
+  // final double height;
+  // final double width;
   // final void Function(bool val)? onMinimized;
 
   const AboutMeWindow({
     Key? key,
-    required this.height,
-    required this.width,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final uWidth = MediaQuery.of(context).orientation == Orientation.landscape
+        ? width * .3
+        : width * .6;
+
     final animationCTR = useAnimationController(
         duration: const Duration(seconds: 1),
-        upperBound: width * .035,
+        upperBound: uWidth * .035,
         animationBehavior: AnimationBehavior.preserve);
     useEffect(() {
       animationCTR.forward();
@@ -57,7 +61,7 @@ class AboutMeWindow extends HookConsumerWidget {
           animation: animationCTR,
           builder: (BuildContext context, Widget? child) {
             return CustomPaint(
-              size: Size(width * .04,
+              size: Size(uWidth * .04,
                   (animationCTR.value * 3.2142857142857144).toDouble()),
               painter: GradientContainerPaint(),
             );
@@ -65,39 +69,43 @@ class AboutMeWindow extends HookConsumerWidget {
         ),
       ),
     ];
-    return Window(
-      isMin: isAvatarMinimizedProvider,
-      child: Seo.text(
-        text: 'Omar Elnemr Mobile App Developer Flutter Developer',
-        child: Center(
-          child: isMinimized
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      child: AvatarIcon(
-                        size: isMinimized ? height * .3 : width * .4,
-                      ),
+    return SizedBox(
+      height: isMinimized ? null : height * .6,
+      child: Window(
+        isMin: isAvatarMinimizedProvider,
+        child: Seo.text(
+          text: 'Omar Elnemr Mobile App Developer Flutter Developer',
+          child: Center(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: isMinimized
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Flexible(
+                          child: AvatarIcon(),
+                        ),
+                        ...title
+                      ],
+                    )
+                  : Wrap(
+                      direction: isMinimized ? Axis.vertical : Axis.horizontal,
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.end,
+                      runAlignment: WrapAlignment.center,
+                      children: [
+                        const AvatarIcon(
+                            // size: isMinimized ? height * .3 : width * .4,
+                            ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: title,
+                        ),
+                        const LinksWidget(),
+                      ],
                     ),
-                    ...title
-                  ],
-                )
-              : Wrap(
-                  direction: isMinimized ? Axis.vertical : Axis.horizontal,
-                  alignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.end,
-                  runAlignment: WrapAlignment.center,
-                  children: [
-                    AvatarIcon(
-                      size: isMinimized ? height * .3 : width * .4,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: title,
-                    ),
-                    const LinksWidget(),
-                  ],
-                ),
+            ),
+          ),
         ),
       ),
     );

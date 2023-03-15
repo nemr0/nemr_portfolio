@@ -14,4 +14,4 @@ const TextStyle kTSTitle = TextStyle(
 const TextStyle kTSSubName =
     TextStyle(color: kPrimaryColor, fontFamily: kVT323Family, fontSize: 16);
 const TextStyle kTSSegmentedController = TextStyle(
-    color: CupertinoColors.white, fontFamily: kQuanticoFamily, fontSize: 13);
+    color: CupertinoColors.white, fontFamily: kRobotoMonoFamily, fontSize: 13);

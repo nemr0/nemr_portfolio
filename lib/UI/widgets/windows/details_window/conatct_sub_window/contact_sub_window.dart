@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../../../config/validators.dart';
+import '../../../../../config/validators.dart';
 import 'custom_cupertino_textfield.dart';
 
 class ContactMeWindow extends HookWidget {
@@ -17,11 +17,12 @@ class ContactMeWindow extends HookWidget {
         nameCTR = useTextEditingController(),
         phoneCTR = useTextEditingController(),
         descCTR = useTextEditingController();
-
+    final formKey = GlobalKey<FormState>();
     final orientation = MediaQuery.of(context).orientation;
+    const double sHeight = 10;
     final List<Widget> children = [
       const SizedBox(
-        height: 15,
+        height: sHeight,
       ),
       // company
       CCTextField(
@@ -29,9 +30,9 @@ class ContactMeWindow extends HookWidget {
           placeholder: 'Company',
           icon: CupertinoIcons.house_alt_fill,
           inputType: TextInputType.text,
-          validator: (String s) => null),
+          validator: (String? s) => null),
       const SizedBox(
-        height: 15,
+        height: sHeight,
       ),
       // name
       CCTextField(
@@ -41,7 +42,7 @@ class ContactMeWindow extends HookWidget {
           inputType: TextInputType.name,
           validator: validateEmail),
       const SizedBox(
-        height: 15,
+        height: sHeight,
       ),
       // phone
       CCTextField(
@@ -52,7 +53,7 @@ class ContactMeWindow extends HookWidget {
           textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
           validator: validateMobile),
       const SizedBox(
-        height: 15,
+        height: sHeight,
       ),
       // email
       CCTextField(
@@ -62,7 +63,7 @@ class ContactMeWindow extends HookWidget {
           inputType: TextInputType.emailAddress,
           validator: validateEmail),
       const SizedBox(
-        height: 15,
+        height: sHeight,
       ),
       // description
       CCTextField(
@@ -75,18 +76,23 @@ class ContactMeWindow extends HookWidget {
           maxLines: 8,
           validator: (s) => null),
       const SizedBox(
-        height: 15,
+        height: sHeight,
       ),
     ];
 
-    /// making it scrollable in landscape state
-    if (orientation == Orientation.landscape) {
-      return ListView(
-        shrinkWrap: true,
-        children: children,
-      );
-    } else {
-      return Column(children: children);
-    }
+    return Form(
+      key: formKey,
+      child:
+
+          /// making it scrollable in landscape state
+          (orientation == Orientation.landscape)
+              ? ListView(
+                  shrinkWrap: true,
+                  children: children,
+                )
+
+              /// Using a normal column in portrait state
+              : Column(children: children),
+    );
   }
 }
