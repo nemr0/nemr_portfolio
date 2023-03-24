@@ -8,7 +8,7 @@ import 'package:seo/seo.dart';
 import 'UI/style/theme.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env.local");
   await GetStorage.init();
   runApp(const ProviderScope(
     child: MyApp(),
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
         /// Start point
         home: MainScreen(),
-      ).animate().fadeIn(),
+      ).animate().fadeIn(duration: const Duration(milliseconds: 200)),
     );
   }
 }

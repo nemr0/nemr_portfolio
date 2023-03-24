@@ -37,7 +37,7 @@ flutter:
   uses-material-design: false
   assets:
     - assets/
-    - .env
+    - .env.local
     - html/
   fonts:
     - family: Roboto Mono

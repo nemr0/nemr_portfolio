@@ -39,22 +39,20 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
-<body>
+<body id="theOne" style="  overflow: hidden;
+">
 <style>
-  body {
-
-  background-position: center; /* Center the image */
-  background-repeat: repeat; /* Do not repeat the image */
+  .background{
+  overflow: hidden;
+  background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-  over-flow: hidden;
   height: 100vh;
   width: 100vw;
   background-color: #1e1e1e;
-  background-image: url("assets/background.png");
-  margin: 0;
+  background-image: url('assets/background.png');
+margin: 0;
   }
   .main-content {
-  over-flow: hidden;
   height: 100%;
   width: 100%;
   display: flex;
@@ -63,8 +61,8 @@
   transition: opacity .4s ease-out;
   }
   .loader{
-  height: 200px;
-  width: 150px;
+  height: 220px;
+  width: 190px;
   }
 
 
@@ -77,6 +75,7 @@
   }
     window.addEventListener('load', function(ev) {
     var loaderContent=document.querySelector('#loader-content');
+    var bodyContent=document.querySelector('#theOne');
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
@@ -85,6 +84,7 @@
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
           loaderContent.style.opacity="0";
+
            delay(300).then(()=>appRunner.runApp());
 
           });
@@ -92,8 +92,11 @@
       });
     });
   </script>
+<div class="background">
 <div class="main-content" id="loader-content">
   <img class="loader" src="assets/loader.gif" alt="loading">
 </div>
+</div>
+
 </body>
 </html>
