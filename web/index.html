@@ -29,7 +29,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>nemr_portfolio</title>
+  <title>Omar ElNemr</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
@@ -40,10 +40,43 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
-<script src="https://www.google.com/recaptcha/api.js?render=6Ldq_fkkAAAAAPt1alULnFgX_aP7GQQ8ZA6CrzTN"></script>
+<style>
+  body {
+
+  background-position: center; /* Center the image */
+  background-repeat: repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  over-flow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background-color: #1e1e1e;
+  background-image: url("assets/background.png");
+  margin: 0;
+  }
+  .main-content {
+  over-flow: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .4s ease-out;
+  }
+  .loader{
+  height: 200px;
+  width: 150px;
+  }
+
+
+</style>
+
 
   <script>
+  function delay(time){
+  return new Promise(resolve => setTimeout(resolve,time));
+  }
     window.addEventListener('load', function(ev) {
+    var loaderContent=document.querySelector('#loader-content');
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
@@ -51,11 +84,16 @@
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
+          loaderContent.style.opacity="0";
+           delay(300).then(()=>appRunner.runApp());
+
           });
         }
       });
     });
   </script>
+<div class="main-content" id="loader-content">
+  <img class="loader" src="assets/loader.gif" alt="loading">
+</div>
 </body>
 </html>

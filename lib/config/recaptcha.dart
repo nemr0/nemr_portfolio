@@ -12,6 +12,7 @@ class Config {
   static String secretKey = dotenv.get('RECAPTCHASECRET');
 
   /// Holds the 'Verfication URL' for the `Google reCAPTCHA v3` API .
-  static final verificationURL =
-      Uri.parse('https://www.google.com/recaptcha/api/siteverify');
+
+  static const verificationURL =
+      'https://www.google.com/recaptcha/api/siteverify';
 }

@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
 import 'package:nemr_portfolio/UI/widgets/background_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/about_me_window/about_me_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/details_window.dart';
 
 /// Where everything is rendered
-class MainScreen extends StatelessWidget {
+class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isAboutMeMinimized = ref.watch(isAvatarMinimizedProvider);
+    final isDetailsMinimized = ref.watch(isDetailsMinimizedProvider);
     return BackgroundWidget(
       child: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -19,31 +24,71 @@ class MainScreen extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
+                children: [
+                  const Spacer(),
                   Flexible(
                     flex: 8,
-                    child: AboutMeWindow(),
+                    child: Column(
+                      children: [
+                        const Spacer(),
+                        Flexible(
+                            flex: isAboutMeMinimized ? 1 : 4,
+                            fit: FlexFit.tight,
+                            child: const AboutMeWindow()),
+                        const Spacer(),
+                      ],
+                    ),
                   ),
-                  Spacer(),
-                  Flexible(flex: 12, child: DetailsWindow()),
+                  const Spacer(),
+                  Flexible(
+                      flex: 12,
+                      child: Column(
+                        children: [
+                          const Spacer(),
+                          Flexible(
+                              flex: isDetailsMinimized ? 1 : 10,
+                              child: const DetailsWindow()),
+                          const Spacer(),
+                        ],
+                      )),
+                  const Spacer(),
                 ],
               ),
             );
           } else {
             /// Portrait
-            return ListView(
-              // mainAxisSize: MainAxisSize.max,
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              shrinkWrap: true,
+            return HookBuilder(builder: (BuildContext context) {
+              final scrollCTR = useScrollController();
 
-              children: const [
-                AboutMeWindow(),
-                SizedBox(
-                  height: 20,
+              return CupertinoScrollbar(
+                thumbVisibility: true,
+                controller: scrollCTR,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context)
+                        .copyWith(scrollbars: false),
+                    child: ListView(
+                      controller: scrollCTR,
+                      shrinkWrap: true,
+                      children: const [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        AboutMeWindow(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        DetailsWindow(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                DetailsWindow(),
-              ],
-            );
+              );
+            });
           }
         },
       ),

@@ -1,26 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nemr_portfolio/UI/helpers/on_contact_submit.dart';
+import 'package:nemr_portfolio/UI/providers/contact_providers.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/submit_button.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/terms_agree.dart';
 
 import '../../../../../config/validators.dart';
 import 'custom_cupertino_textfield.dart';
 
-class ContactMeWindow extends HookWidget {
+class ContactMeWindow extends HookConsumerWidget {
   const ContactMeWindow({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final emailCTR = useTextEditingController(),
         companyCTR = useTextEditingController(),
         nameCTR = useTextEditingController(),
         phoneCTR = useTextEditingController(),
         descCTR = useTextEditingController();
-    final formKey = GlobalKey<FormState>();
-    final orientation = MediaQuery.of(context).orientation;
+
+    // final orientation = MediaQuery.of(context).orientation;
     const double sHeight = 10;
-    final List<Widget> children = [
+
+    List<Widget> children = [
       const SizedBox(
         height: sHeight,
       ),
@@ -40,14 +46,16 @@ class ContactMeWindow extends HookWidget {
           placeholder: 'Name *',
           icon: CupertinoIcons.profile_circled,
           inputType: TextInputType.name,
-          validator: validateEmail),
+          errorProvider: nameErrorProvider,
+          validator: validateName),
       const SizedBox(
         height: sHeight,
       ),
       // phone
       CCTextField(
           controller: phoneCTR,
-          placeholder: 'Phone *',
+          placeholder: 'Phone * exp: 201147898061',
+          errorProvider: phoneErrorProvider,
           icon: CupertinoIcons.phone_fill,
           inputType: TextInputType.phone,
           textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
@@ -57,6 +65,7 @@ class ContactMeWindow extends HookWidget {
       ),
       // email
       CCTextField(
+          errorProvider: emailErrorProvider,
           controller: emailCTR,
           placeholder: 'Email *',
           icon: CupertinoIcons.mail_solid,
@@ -78,21 +87,16 @@ class ContactMeWindow extends HookWidget {
       const SizedBox(
         height: sHeight,
       ),
+      const TermsAgree(),
+      SubmitContactButton(
+        onSubmit: () => onSubmit(context, companyCTR.text, nameCTR.text,
+            emailCTR.text, phoneCTR.text, descCTR.text),
+      ),
+      const SizedBox(
+        height: sHeight,
+      ),
     ];
 
-    return Form(
-      key: formKey,
-      child:
-
-          /// making it scrollable in landscape state
-          (orientation == Orientation.landscape)
-              ? ListView(
-                  shrinkWrap: true,
-                  children: children,
-                )
-
-              /// Using a normal column in portrait state
-              : Column(children: children),
-    );
+    return Column(children: children);
   }
 }

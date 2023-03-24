@@ -6,5 +6,4 @@ class DotEnvVars {
   static String emailJSPublicKey = dotenv.get('EMAILJSPUBLICKEY');
   static String emailJSPrivateKey = dotenv.get('EMAILJSPRIVATEKEY');
   static String emailJSServiceID = dotenv.get('EMAILJSSERVICEID');
-  static String emailJSTemplateID = dotenv.get('EMAILJSWELCOMETEMPLATEID');
 }

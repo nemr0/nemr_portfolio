@@ -41,8 +41,8 @@ class Window extends HookConsumerWidget {
     }, []);
     return AnimatedPadding(
       padding: isHover.value == true
-          ? const EdgeInsets.all(20)
-          : const EdgeInsets.all(30),
+          ? const EdgeInsets.all(10)
+          : const EdgeInsets.all(0),
       duration: duration,
       child: SizedBox(
         height: isMinimized.state ? 120 : null,

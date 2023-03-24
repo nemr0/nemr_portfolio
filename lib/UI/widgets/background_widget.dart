@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
-import '../../config/colors.dart';
+import 'package:flutter/material.dart';
 
 /// A Container with background image
 class BackgroundWidget extends StatelessWidget {
@@ -13,15 +12,19 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          color: kBgColor,
-          image: DecorationImage(
-              image: AssetImage(
-                'assets/background.png',
-              ),
-              fit: BoxFit.cover)),
-      child: child,
+    return CupertinoPageScaffold(
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+            color: Colors.transparent,
+            image: DecorationImage(
+                image: AssetImage(
+                  'assets/background.png',
+                ),
+                fit: BoxFit.cover)),
+        child: child,
+      ),
     );
   }
 }

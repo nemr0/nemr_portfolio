@@ -1,26 +1,37 @@
 import 'package:emailjs/emailjs.dart';
-import 'package:flutter/foundation.dart';
 import '../config/dot_env_vars.dart';
 import '../config/welcome_template.dart';
 
-Future<bool> sendMail({
-  required String to,
-  required String name,
-}) async {
-  try {
-    EmailJS.send(
-        DotEnvVars.emailJSServiceID,
-        DotEnvVars.emailJSTemplateID,
-        {'name': 'name', 'content': htmlWelcomeTemplate(name), 'to': to},
+class SendMail {
+  init() => EmailJS.init(
         Options(
             privateKey: DotEnvVars.emailJSPrivateKey,
-            publicKey: DotEnvVars.emailJSPublicKey));
-    // await SendgridService.mailer.send(email);
-    return true;
-  } catch (e) {
-    if (kDebugMode) {
-      print(e);
-    }
-    return false;
-  }
+            publicKey: DotEnvVars.emailJSPublicKey),
+      );
+
+  Future<EmailJSResponseStatus> welcome(
+          String name, String toEmail, String reCaptchaToken) async =>
+      await EmailJS.send(DotEnvVars.emailJSServiceID, 'welcome_email', {
+        'name': name,
+        'content': htmlWelcomeTemplate(name),
+        'to': toEmail,
+        'g-recaptcha-response': reCaptchaToken,
+      });
+  // await SendgridService.mailer.send(email);
+  // return true;
+
+  Future<EmailJSResponseStatus> info(String name, String company, String email,
+          String phone, String desc) async =>
+      await EmailJS.send(
+        DotEnvVars.emailJSServiceID,
+        'contact_form_info',
+        {
+          'name': name,
+          'to': 'omarelnemr8@gmail.com',
+          'company': company,
+          'email': email,
+          'phone': phone,
+          'desc': desc,
+        },
+      );
 }

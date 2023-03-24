@@ -9,15 +9,29 @@ String? validateEmail(String? email) => email == null
 
 /// Phone Number Validator
 String? validateMobile(String? phone) {
-  String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+  String pattern = r'(^(?:[+0]9)?[0-9]{10,14}$)';
   RegExp regExp = RegExp(pattern);
   if (phone == null || phone.isEmpty) {
-    return 'Please enter mobile number';
+    return 'Please Enter Phone Number';
   } else if (!regExp.hasMatch(phone)) {
-    return 'Please enter valid mobile number';
+    return 'Please Enter Valid Phone Number';
   }
   return null;
 }
 
-String? validateName(String? name) =>
-    name == null || name.isEmpty ? 'Please Enter A Name' : null;
+String? validateOTP(String? otp) {
+  String pattern = r'^[0-9]{6,6}$';
+  RegExp regExp = RegExp(pattern);
+  if (otp == null || otp.isEmpty) {
+    return 'Please Enter OTP';
+  } else if (!regExp.hasMatch(otp)) {
+    return 'Please Enter Full OTP';
+  }
+  return null;
+}
+
+String? validateName(String? name) => name == null || name.isEmpty
+    ? 'Please Enter A Name'
+    : (name.length < 4)
+        ? 'Please Enter Your Full Name'
+        : null;

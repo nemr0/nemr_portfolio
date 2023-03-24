@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nemr_portfolio/UI/providers/details_providers.dart';
 import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/details_window/under_construction_sub_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/window.dart';
 
 import '../../../../config/colors.dart';
 import '../../../../config/text_styles.dart';
+import '../../../providers/contact_providers.dart';
+import 'conatct_sub_window/contact_form_sent.dart';
 import 'conatct_sub_window/contact_sub_window.dart';
 
 /// a window that separated with three Sliding Segmented Controls
@@ -18,50 +23,72 @@ class DetailsWindow extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isMin = ref.watch(isDetailsMinimizedProvider);
-    final segmentedValue = useState(2);
+    final segmentedValue = ref.watch(segmentedValueProvider);
     const Duration duration = Duration(milliseconds: 400);
+    final isFormSent = ref.watch(isFormSentProvider);
+    final orientation = MediaQuery.of(context).orientation;
+    useEffect(() {
+      GetStorage().listenKey('form_sent', (value) {
+        ref.read(isFormSentProvider.notifier).state = value;
+      });
+      return null;
+    }, []);
     return Window(
         duration: duration,
         isMin: isDetailsMinimizedProvider,
         child: AnimatedSwitcher(
-          duration: duration,
-          child: isMin
-              ? const FittedBox(
-                  child: Text(
-                    "ABOUT ME!",
-                    style: kTSTitle,
-                  ),
-                )
-              : Column(
-                  children: [
-                    const SizedBox(
-                      height: 35,
+            duration: duration,
+            child: isMin
+                ? const FittedBox(
+                    child: Text(
+                      "ABOUT ME!",
+                      style: kTSTitle,
                     ),
-                    CupertinoSlidingSegmentedControl(
-                        thumbColor: kPrimaryColor,
-                        groupValue: segmentedValue.value,
-                        children: const {
-                          0: Text(
-                            'Project',
-                            style: kTSSegmentedController,
-                          ),
-                          1: Text(
-                            'Experience',
-                            style: kTSSegmentedController,
-                          ),
-                          2: Text(
-                            'Contact',
-                            style: kTSSegmentedController,
-                          ),
-                        },
-                        onValueChanged: (v) {}
-
-                        // TODO: Uncomment bellow line after implementing Projects & Experience
-                        // segmentedValue.value = v!
+                  )
+                : ListView(
+                    shrinkWrap:
+                        orientation == Orientation.landscape ? false : true,
+                    children: [
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 20),
+                          child: CupertinoSlidingSegmentedControl(
+                              thumbColor: kPrimaryColor,
+                              groupValue: segmentedValue,
+                              children: const {
+                                0: Text(
+                                  'Project',
+                                  style: kTSSegmentedController,
+                                ),
+                                1: Text(
+                                  'Experience',
+                                  style: kTSSegmentedController,
+                                ),
+                                2: Text(
+                                  'Contact',
+                                  style: kTSSegmentedController,
+                                ),
+                              },
+                              onValueChanged: (v) {
+                                ref
+                                    .read(segmentedValueProvider.notifier)
+                                    .state = v!;
+                              }),
                         ),
-                    if (segmentedValue.value == 2) const ContactMeWindow()
-                  ],
-                ),
-        ));
+                      ),
+                      Center(
+                        child: AnimatedSwitcher(
+                          duration: duration,
+                          child: (segmentedValue == 0 || segmentedValue == 1)
+                              ? const UnderConstructionWindow()
+                              : isFormSent == true
+                                  ? const ContactFormSent()
+                                  : const ContactMeWindow(),
+                        ),
+                      ),
+                    ],
+                  )));
   }
 }
