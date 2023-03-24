@@ -18,8 +18,8 @@ class ContactFormSent extends StatelessWidget {
           height: 200,
           decoration: BoxDecoration(
               color: kContainerColor, borderRadius: BorderRadius.circular(100)),
-          child: const RiveAnimation.asset(
-            'form_sent.riv',
+          child: const RiveAnimation.network(
+            'assets/form_sent.riv',
             animations: ['loading_animation'],
           ),
         ),

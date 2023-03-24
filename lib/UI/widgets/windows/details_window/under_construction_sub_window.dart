@@ -14,8 +14,8 @@ class UnderConstructionWindow extends StatelessWidget {
         const SizedBox(
           width: 300,
           height: 300,
-          child: RiveAnimation.asset(
-            '404.riv',
+          child: RiveAnimation.network(
+            'assets/404.riv',
             stateMachines: ['main'],
           ),
         ),

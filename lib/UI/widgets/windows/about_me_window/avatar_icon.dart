@@ -39,8 +39,8 @@ class AvatarIcon extends HookConsumerWidget {
             if (hover.value == null) return;
             hover.value?.value = true;
           },
-          child: RiveAnimation.asset(
-            'logo.riv',
+          child: RiveAnimation.network(
+            'assets/logo.riv',
             onInit: onRiveInit,
           ),
         ),
