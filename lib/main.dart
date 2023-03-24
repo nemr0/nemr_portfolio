@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/main_screen.dart';
@@ -8,7 +7,6 @@ import 'package:seo/seo.dart';
 import 'UI/style/theme.dart';
 
 Future<void> main() async {
-  await dotenv.load(fileName: ".env.local");
   await GetStorage.init();
   runApp(const ProviderScope(
     child: MyApp(),
