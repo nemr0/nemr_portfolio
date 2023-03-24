@@ -38,7 +38,10 @@ class LinkButton extends HookWidget {
         onExit: (s) => onHoverSize.value = 20,
         child: CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () => launchUrl(Uri.parse(config.link)),
+            onPressed: () async => await canLaunchUrl(Uri.parse(config.link))
+                ? launchUrl(Uri.parse(config.link),
+                    mode: LaunchMode.externalApplication)
+                : null,
             child: Container(
               height: onHoverSize.value,
               width: onHoverSize.value,

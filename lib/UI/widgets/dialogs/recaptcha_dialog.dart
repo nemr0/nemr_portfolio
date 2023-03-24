@@ -43,9 +43,8 @@ class RecaptchaDialog extends HookWidget {
       child: Container(
         height: height,
         width: width,
-        decoration: BoxDecoration(
-            color: CupertinoColors.darkBackgroundGray.withOpacity(.5),
-            borderRadius: const BorderRadius.all(Radius.circular(20))),
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: HtmlElementView(
