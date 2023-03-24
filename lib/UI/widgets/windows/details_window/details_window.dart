@@ -27,6 +27,7 @@ class DetailsWindow extends HookConsumerWidget {
     const Duration duration = Duration(milliseconds: 400);
     final isFormSent = ref.watch(isFormSentProvider);
     final orientation = MediaQuery.of(context).orientation;
+    final scrollCTR = useScrollController();
     useEffect(() {
       GetStorage().listenKey('form_sent', (value) {
         ref.read(isFormSentProvider.notifier).state = value;
@@ -45,50 +46,64 @@ class DetailsWindow extends HookConsumerWidget {
                       style: kTSTitle,
                     ),
                   )
-                : ListView(
-                    shrinkWrap:
-                        orientation == Orientation.landscape ? false : true,
-                    children: [
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 20),
-                          child: CupertinoSlidingSegmentedControl(
-                              thumbColor: kPrimaryColor,
-                              groupValue: segmentedValue,
-                              children: const {
-                                0: Text(
-                                  'Project',
-                                  style: kTSSegmentedController,
-                                ),
-                                1: Text(
-                                  'Experience',
-                                  style: kTSSegmentedController,
-                                ),
-                                2: Text(
-                                  'Contact',
-                                  style: kTSSegmentedController,
-                                ),
-                              },
-                              onValueChanged: (v) {
-                                ref
-                                    .read(segmentedValueProvider.notifier)
-                                    .state = v!;
-                              }),
-                        ),
+                : CupertinoScrollbar(
+                    thumbVisibility:
+                        orientation == Orientation.landscape ? true : false,
+                    controller: scrollCTR,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView(
+                        controller: scrollCTR,
+                        physics: orientation == Orientation.portrait
+                            ? const NeverScrollableScrollPhysics()
+                            : null,
+                        shrinkWrap:
+                            orientation == Orientation.landscape ? false : true,
+                        children: [
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                              child: CupertinoSlidingSegmentedControl(
+                                  thumbColor: kPrimaryColor,
+                                  groupValue: segmentedValue,
+                                  children: const {
+                                    0: Text(
+                                      'Project',
+                                      style: kTSSegmentedController,
+                                    ),
+                                    1: Text(
+                                      'Experience',
+                                      style: kTSSegmentedController,
+                                    ),
+                                    2: Text(
+                                      'Contact',
+                                      style: kTSSegmentedController,
+                                    ),
+                                  },
+                                  onValueChanged: (v) {
+                                    ref
+                                        .read(segmentedValueProvider.notifier)
+                                        .state = v!;
+                                  }),
+                            ),
+                          ),
+                          Center(
+                            child: AnimatedSwitcher(
+                              duration: duration,
+                              child:
+                                  (segmentedValue == 0 || segmentedValue == 1)
+                                      ? const UnderConstructionWindow()
+                                      : isFormSent == true
+                                          ? const ContactFormSent()
+                                          : const ContactMeWindow(),
+                            ),
+                          ),
+                        ],
                       ),
-                      Center(
-                        child: AnimatedSwitcher(
-                          duration: duration,
-                          child: (segmentedValue == 0 || segmentedValue == 1)
-                              ? const UnderConstructionWindow()
-                              : isFormSent == true
-                                  ? const ContactFormSent()
-                                  : const ContactMeWindow(),
-                        ),
-                      ),
-                    ],
+                    ),
                   )));
   }
 }

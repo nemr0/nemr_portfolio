@@ -12,9 +12,9 @@ String? validateMobile(String? phone) {
   String pattern = r'(^(?:[+0]9)?[0-9]{10,14}$)';
   RegExp regExp = RegExp(pattern);
   if (phone == null || phone.isEmpty) {
-    return 'Please Enter Phone Number';
+    return 'Please Enter A Phone Number, exp: 201147898061';
   } else if (!regExp.hasMatch(phone)) {
-    return 'Please Enter Valid Phone Number';
+    return 'Please Enter Valid Phone Number, exp: 201147898061';
   }
   return null;
 }
