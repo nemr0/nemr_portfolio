@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nemr_portfolio/config/colors.dart';
 
 /// A Container with background image
 class BackgroundWidget extends StatelessWidget {
@@ -17,10 +18,12 @@ class BackgroundWidget extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-            color: Colors.transparent,
+            color: kBgColor,
+
+            // color: Colors.transparent,
             image: DecorationImage(
                 image: AssetImage(
-                  'assets/background.png',
+                  'background.png',
                 ),
                 fit: BoxFit.cover)),
         child: child,
