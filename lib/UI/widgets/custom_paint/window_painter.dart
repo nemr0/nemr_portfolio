@@ -5,6 +5,8 @@ import '../../../config/colors.dart';
 
 /// A Window with Gradient Stroke and 15% Black
 class WindowPainter extends CustomPainter {
+  final bool isHover;
+  WindowPainter({required this.isHover});
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0Stroke = Paint()
@@ -32,7 +34,7 @@ class WindowPainter extends CustomPainter {
         paint0Stroke);
 
     Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = kContainerBgColor;
+    paint0Fill.color = isHover ? kContainerOnHoverBgColor : kContainerBgColor;
     canvas.drawRRect(
         RRect.fromRectAndCorners(
             Rect.fromLTWH(size.width * 0.001282051, size.height * 0.004166667,

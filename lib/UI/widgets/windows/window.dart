@@ -48,7 +48,7 @@ class Window extends HookConsumerWidget {
         height: isMinimized.state ? 120 : null,
         child: CustomPaint(
           willChange: true,
-          painter: WindowPainter(),
+          painter: WindowPainter(isHover: isHover.value),
           child: MouseRegion(
             onEnter: (_) => isHover.value = true,
             onExit: (_) => isHover.value = false,
