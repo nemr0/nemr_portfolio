@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nemr_portfolio/UI/helpers/get_orientation.dart';
 import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
 import 'package:nemr_portfolio/UI/widgets/background_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/about_me_window/about_me_window.dart';
@@ -14,12 +15,11 @@ class MainScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isAboutMeMinimized = ref.watch(isAvatarMinimizedProvider);
     final isDetailsMinimized = ref.watch(isDetailsMinimizedProvider);
+    final orientation = getOrientation(context);
     return BackgroundWidget(
-      child: OrientationBuilder(
-        builder: (BuildContext context, Orientation orientation) {
-          /// Landscape
-          if (orientation == Orientation.landscape) {
-            return Padding(
+      /// Landscape
+      child: (orientation == Orientation.landscape)
+          ? Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
@@ -54,10 +54,11 @@ class MainScreen extends ConsumerWidget {
                   const Spacer(),
                 ],
               ),
-            );
-          } else {
-            /// Portrait
-            return HookBuilder(builder: (BuildContext context) {
+            )
+          :
+
+          /// Portrait
+          HookBuilder(builder: (BuildContext context) {
               final scrollCTR = useScrollController();
 
               return CupertinoScrollbar(
@@ -81,17 +82,14 @@ class MainScreen extends ConsumerWidget {
                         ),
                         DetailsWindow(),
                         SizedBox(
-                          height: 20,
+                          height: 80,
                         ),
                       ],
                     ),
                   ),
                 ),
               );
-            });
-          }
-        },
-      ),
+            }),
     );
   }
 }

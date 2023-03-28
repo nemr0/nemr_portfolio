@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 
 /// A Container with background image

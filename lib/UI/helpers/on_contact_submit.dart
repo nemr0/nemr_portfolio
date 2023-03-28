@@ -9,18 +9,35 @@ import 'package:nemr_portfolio/model/send_mail.dart';
 //   GetStorage get = GetStorage();
 //   await get.write('form_sent', true);
 // }
+// testSliderRecaptcha(BuildContext context) async {
+//   await showCupertinoDialog(
+//           barrierDismissible: true,
+//           context: context,
+//           builder: (context) => SliderCaptchaDialog(
+//               DateTime.now().millisecondsSinceEpoch.toString()))
+//       .then((value) => print(value));
+// }
 
 // ignore_for_file: use_build_context_synchronously
 onSubmit(BuildContext context, String company, String name, String email,
     String phone, String desc) async {
+  bool recaptchaResponse = await showCupertinoDialog(
+          barrierDismissible: true,
+          context: context,
+          builder: (context) => SliderCaptchaDialog(
+              DateTime.now().millisecondsSinceEpoch.toString())) ??
+      false;
+  if (recaptchaResponse == false) {
+    showErrorDialog(context, 'I guess You\'re a Robot :(');
+    return;
+  }
   GetStorage get = GetStorage();
-  String recaptchaResponse = await showCupertinoDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (context) => const RecaptchaDialog());
   SendMail mailer = SendMail()..init();
   try {
-    await mailer.welcome(name, email, recaptchaResponse);
+    await mailer.welcome(
+      name,
+      email,
+    );
     await mailer.info(name, company, email, phone, desc);
 
     get.write('form_sent', true);

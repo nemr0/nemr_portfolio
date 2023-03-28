@@ -17,10 +17,10 @@ class ContactMeWindow extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final emailCTR = useTextEditingController(),
+    final emailCTR = ref.watch(emailTECProvider),
         companyCTR = useTextEditingController(),
-        nameCTR = useTextEditingController(),
-        phoneCTR = useTextEditingController(),
+        nameCTR = ref.watch(nameTECProvider),
+        phoneCTR = ref.watch(phoneTECProvider),
         descCTR = useTextEditingController();
 
     // final orientation = MediaQuery.of(context).orientation;

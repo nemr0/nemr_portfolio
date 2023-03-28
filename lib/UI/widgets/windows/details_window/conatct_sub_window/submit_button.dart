@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helpers/is_there_any_errors.dart';
-import 'package:nemr_portfolio/config/colors.dart';
 
 import '../../../custom_cupertino_button.dart';
 
@@ -30,35 +30,38 @@ class SubmitContactButton extends HookConsumerWidget {
         curve: Curves.easeInOutCubic,
       ),
     ));
-    final btnColor = useState<Color>(kPrimaryColor);
+    aligner() {
+      if (animationCtr.isAnimating) return;
+      if (isThereAnyError == true) {
+        if (animationCtr.isCompleted) {
+          animationCtr.reverse();
+        } else {
+          animationCtr.forward();
+        }
+      }
+    }
+
+    final isMobile = (defaultTargetPlatform != TargetPlatform.linux &&
+        defaultTargetPlatform != TargetPlatform.windows &&
+        defaultTargetPlatform != TargetPlatform.macOS);
     return AlignTransition(
       alignment: animation,
       child: MouseRegion(
-        onHover: (_) {
-          if (animationCtr.isAnimating) return;
-          if (isThereAnyError == true) {
-            btnColor.value = CupertinoColors.destructiveRed;
-            if (animationCtr.isCompleted) {
-              animationCtr.reverse();
-            } else {
-              animationCtr.forward();
-            }
-          } else {
-            btnColor.value = kPrimaryColor;
-          }
-        },
-        child: CCupertinoButton(
-          text: 'Submit',
-          btnColor: btnColor.value,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          isLoading: isLoading.value,
-          onPressed: isThereAnyError
-              ? null
-              : () async {
-                  isLoading.value = true;
-                  await onSubmit?.call();
-                  isLoading.value = false;
-                },
+        onEnter: (_) => aligner(),
+        child: GestureDetector(
+          onTap: isMobile ? aligner : null,
+          child: CCupertinoButton(
+            text: 'Submit',
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            isLoading: isLoading.value,
+            onPressed: isThereAnyError
+                ? null
+                : () async {
+                    isLoading.value = true;
+                    await onSubmit?.call();
+                    isLoading.value = false;
+                  },
+          ),
         ),
       ),
     );

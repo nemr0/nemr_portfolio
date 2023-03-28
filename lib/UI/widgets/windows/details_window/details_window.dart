@@ -9,6 +9,7 @@ import 'package:nemr_portfolio/UI/widgets/windows/window.dart';
 
 import '../../../../config/colors.dart';
 import '../../../../config/text_styles.dart';
+import '../../../helpers/get_orientation.dart';
 import '../../../providers/contact_providers.dart';
 import 'conatct_sub_window/contact_form_sent.dart';
 import 'conatct_sub_window/contact_sub_window.dart';
@@ -26,7 +27,7 @@ class DetailsWindow extends HookConsumerWidget {
     final segmentedValue = ref.watch(segmentedValueProvider);
     const Duration duration = Duration(milliseconds: 400);
     final isFormSent = ref.watch(isFormSentProvider);
-    final orientation = MediaQuery.of(context).orientation;
+    final orientation = getOrientation(context);
     final scrollCTR = useScrollController();
     useEffect(() {
       GetStorage().listenKey('form_sent', (value) {

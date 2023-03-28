@@ -10,12 +10,14 @@ class SendMail {
       );
 
   Future<EmailJSResponseStatus> welcome(
-          String name, String toEmail, String reCaptchaToken) async =>
+    String name,
+    String toEmail,
+  ) async =>
       await EmailJS.send(DotEnvVars.emailJSServiceID, 'welcome_email', {
         'name': name,
         'content': htmlWelcomeTemplate(name),
         'to': toEmail,
-        'g-recaptcha-response': reCaptchaToken,
+        // 'g-recaptcha-response': reCaptchaToken,
       });
   // await SendgridService.mailer.send(email);
   // return true;
