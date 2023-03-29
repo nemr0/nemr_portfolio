@@ -19,10 +19,11 @@ class ContactMeWindow extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailCTR = ref.watch(emailTECProvider),
-        companyCTR = useTextEditingController(),
+        companyCTR =
+            useTextEditingController(text: GetStorage().read('company')),
         nameCTR = ref.watch(nameTECProvider),
         phoneCTR = ref.watch(phoneTECProvider),
-        descCTR = useTextEditingController();
+        descCTR = useTextEditingController(text: GetStorage().read('desc'));
 
     // final orientation = MediaQuery.of(context).orientation;
     const double sHeight = 10;
@@ -37,6 +38,7 @@ class ContactMeWindow extends HookConsumerWidget {
           placeholder: 'Company',
           icon: CupertinoIcons.house_alt_fill,
           inputType: TextInputType.text,
+          storageKey: 'company',
           validator: (String? s) => null),
       const SizedBox(
         height: sHeight,
@@ -48,7 +50,7 @@ class ContactMeWindow extends HookConsumerWidget {
           icon: CupertinoIcons.profile_circled,
           inputType: TextInputType.name,
           errorProvider: nameErrorProvider,
-          onEditingCompleted: () => GetStorage().write('name', nameCTR.text),
+          storageKey: 'name',
           validator: validateName),
       const SizedBox(
         height: sHeight,
@@ -61,7 +63,7 @@ class ContactMeWindow extends HookConsumerWidget {
           icon: CupertinoIcons.phone_fill,
           inputType: TextInputType.phone,
           textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
-          onEditingCompleted: () => GetStorage().write('phone', phoneCTR.text),
+          storageKey: 'phone',
           validator: validateMobile),
       const SizedBox(
         height: sHeight,
@@ -73,7 +75,7 @@ class ContactMeWindow extends HookConsumerWidget {
           placeholder: 'Email *',
           icon: CupertinoIcons.mail_solid,
           inputType: TextInputType.emailAddress,
-          onEditingCompleted: () => GetStorage().write('email', emailCTR.text),
+          storageKey: 'email',
           validator: validateEmail),
       const SizedBox(
         height: sHeight,
@@ -85,6 +87,7 @@ class ContactMeWindow extends HookConsumerWidget {
           icon: CupertinoIcons.news_solid,
           inputType: TextInputType.text,
           inputAction: TextInputAction.next,
+          storageKey: 'desc',
           minLines: 4,
           maxLines: 8,
           validator: (s) => null),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
@@ -10,6 +11,7 @@ import '../../../../../config/colors.dart';
 class CCTextField extends HookConsumerWidget {
   const CCTextField({
     super.key,
+    required this.storageKey,
     required this.controller,
     this.isDisabled = false,
     this.noRightPadding,
@@ -27,6 +29,7 @@ class CCTextField extends HookConsumerWidget {
           (maxLines == null) || (minLines == null) || (maxLines >= minLines),
           "minLines can't be greater than maxLines",
         );
+  final String storageKey;
 
   /// Text before typing in the text-field
   final String placeholder;
@@ -92,6 +95,7 @@ class CCTextField extends HookConsumerWidget {
               if (errorProvider != null) {
                 ref.read((errorProvider.notifier)).state = validator!(string);
               }
+              if (string.isNotEmpty) GetStorage().write(storageKey, string);
             },
             style: isDisabled
                 ? const TextStyle(color: CupertinoColors.activeGreen)
