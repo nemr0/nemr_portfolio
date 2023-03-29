@@ -39,7 +39,9 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
-<body id="theOne" style="  overflow: hidden;
+<body id="the-one" style="
+   background-color: #1e1e1e;
+ overflow: hidden;
 ">
 <style>
   .background{
@@ -75,7 +77,6 @@ margin: 0;
   }
     window.addEventListener('load', function(ev) {
     var loaderContent=document.querySelector('#loader-content');
-    var bodyContent=document.querySelector('#theOne');
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {

@@ -82,7 +82,7 @@ class CCTextField extends HookConsumerWidget {
                       : width * .05),
           child: CupertinoTextField(
             readOnly: isDisabled,
-            onEditingComplete: onEditingCompleted,
+            onTapOutside: (s) => onEditingCompleted,
             controller: controller,
             minLines: minLines,
             maxLines: maxLines,

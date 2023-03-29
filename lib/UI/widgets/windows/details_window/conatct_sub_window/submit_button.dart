@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helpers/is_there_any_errors.dart';
 
+import '../../../../helpers/is_mobile.dart';
 import '../../../custom_cupertino_button.dart';
 
 typedef FutureCallback = Future<void> Function();
@@ -41,9 +41,6 @@ class SubmitContactButton extends HookConsumerWidget {
       }
     }
 
-    final isMobile = (defaultTargetPlatform != TargetPlatform.linux &&
-        defaultTargetPlatform != TargetPlatform.windows &&
-        defaultTargetPlatform != TargetPlatform.macOS);
     return AlignTransition(
       alignment: animation,
       child: MouseRegion(

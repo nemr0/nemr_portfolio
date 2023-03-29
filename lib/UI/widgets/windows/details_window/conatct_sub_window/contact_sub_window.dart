@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helpers/on_contact_submit.dart';
 import 'package:nemr_portfolio/UI/providers/contact_providers.dart';
@@ -47,6 +48,7 @@ class ContactMeWindow extends HookConsumerWidget {
           icon: CupertinoIcons.profile_circled,
           inputType: TextInputType.name,
           errorProvider: nameErrorProvider,
+          onEditingCompleted: () => GetStorage().write('name', nameCTR.text),
           validator: validateName),
       const SizedBox(
         height: sHeight,
@@ -59,6 +61,7 @@ class ContactMeWindow extends HookConsumerWidget {
           icon: CupertinoIcons.phone_fill,
           inputType: TextInputType.phone,
           textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+          onEditingCompleted: () => GetStorage().write('phone', phoneCTR.text),
           validator: validateMobile),
       const SizedBox(
         height: sHeight,
@@ -70,6 +73,7 @@ class ContactMeWindow extends HookConsumerWidget {
           placeholder: 'Email *',
           icon: CupertinoIcons.mail_solid,
           inputType: TextInputType.emailAddress,
+          onEditingCompleted: () => GetStorage().write('email', emailCTR.text),
           validator: validateEmail),
       const SizedBox(
         height: sHeight,

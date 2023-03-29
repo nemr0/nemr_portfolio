@@ -6,7 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
-import 'package:slider_captcha/slider_capchar.dart';
+
+import '../slider_captcha_library/slider_captcha.dart';
 
 class SliderCaptchaDialog extends HookWidget {
   const SliderCaptchaDialog(this.date, {Key? key}) : super(key: key);
@@ -14,8 +15,10 @@ class SliderCaptchaDialog extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = useState(SliderController());
-    final isLoading = useState(true);
+    final errorTimer = useState<int>(0);
+    final usedDate = useState<String>(date);
+    final controller = useState<SliderController>(SliderController());
+    final isLoading = useState<bool>(true);
     useEffect(() {
       if (isLoading.value == false) {
         controller.value.create.call();
@@ -32,11 +35,12 @@ class SliderCaptchaDialog extends HookWidget {
         style: kTSAgreement,
         child: SliderCaptcha(
           controller: controller.value,
-          space: 20,
           title: 'Are You A Robot? :\\',
+          imageToBarPadding: 10,
           colorBar: kPrimaryColor,
           colorCaptChar: kPrimaryColor,
-          image: Image.network('https://random.imagecdn.app/500/150?$date',
+          image: Image.network(
+              'https://random.imagecdn.app/500/150?${usedDate.value}',
               fit: BoxFit.fitWidth,
               //     frameBuilder: (_, image, loadingBuilder, __) {
               //   if (loadingBuilder == null) {
@@ -62,7 +66,14 @@ class SliderCaptchaDialog extends HookWidget {
             if (value) {
               Navigator.pop<bool>(context, value);
             } else {
-              controller.value.create.call();
+              errorTimer.value++;
+              if (errorTimer.value < 4) {
+                usedDate.value =
+                    DateTime.now().millisecondsSinceEpoch.toString();
+                controller.value.create.call();
+              } else {
+                Navigator.pop<bool>(context, value);
+              }
             }
           },
         ),

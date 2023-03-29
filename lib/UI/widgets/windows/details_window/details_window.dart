@@ -29,82 +29,108 @@ class DetailsWindow extends HookConsumerWidget {
     final isFormSent = ref.watch(isFormSentProvider);
     final orientation = getOrientation(context);
     final scrollCTR = useScrollController();
+    const Widget underConstruction = UnderConstructionWindow();
+    const Widget formSent = ContactFormSent();
+    const Widget form = ContactMeWindow();
     useEffect(() {
       GetStorage().listenKey('form_sent', (value) {
         ref.read(isFormSentProvider.notifier).state = value;
       });
       return null;
     }, []);
+
     return Window(
         duration: duration,
         isMin: isDetailsMinimizedProvider,
-        child: AnimatedSwitcher(
-            duration: duration,
-            child: isMin
-                ? const FittedBox(
-                    child: Text(
-                      "ABOUT ME!",
-                      style: kTSTitle,
-                    ),
-                  )
-                : CupertinoScrollbar(
-                    thumbVisibility:
-                        orientation == Orientation.landscape ? true : false,
-                    controller: scrollCTR,
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: ListView(
-                        controller: scrollCTR,
-                        physics: orientation == Orientation.portrait
-                            ? const NeverScrollableScrollPhysics()
-                            : null,
-                        shrinkWrap:
-                            orientation == Orientation.landscape ? false : true,
-                        children: [
-                          Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 30, vertical: 20),
-                              child: CupertinoSlidingSegmentedControl(
-                                  thumbColor: kPrimaryColor,
-                                  groupValue: segmentedValue,
-                                  children: const {
-                                    0: Text(
-                                      'Project',
-                                      style: kTSSegmentedController,
-                                    ),
-                                    1: Text(
-                                      'Experience',
-                                      style: kTSSegmentedController,
-                                    ),
-                                    2: Text(
-                                      'Contact',
-                                      style: kTSSegmentedController,
-                                    ),
-                                  },
-                                  onValueChanged: (v) {
-                                    ref
-                                        .read(segmentedValueProvider.notifier)
-                                        .state = v!;
-                                  }),
-                            ),
+        child: CupertinoScrollbar(
+          thumbVisibility: orientation == Orientation.landscape ? true : false,
+          controller: scrollCTR,
+          child: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: ListView(
+              controller: scrollCTR,
+              physics: orientation == Orientation.portrait
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
+              shrinkWrap: orientation == Orientation.landscape ? false : true,
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 20),
+                    child: CupertinoSlidingSegmentedControl(
+                      thumbColor: isMin
+                          ? CupertinoColors.tertiarySystemFill
+                          : kPrimaryColor,
+                      groupValue: segmentedValue,
+                      onValueChanged: (int? value) {
+                        ref.read(segmentedValueProvider.notifier).state =
+                            value!;
+                      },
+                      children: {
+                        0: GestureDetector(
+                          onTap: () {
+                            ref.read(segmentedValueProvider.notifier).state = 0;
+                            if (isMin) {
+                              ref
+                                  .read(isDetailsMinimizedProvider.notifier)
+                                  .state = false;
+                            }
+                          },
+                          child: const Text(
+                            'Project',
+                            style: kTSSegmentedController,
                           ),
-                          Center(
-                            child: AnimatedSwitcher(
-                              duration: duration,
-                              child:
-                                  (segmentedValue == 0 || segmentedValue == 1)
-                                      ? const UnderConstructionWindow()
-                                      : isFormSent == true
-                                          ? const ContactFormSent()
-                                          : const ContactMeWindow(),
-                            ),
+                        ),
+                        1: GestureDetector(
+                          onTap: () {
+                            ref.read(segmentedValueProvider.notifier).state = 1;
+                            if (isMin) {
+                              ref
+                                  .read(isDetailsMinimizedProvider.notifier)
+                                  .state = false;
+                            }
+                          },
+                          child: const Text(
+                            'Experience',
+                            style: kTSSegmentedController,
                           ),
-                        ],
-                      ),
+                        ),
+                        2: GestureDetector(
+                          onTap: () {
+                            ref.read(segmentedValueProvider.notifier).state = 2;
+                            if (isMin) {
+                              ref
+                                  .read(isDetailsMinimizedProvider.notifier)
+                                  .state = false;
+                            }
+                          },
+                          child: const Text(
+                            'Contact',
+                            style: kTSSegmentedController,
+                          ),
+                        )
+                      },
                     ),
-                  )));
+                  ),
+                ),
+                Center(
+                  child: AnimatedSwitcher(
+                    duration: duration,
+                    child: isMin
+                        ? const SizedBox.shrink()
+                        : ((segmentedValue == 0 || segmentedValue == 1))
+                            ? underConstruction
+                            : isFormSent == true
+                                ? formSent
+                                : form,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

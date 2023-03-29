@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../../config/colors.dart';
 import '../custom_paint/window_painter.dart';
 
+/// Window Widget for every created window
 class Window extends HookConsumerWidget {
   const Window({
     super.key,
     required this.isMin,
     required this.child,
     this.duration = const Duration(milliseconds: 300),
-    // this.height = 400,
-    // this.width = 350,
-    // this.onMinimized,
   });
   final Duration duration;
-  // final void Function(bool val)? onMinimized;
-  final AutoDisposeStateProvider<bool> isMin;
-  // final double height;
-  // final double width;
+  final StateProvider<bool> isMin;
   final Widget child;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    /// shows if the widget is minimized using passed provider
     final isMinimized = ref.watch(isMin.notifier);
-    final isHover = useState<bool>(false);
-    final isDisabled = useState<bool>(false);
 
+    /// on hover is true else false, to give a little animation
+    final isHover = useState<bool>(false);
+
+    /// disables minimized button for passed duration
+    final isDisabled = useState<bool>(false);
+    // adds a listener to isDisabled to automatically re-assigning
+    // its value if true
     useEffect(() {
       isDisabled.addListener(() {
         if (isDisabled.value) {
@@ -39,19 +39,28 @@ class Window extends HookConsumerWidget {
 
       return null;
     }, []);
+
+    // animating padding for hover
     return AnimatedPadding(
       padding: isHover.value == true
           ? const EdgeInsets.all(10)
           : const EdgeInsets.all(0),
       duration: duration,
+      // setting height on minimize
       child: SizedBox(
         height: isMinimized.state ? 120 : null,
-        child: CustomPaint(
-          willChange: true,
-          painter: WindowPainter(isHover: isHover.value),
-          child: MouseRegion(
-            onEnter: (_) => isHover.value = true,
-            onExit: (_) => isHover.value = false,
+
+        /// detect mouse input
+        child: MouseRegion(
+          onHover: (p) => isHover.value = true,
+          onEnter: (p) => isHover.value = true,
+          onExit: (p) => isHover.value = false,
+          child: CustomPaint(
+            willChange: true,
+
+            /// giving on hover to change opacity of container on hover
+            painter: WindowPainter(isHover: isHover.value),
+
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Stack(children: [

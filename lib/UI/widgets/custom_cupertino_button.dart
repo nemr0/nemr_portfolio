@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import '../../config/colors.dart';
 import '../../config/text_styles.dart';
 
+const Duration defaultDuration = Duration(milliseconds: 300);
+
 class CCupertinoButton extends StatelessWidget {
   const CCupertinoButton(
       {Key? key,
@@ -23,12 +25,17 @@ class CCupertinoButton extends StatelessWidget {
           child: CupertinoButton.filled(
             padding: padding ?? const EdgeInsets.symmetric(horizontal: 5),
             onPressed: onPressed,
-            child: isLoading
-                ? const CupertinoActivityIndicator()
-                : Text(
-                    text,
-                    style: kTSSegmentedController,
-                  ),
+            child: AnimatedCrossFade(
+              firstChild: Text(
+                text,
+                style: kTSSegmentedController,
+              ),
+              secondChild: const CupertinoActivityIndicator(),
+              crossFadeState: isLoading
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              duration: defaultDuration,
+            ),
           ),
         ),
       );
