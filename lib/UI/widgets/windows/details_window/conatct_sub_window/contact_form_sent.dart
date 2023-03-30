@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nemr_portfolio/UI/widgets/custom_cupertino_button.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:rive/rive.dart';
+
+import '../../../../providers/contact_providers.dart';
 
 class ContactFormSent extends StatelessWidget {
   const ContactFormSent({Key? key}) : super(key: key);
@@ -37,6 +42,19 @@ class ContactFormSent extends StatelessWidget {
             'Form Successfully Sent!\nI\'ll contact you asap :)',
             style: kTSBody,
             textAlign: TextAlign.center,
+          ),
+        ),
+        const SizedBox(
+          height: 25,
+        ),
+        Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) =>
+              CCupertinoButton(
+            text: 'Re-Send?',
+            onPressed: () async {
+              await GetStorage().remove('desc');
+              ref.read(isFormSentProvider.notifier).state = false;
+            },
           ),
         ),
         const SizedBox(

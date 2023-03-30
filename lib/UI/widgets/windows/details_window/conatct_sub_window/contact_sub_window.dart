@@ -18,6 +18,7 @@ class ContactMeWindow extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ///Text Editing Controllers some of which are providers
     final emailCTR = ref.watch(emailTECProvider),
         companyCTR =
             useTextEditingController(text: GetStorage().read('company')),
@@ -25,10 +26,10 @@ class ContactMeWindow extends HookConsumerWidget {
         phoneCTR = ref.watch(phoneTECProvider),
         descCTR = useTextEditingController(text: GetStorage().read('desc'));
 
-    // final orientation = MediaQuery.of(context).orientation;
+    /// constant height
     const double sHeight = 10;
 
-    List<Widget> children = [
+    return Column(children: [
       const SizedBox(
         height: sHeight,
       ),
@@ -95,15 +96,14 @@ class ContactMeWindow extends HookConsumerWidget {
         height: sHeight,
       ),
       const TermsAgree(),
-      SubmitContactButton(
-        onSubmit: () => onSubmit(context, companyCTR.text, nameCTR.text,
-            emailCTR.text, phoneCTR.text, descCTR.text),
-      ),
+      SubmitContactButton(onSubmit: () => testSliderCaptcha(context)
+          // () =>
+          // onSubmit(context, companyCTR.text, nameCTR.text,
+          // emailCTR.text, phoneCTR.text, descCTR.text),
+          ),
       const SizedBox(
         height: sHeight,
       ),
-    ];
-
-    return Column(children: children);
+    ]);
   }
 }

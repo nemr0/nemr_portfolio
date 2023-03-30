@@ -74,34 +74,36 @@ class AboutMeWindow extends HookConsumerWidget {
       isMin: isAvatarMinimizedProvider,
       child: Seo.text(
         text: 'Omar Elnemr Mobile App Developer Flutter Developer',
-        child: Center(
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: isMinimized
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Flexible(
-                        child: AvatarIcon(),
-                      ),
-                      ...title
-                    ],
-                  )
-                : Wrap(
-                    direction: isMinimized ? Axis.vertical : Axis.horizontal,
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.end,
-                    runAlignment: WrapAlignment.center,
-                    children: [
-                      const AvatarIcon(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: title,
-                      ),
-                      for (LinkButtonConfig config in configs)
-                        LinkButton(config: config)
-                    ],
-                  ),
+        child: SingleChildScrollView(
+          child: Center(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: isMinimized
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Flexible(
+                          child: AvatarIcon(),
+                        ),
+                        ...title
+                      ],
+                    )
+                  : Wrap(
+                      direction: isMinimized ? Axis.vertical : Axis.horizontal,
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.end,
+                      runAlignment: WrapAlignment.center,
+                      children: [
+                        const AvatarIcon(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: title,
+                        ),
+                        for (LinkButtonConfig config in configs)
+                          LinkButton(config: config)
+                      ],
+                    ),
+            ),
           ),
         ),
       ),

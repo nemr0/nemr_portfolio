@@ -17,7 +17,12 @@ import 'package:nemr_portfolio/model/send_mail.dart';
 //               DateTime.now().millisecondsSinceEpoch.toString()))
 //       .then((value) => print(value));
 // }
-
+testSliderCaptcha(BuildContext context) async =>
+    print(await showCupertinoDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (context) => SliderCaptchaDialog(
+            DateTime.now().millisecondsSinceEpoch.toString())));
 // ignore_for_file: use_build_context_synchronously
 onSubmit(BuildContext context, String company, String name, String email,
     String phone, String desc) async {
