@@ -21,7 +21,7 @@ class ReCaptchaDialog extends HookWidget {
         (int viewId) => IFrameElement()
           ..style.height = '100%'
           ..style.width = '100%'
-          ..src = '/html/recaptcha.html'
+          ..src = '/assets/html/recaptcha.html'
           ..style.border = 'none',
       );
       window.onMessage.listen((msg) {
