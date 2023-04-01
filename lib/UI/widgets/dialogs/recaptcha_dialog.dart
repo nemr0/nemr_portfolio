@@ -1,134 +1,114 @@
-// //ignore: avoid_web_libraries_in_flutter
-// import 'dart:html' as html;
-// import 'dart:ui' as ui;
+//ignore_for_file:avoid_web_libraries_in_flutter
+import 'dart:html';
+import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
-import '../slider_captcha_library/slider_captcha.dart';
-
-class SliderCaptchaDialog extends HookWidget {
-  const SliderCaptchaDialog(this.date, {Key? key}) : super(key: key);
-  final String date;
+class ReCaptchaDialog extends HookWidget {
+  const ReCaptchaDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final errorTimer = useState<int>(0);
-    final usedDate = useState<String>(date);
-    final controller = useState<SliderController>(SliderController());
-    final isLoading = useState<bool>(true);
+    final createdViewId = useState('map_element');
     useEffect(() {
-      if (isLoading.value == false) {
-        controller.value.create.call();
-      }
+      // ignore:undefined_prefixed_name
+      ui.platformViewRegistry.registerViewFactory(
+        createdViewId.value,
+        (int viewId) => IFrameElement()
+          ..style.height = '100%'
+          ..style.width = '100%'
+          ..src = '/html/recaptcha.html'
+          ..style.border = 'none',
+      );
+      window.onMessage.listen((msg) {
+        Navigator.pop<String>(context, msg.data); //msg.data is captcha token
+      });
       return null;
-    }, [isLoading.value]);
-    changeLoadingState() async {
-      await Future.delayed(const Duration(seconds: 1));
-      isLoading.value = false;
-    }
-
-    return CupertinoAlertDialog(
-      content: DefaultTextStyle(
-        style: kTSAgreement,
-        child: SliderCaptcha(
-          controller: controller.value,
-          title: 'Are You A Robot? :\\',
-          imageToBarPadding: 10,
-          colorBar: kPrimaryColor,
-          colorCaptChar: kPrimaryColor,
-          image: Image.network(
-              'https://random.imagecdn.app/500/150?${usedDate.value}',
-              fit: BoxFit.fitWidth,
-              //     frameBuilder: (_, image, loadingBuilder, __) {
-              //   if (loadingBuilder == null) {
-              //     return const Center(
-              //       child: CupertinoActivityIndicator(),
-              //     );
-              //   } else {
-              //     return image;
-              //   }
-              // },
-              loadingBuilder: (BuildContext context, Widget child,
-                  ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) {
-              changeLoadingState();
-
-              return child;
-            }
-            return const Center(
-              child: CupertinoActivityIndicator(),
-            );
-          }),
-          onConfirm: (bool value) async {
-            if (value) {
-              Navigator.pop<bool>(context, value);
-            } else {
-              errorTimer.value++;
-              if (errorTimer.value < 4) {
-                usedDate.value =
-                    DateTime.now().millisecondsSinceEpoch.toString();
-                controller.value.create.call();
-              } else {
-                Navigator.pop<bool>(context, value);
-              }
-            }
-          },
-        ),
-      ),
+    }, []);
+    return CupertinoButton(
+      onPressed: () => Navigator.pop(context),
+      child: Container(
+          color: kBgColor.withOpacity(.3),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Please, Verify You\'re a HUMAN!',
+                style: kTSAgreement,
+              ),
+              Container(
+                height: 500,
+                width: 400,
+                // padding: EdgeInsets.all(MediaQuery.of(context).size.width * .1),
+                color: kGradientColor.withOpacity(.2),
+                child: HtmlElementView(
+                  viewType: createdViewId.value,
+                ),
+              ),
+            ],
+          )).animate().fadeIn(),
     );
+    // final errorTimer = useState<int>(0);
+    // final usedDate =
+    //     useState<String>(DateTime.now().millisecondsSinceEpoch.toString());
+    // final controller = useState<SliderController>(SliderController());
+    // final isLoading = useState<bool>(true);
+    // useEffect(() {
+    //   if (isLoading.value == false) {
+    //     Future.delayed(const Duration(milliseconds: 200))
+    //         .then((value) => controller.value.create.call());
+    //   }
+    //   return null;
+    // }, [isLoading.value]);
+    // changeLoadingValue(bool isItLoading) => Future.delayed(Duration.zero)
+    //     .then((value) => isLoading.value = isItLoading);
+    //   DefaultTextStyle(
+    //     style: kTSAgreement,
+    //     child: Stack(
+    //       children: [
+    //         Center(
+    //           child: SliderCaptcha(
+    //             controller: controller.value,
+    //             title: 'Are You A Robot? :\\',
+    //             imageToBarPadding: 10,
+    //             colorBar: kPrimaryColor,
+    //             colorCaptChar: kPrimaryColor,
+    //             image: Image.network(
+    //                 'https://random.imagecdn.app/500/150?${usedDate.value}',
+    //                 fit: BoxFit.fitWidth, loadingBuilder: (BuildContext context,
+    //                     Widget child, ImageChunkEvent? loadingProgress) {
+    //               if (loadingProgress == null) {
+    //                 changeLoadingValue(false);
+    //                 return child;
+    //               }
+    //               changeLoadingValue(true);
+    //               return Image.asset('background.png');
+    //             }),
+    //             onConfirm: (bool value) async {
+    //               if (value) {
+    //                 Navigator.pop<bool>(context, value);
+    //               } else {
+    //                 errorTimer.value++;
+    //                 if (errorTimer.value < 4) {
+    //                   usedDate.value =
+    //                       DateTime.now().millisecondsSinceEpoch.toString();
+    //                 } else {
+    //                   Navigator.pop<bool>(context, value);
+    //                 }
+    //               }
+    //             },
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }
-//
-// class PlatformViewRegistry {
-//   static registerViewFactory(String viewId, dynamic cb) {
-//     // ignore:undefined_prefixed_name
-//     ui.platformViewRegistry.registerViewFactory(viewId, cb);
-//   }
-// }
-//
-// class RecaptchaDialog extends HookWidget {
-//   const RecaptchaDialog({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final createdViewId = useState('map_element');
-//     useEffect(() {
-//       PlatformViewRegistry.registerViewFactory(
-//         createdViewId.value,
-//         (int viewId) => html.IFrameElement()
-//           ..src = '/assets/html/recaptcha.html'
-//           ..style.border = 'none'
-//           ..style.width = '100%'
-//           ..style.height = '100%',
-//       );
-//       html.window.onMessage.listen((html.MessageEvent msg) {
-//         // print();
-//         Navigator.of(context).pop<String>(msg.data);
-//       });
-//       return null;
-//     }, []);
-//     final orientation = MediaQuery.of(context).orientation;
-//     final double width = (orientation == Orientation.landscape)
-//         ? MediaQuery.of(context).size.width * .5
-//         : MediaQuery.of(context).size.width * .9;
-//     final double height = MediaQuery.of(context).size.height * .8;
-//
-//     return Center(
-//       child: Container(
-//         height: height,
-//         width: width,
-//         decoration: const BoxDecoration(
-//             borderRadius: BorderRadius.all(Radius.circular(20))),
-//         child: Directionality(
-//           textDirection: TextDirection.ltr,
-//           child: HtmlElementView(
-//             viewType: createdViewId.value,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

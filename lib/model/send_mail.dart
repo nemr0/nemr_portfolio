@@ -1,23 +1,22 @@
 import 'package:emailjs/emailjs.dart';
-import '../config/dot_env_vars.dart';
+import '../config/environment_variables.dart';
 import '../config/welcome_template.dart';
 
 class SendMail {
   init() => EmailJS.init(
-        Options(
-            privateKey: DotEnvVars.emailJSPrivateKey,
-            publicKey: DotEnvVars.emailJSPublicKey),
+        const Options(
+            privateKey: EnvironmentVariables.emailJSPrivateKey,
+            publicKey: EnvironmentVariables.emailJSPublicKey),
       );
 
   Future<EmailJSResponseStatus> welcome(
-    String name,
-    String toEmail,
-  ) async =>
-      await EmailJS.send(DotEnvVars.emailJSServiceID, 'welcome_email', {
+          String name, String toEmail, String reCaptchaToken) async =>
+      await EmailJS.send(
+          EnvironmentVariables.emailJSServiceID, 'welcome_email', {
         'name': name,
         'content': htmlWelcomeTemplate(name),
         'to': toEmail,
-        // 'g-recaptcha-response': reCaptchaToken,
+        'g-recaptcha-response': reCaptchaToken,
       });
   // await SendgridService.mailer.send(email);
   // return true;
@@ -25,7 +24,7 @@ class SendMail {
   Future<EmailJSResponseStatus> info(String name, String company, String email,
           String phone, String desc) async =>
       await EmailJS.send(
-        DotEnvVars.emailJSServiceID,
+        EnvironmentVariables.emailJSServiceID,
         'contact_form_info',
         {
           'name': name,

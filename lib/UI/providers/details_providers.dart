@@ -4,5 +4,5 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 ///
 ///
 final segmentedValueProvider = StateProvider<int>((ref) {
-  return 2;
+  return 1;
 });

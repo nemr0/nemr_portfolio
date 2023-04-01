@@ -7,6 +7,7 @@ import 'package:nemr_portfolio/UI/helpers/on_contact_submit.dart';
 import 'package:nemr_portfolio/UI/providers/contact_providers.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/submit_button.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/terms_agree.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/whatsapp_contact.dart';
 
 import '../../../../../config/validators.dart';
 import 'custom_cupertino_textfield.dart';
@@ -33,6 +34,7 @@ class ContactMeWindow extends HookConsumerWidget {
       const SizedBox(
         height: sHeight,
       ),
+
       // company
       CCTextField(
           controller: companyCTR,
@@ -96,13 +98,13 @@ class ContactMeWindow extends HookConsumerWidget {
         height: sHeight,
       ),
       const TermsAgree(),
-      SubmitContactButton(onSubmit: () => testSliderCaptcha(context)
-          // () =>
-          // onSubmit(context, companyCTR.text, nameCTR.text,
-          // emailCTR.text, phoneCTR.text, descCTR.text),
-          ),
+      const WhatsappContactWidget(),
+      SubmitContactButton(
+        onSubmit: () => onSubmit(context, companyCTR.text, nameCTR.text,
+            emailCTR.text, phoneCTR.text, descCTR.text),
+      ),
       const SizedBox(
-        height: sHeight,
+        height: sHeight * .5,
       ),
     ]);
   }

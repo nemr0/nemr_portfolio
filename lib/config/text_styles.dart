@@ -20,6 +20,11 @@ const TextStyle kTSBody = TextStyle(
 /// used for "mobile apps dev" sub title under my name
 const TextStyle kTSSubName =
     TextStyle(color: kPrimaryColor, fontFamily: kVT323Family, fontSize: 16);
+const TextStyle kTSExperienceBody = TextStyle(
+    fontWeight: FontWeight.normal,
+    color: kPrimaryColor,
+    fontFamily: kRobotoMonoFamily,
+    fontSize: 16);
 
 /// used for segmented controller items and submit button
 const TextStyle kTSSegmentedController = TextStyle(

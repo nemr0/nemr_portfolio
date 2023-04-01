@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/providers/details_providers.dart';
 import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/details_window/experience_sub_window/experience_sub_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/under_construction_sub_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/window.dart';
 
@@ -80,7 +81,7 @@ class DetailsWindow extends HookConsumerWidget {
                             }
                           },
                           child: const Text(
-                            'Project',
+                            'Projects',
                             style: kTSSegmentedController,
                           ),
                         ),
@@ -94,7 +95,7 @@ class DetailsWindow extends HookConsumerWidget {
                             }
                           },
                           child: const Text(
-                            'Experience',
+                            'Route',
                             style: kTSSegmentedController,
                           ),
                         ),
@@ -121,11 +122,13 @@ class DetailsWindow extends HookConsumerWidget {
                     duration: duration,
                     child: isMin
                         ? const SizedBox.shrink()
-                        : ((segmentedValue == 0 || segmentedValue == 1))
+                        : (segmentedValue == 0)
                             ? underConstruction
-                            : isFormSent == true
-                                ? formSent
-                                : form,
+                            : (segmentedValue == 1)
+                                ? const ExperienceSubWindow()
+                                : isFormSent == true
+                                    ? formSent
+                                    : form,
                   ),
                 ),
               ],

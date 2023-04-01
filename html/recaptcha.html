@@ -1,26 +1,27 @@
-<!--<html>-->
-<!--<head>-->
-<!--    <title>reCAPTCHA</title>-->
-<!--    <script src="https://www.google.com/recaptcha/api.js" async defer>-->
-<!--    </script>-->
-<!--</head>-->
-<!--<body>-->
+<html>
+<head>
+    <title>reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer>
+    </script>
+</head>
+<body><div style="    width: 304px;
+    margin: 0 auto;">
 <!--<div align="center" style='height: 60px;'></div>-->
-<!--<form action="?" method="POST">-->
-<!--    <div class="g-recaptcha"-->
-<!--         data-sitekey="6Ld5HCclAAAAAMGvHmSMfy4p8NsKk_vzI_J8g8U6"-->
-<!--         data-theme="dark"-->
-<!--         data-callback="captchaCallback"></div>-->
+<form action="?" method="POST">
+    <div class="g-recaptcha"
+         data-sitekey="6Ld5HCclAAAAAMGvHmSMfy4p8NsKk_vzI_J8g8U6"
+         data-theme="dark"
+         data-callback="captchaCallback"></div>
 
-<!--</form>-->
-<!--<script>-->
-<!--      function captchaCallback(response){-->
-<!--        //console.log(response);-->
-<!--        window.parent.postMessage(response, "*");-->
-<!--        if(typeof Captcha!=="undefined"){-->
-<!--          Captcha.postMessage(response);-->
-<!--        }-->
-<!--      }-->
-<!--    </script>-->
-<!--</body>-->
-<!--</html>-->
+</form></div>
+<script>
+      function captchaCallback(response){
+        //console.log(response);
+        window.parent.postMessage(response, "*");
+        if(typeof Captcha!=="undefined"){
+          Captcha.postMessage(response);
+        }
+      }
+    </script>
+</body>
+</html>
