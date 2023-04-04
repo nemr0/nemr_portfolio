@@ -45,7 +45,7 @@ class AboutMeWindow extends HookConsumerWidget {
       });
       return null;
     }, []);
-    final isMinimized = ref.watch(isAvatarMinimizedProvider);
+    final isMinimized = ref.watch(isAboutMeMinimizedProvider);
     List<Widget> title = [
       const Flexible(
         child: FittedBox(
@@ -71,7 +71,7 @@ class AboutMeWindow extends HookConsumerWidget {
       ),
     ];
     return Window(
-      isMin: isAvatarMinimizedProvider,
+      isMinProvider: isAboutMeMinimizedProvider,
       child: Seo.text(
         text: 'Omar Elnemr Mobile App Developer Flutter Developer',
         child: SingleChildScrollView(

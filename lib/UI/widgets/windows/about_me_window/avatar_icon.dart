@@ -24,7 +24,7 @@ class AvatarIcon extends HookConsumerWidget {
     }
 
     final height = MediaQuery.of(context).size.height * .5;
-    final isMin = ref.watch(isAvatarMinimizedProvider);
+    final isMin = ref.watch(isAboutMeMinimizedProvider);
     return AnimatedSize(
       duration: const Duration(milliseconds: 100),
       child: SizedBox.square(

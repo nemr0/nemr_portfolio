@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+/// A Widget builder with given [Size] and [BuildContext] parameters
 typedef SizedBuilder = Widget Function(BuildContext context, Size? size);
 
 /// HookWidget with a builder that gives [Size] and [BuildContext] as parameters
 class MeasureSize extends HookWidget {
-  /// A Widget builder with given [Size] and [BuildContext] parameters
   final SizedBuilder builder;
 
   const MeasureSize({

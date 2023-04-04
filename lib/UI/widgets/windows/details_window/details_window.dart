@@ -42,7 +42,7 @@ class DetailsWindow extends HookConsumerWidget {
 
     return Window(
         duration: duration,
-        isMin: isDetailsMinimizedProvider,
+        isMinProvider: isDetailsMinimizedProvider,
         child: CupertinoScrollbar(
           thumbVisibility: orientation == Orientation.landscape ? true : false,
           controller: scrollCTR,
@@ -61,59 +61,70 @@ class DetailsWindow extends HookConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30, vertical: 20),
-                    child: CupertinoSlidingSegmentedControl(
-                      thumbColor: isMin
-                          ? CupertinoColors.tertiarySystemFill
-                          : kPrimaryColor,
-                      groupValue: segmentedValue,
-                      onValueChanged: (int? value) {
-                        ref.read(segmentedValueProvider.notifier).state =
-                            value!;
-                      },
-                      children: {
-                        0: GestureDetector(
-                          onTap: () {
-                            ref.read(segmentedValueProvider.notifier).state = 0;
-                            if (isMin) {
-                              ref
-                                  .read(isDetailsMinimizedProvider.notifier)
-                                  .state = false;
-                            }
-                          },
-                          child: const Text(
-                            'Projects',
-                            style: kTSSegmentedController,
+                    child: FittedBox(
+                      child: CupertinoSlidingSegmentedControl(
+                        thumbColor: isMin
+                            ? CupertinoColors.tertiarySystemFill
+                            : kPrimaryColor,
+                        groupValue: segmentedValue,
+                        onValueChanged: (int? value) {
+                          ref.read(segmentedValueProvider.notifier).state =
+                              value!;
+                        },
+                        children: {
+                          0: GestureDetector(
+                            onTap: () {
+                              ref.read(segmentedValueProvider.notifier).state =
+                                  0;
+                              if (isMin) {
+                                ref
+                                    .read(isDetailsMinimizedProvider.notifier)
+                                    .state = false;
+                              }
+                            },
+                            child: const FittedBox(
+                              child: Text(
+                                'Projects',
+                                style: kTSSegmentedController,
+                              ),
+                            ),
                           ),
-                        ),
-                        1: GestureDetector(
-                          onTap: () {
-                            ref.read(segmentedValueProvider.notifier).state = 1;
-                            if (isMin) {
-                              ref
-                                  .read(isDetailsMinimizedProvider.notifier)
-                                  .state = false;
-                            }
-                          },
-                          child: const Text(
-                            'Route',
-                            style: kTSSegmentedController,
+                          1: GestureDetector(
+                            onTap: () {
+                              ref.read(segmentedValueProvider.notifier).state =
+                                  1;
+                              if (isMin) {
+                                ref
+                                    .read(isDetailsMinimizedProvider.notifier)
+                                    .state = false;
+                              }
+                            },
+                            child: const FittedBox(
+                              child: Text(
+                                'Route',
+                                style: kTSSegmentedController,
+                              ),
+                            ),
                           ),
-                        ),
-                        2: GestureDetector(
-                          onTap: () {
-                            ref.read(segmentedValueProvider.notifier).state = 2;
-                            if (isMin) {
-                              ref
-                                  .read(isDetailsMinimizedProvider.notifier)
-                                  .state = false;
-                            }
-                          },
-                          child: const Text(
-                            'Contact',
-                            style: kTSSegmentedController,
-                          ),
-                        )
-                      },
+                          2: GestureDetector(
+                            onTap: () {
+                              ref.read(segmentedValueProvider.notifier).state =
+                                  2;
+                              if (isMin) {
+                                ref
+                                    .read(isDetailsMinimizedProvider.notifier)
+                                    .state = false;
+                              }
+                            },
+                            child: const FittedBox(
+                              child: Text(
+                                'Contact',
+                                style: kTSSegmentedController,
+                              ),
+                            ),
+                          )
+                        },
+                      ),
                     ),
                   ),
                 ),

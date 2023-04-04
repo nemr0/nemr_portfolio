@@ -6,7 +6,7 @@ showErrorDialog(BuildContext context, String error) {
   if (context.mounted) {
     showCupertinoDialog(
         context: context,
-        builder: (context) => errorDialog(error),
+        builder: (context) => errorDialog(error, () => Navigator.pop(context)),
         barrierDismissible: true);
   }
 }

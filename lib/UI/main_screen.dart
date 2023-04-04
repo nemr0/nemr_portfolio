@@ -13,9 +13,10 @@ class MainScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAboutMeMinimized = ref.watch(isAvatarMinimizedProvider);
+    final isAboutMeMinimized = ref.watch(isAboutMeMinimizedProvider);
     final isDetailsMinimized = ref.watch(isDetailsMinimizedProvider);
     final orientation = getOrientation(context);
+
     return BackgroundWidget(
       /// Landscape
       child: (orientation == Orientation.landscape)

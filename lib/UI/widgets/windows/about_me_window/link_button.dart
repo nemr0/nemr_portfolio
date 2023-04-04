@@ -1,25 +1,32 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nemr_portfolio/UI/helpers/is_mobile.dart';
+import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
+import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text.dart';
+import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:seo/html/seo_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-List<LinkButtonConfig> configs = [
-  LinkButtonConfig(asset: kAGithub, link: kURLGithub),
-  LinkButtonConfig(asset: kALinkedIn, link: kURLLinkedIn),
-  LinkButtonConfig(asset: kATiktok, link: kURLTiktok),
-  LinkButtonConfig(asset: kAig, link: kURLig),
-  LinkButtonConfig(asset: kAcv, link: kURLcv),
-  LinkButtonConfig(asset: kADribble, link: kURLDribble),
+const List<LinkButtonConfig> configs = [
+  LinkButtonConfig(asset: kAGithub, link: kURLGithub, color: kCGithub),
+  LinkButtonConfig(asset: kALinkedIn, link: kURLLinkedIn, color: kCLinkedIn),
+  LinkButtonConfig(asset: kATiktok, link: kURLTiktok, color: kCTiktok),
+  LinkButtonConfig(asset: kAig, link: kURLig, color: kCIG),
+  LinkButtonConfig(asset: kAcv, link: kURLcv, color: kCCV),
+  LinkButtonConfig(asset: kADribble, link: kURLDribble, color: kCDribble),
 ];
 
 class LinkButtonConfig {
-  LinkButtonConfig({
+  const LinkButtonConfig({
     required this.asset,
     required this.link,
+    required this.color,
   });
   final String asset;
   final String link;
+  final Color color;
 }
 
 class LinkButton extends HookWidget {
@@ -29,29 +36,37 @@ class LinkButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onHoverSize = useState(20.0);
+    final Decoration decoration = glassBoxDecoration(color: config.color);
+    final onHoverSize = useState(30.0);
     return Seo.link(
       href: config.link,
       anchor: config.asset,
       child: MouseRegion(
-        onHover: (s) => onHoverSize.value = 25,
-        onExit: (s) => onHoverSize.value = 20,
-        child: CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: () async => await canLaunchUrl(Uri.parse(config.link))
-                ? launchUrl(Uri.parse(config.link),
-                    mode: LaunchMode.externalApplication)
-                : null,
-            child: Container(
-              height: onHoverSize.value,
-              width: onHoverSize.value,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: AssetImage(
-                        'assets/${config.asset}.png',
-                      ))),
-            )),
+        onEnter: (s) => !isMobile ? onHoverSize.value = 35 : null,
+        onExit: (s) => onHoverSize.value = 30,
+        child: Tooltip(
+          message: config.asset,
+          decoration: decoration,
+          textStyle: kTSAgreement,
+          child: CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed: () async => await canLaunchUrl(Uri.parse(config.link))
+                  ? launchUrl(Uri.parse(config.link),
+                      mode: LaunchMode.externalApplication)
+                  : null,
+              child: GlassMorphism(
+                height: onHoverSize.value,
+                width: onHoverSize.value,
+                color: config.color,
+                decoration: decoration,
+                child: Image.asset(
+                  'assets/${config.asset}.png',
+                  height: onHoverSize.value - 8,
+                  width: onHoverSize.value - 8,
+                  fit: BoxFit.contain,
+                ),
+              )),
+        ),
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
+import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/whatsapp_contact.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
@@ -31,10 +33,11 @@ class ReCaptchaDialog extends HookWidget {
     }, []);
     return CupertinoButton(
       onPressed: () => Navigator.pop(context),
-      child: Container(
-          color: kBgColor.withOpacity(.3),
+      child: GlassMorphism(
+          color: kBgColor.withOpacity(.35),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
+          decoration: glassBoxDecoration(color: kBgColor.withOpacity(.35)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,6 +55,11 @@ class ReCaptchaDialog extends HookWidget {
                   viewType: createdViewId.value,
                 ),
               ),
+              const WhatsappContactWidget(
+                text:
+                    'If reCaptcha does not show up, then probably your platform is not supported but you can still contact me on Whatsapp :)',
+                mainAxisAlignment: MainAxisAlignment.center,
+              )
             ],
           )).animate().fadeIn(),
     );

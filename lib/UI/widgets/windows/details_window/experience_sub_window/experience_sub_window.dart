@@ -57,9 +57,10 @@ class ExperienceSubWindow extends HookWidget {
           spacer,
           MeasureSize(
             builder: (context, size) => Row(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 CustomPaint(
-                  size: Size(1, size?.height ?? 50),
+                  size: Size(1, size?.height ?? 100),
                   painter: DashedLineVerticalPainter(),
                 ),
                 const SizedBox(
@@ -109,25 +110,27 @@ class ExperienceSubWindow extends HookWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                const SelectableText.rich(TextSpan(
-                    text: 'SEP 2017 -  JUL 2021\n',
-                    children: [
-                      TextSpan(
-                        text:
-                            'MANAGEMENT INFORMATION SYSTEMS,\nELSHEROUK ACADEMY,\nGraduation Project:',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: CupertinoColors.white,
+                const Expanded(
+                  child: SelectableText.rich(TextSpan(
+                      text: 'SEP 2017 -  JUL 2021\n',
+                      children: [
+                        TextSpan(
+                          text:
+                              'MANAGEMENT INFORMATION SYSTEMS,\nELSHEROUK ACADEMY,\nGraduation Project:',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: CupertinoColors.white,
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: '\nSmart Attendance System using QR code.',
-                        style: TextStyle(
-                          fontSize: 12,
-                        ),
-                      )
-                    ],
-                    style: kTSExperienceBody)),
+                        TextSpan(
+                          text: '\nSmart Attendance System using QR code.',
+                          style: TextStyle(
+                            fontSize: 12,
+                          ),
+                        )
+                      ],
+                      style: kTSExperienceBody)),
+                ),
               ],
             ),
           ),
