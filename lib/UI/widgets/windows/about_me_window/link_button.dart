@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nemr_portfolio/UI/helpers/is_mobile.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
-import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:seo/html/seo_widget.dart';

@@ -23,8 +23,8 @@ Widget errorDialog(String e, VoidCallback onPressed) => GlassMorphism(
         content: Text(e),
         actions: [
           CupertinoDialogAction(
-            child: Text('Ok'),
             onPressed: onPressed,
+            child: const Text('Ok'),
           )
         ],
       ),
