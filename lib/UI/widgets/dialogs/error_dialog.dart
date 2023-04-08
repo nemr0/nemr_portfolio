@@ -3,11 +3,10 @@ import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 
 Widget errorDialog(String e, VoidCallback onPressed) => GlassMorphism(
-      decoration: glassBoxDecoration(
-          color: CupertinoColors.black.withOpacity(.35), radius: 0),
+      glassColor: CupertinoColors.black.withOpacity(.35),
       color: kPrimaryColor.withOpacity(.35),
-      height: double.infinity,
-      width: double.infinity,
+      height: 100,
+      width: 200,
       child: CupertinoAlertDialog(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,

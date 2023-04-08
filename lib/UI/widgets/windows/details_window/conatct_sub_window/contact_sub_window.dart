@@ -7,7 +7,7 @@ import 'package:nemr_portfolio/UI/helpers/on_contact_submit.dart';
 import 'package:nemr_portfolio/UI/providers/contact_providers.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/submit_button.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/terms_agree.dart';
-import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/whatsapp_contact.dart';
+import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 
 import '../../../../../config/validators.dart';
 import 'custom_cupertino_textfield.dart';
@@ -98,7 +98,7 @@ class ContactMeWindow extends HookConsumerWidget {
         height: sHeight,
       ),
       const TermsAgree(),
-      const WhatsappContactWidget(),
+      const TextByIconButtonWidget(),
       SubmitContactButton(
         onSubmit: () => onSubmit(context, companyCTR.text, nameCTR.text,
             emailCTR.text, phoneCTR.text, descCTR.text),

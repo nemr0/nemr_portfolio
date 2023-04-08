@@ -1,19 +1,24 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:nemr_portfolio/UI/widgets/measure_size.dart';
 
 /// enabled for any container
 Decoration glassBoxDecoration(
 
         /// use a color with 35% opacity
         {required Color color,
-        double radius = 10}) =>
+        double radius = 10,
+        Size? size}) =>
     BoxDecoration(
       border:
           Border.all(color: CupertinoColors.white.withOpacity(.05), width: 1),
       boxShadow: [
         BoxShadow(
-            color: color.withOpacity(.05), blurRadius: 30, spreadRadius: 2)
+            color: color.withOpacity(.2),
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: size == null ? Offset.zero : Offset(0, size.height / 2)),
       ],
       gradient: LinearGradient(
         colors: [
@@ -30,23 +35,23 @@ Decoration glassBoxDecoration(
 
 /// Glass Morphism Effect For Button Icons
 class GlassMorphism extends StatelessWidget {
-  const GlassMorphism(
-      {Key? key,
-      required this.color,
-      required this.child,
-      this.sigmaX = 4,
-      this.sigmaY = 7,
-      required this.height,
-      required this.width,
-      required this.decoration})
-      : super(key: key);
+  const GlassMorphism({
+    Key? key,
+    required this.color,
+    required this.child,
+    this.sigmaX = 4,
+    this.sigmaY = 7,
+    required this.height,
+    required this.width,
+    this.glassColor,
+  }) : super(key: key);
   final Color color;
   final Widget child;
   final double sigmaX;
   final double sigmaY;
   final double height;
   final double width;
-  final Decoration decoration;
+  final Color? glassColor;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -57,7 +62,8 @@ class GlassMorphism extends StatelessWidget {
         child: Container(
           height: height,
           width: width,
-          decoration: decoration,
+          decoration: glassBoxDecoration(
+              color: glassColor ?? color, size: Size(width, height)),
           padding: const EdgeInsets.all(3),
           child: child,
         ),

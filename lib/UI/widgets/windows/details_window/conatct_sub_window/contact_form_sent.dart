@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:nemr_portfolio/UI/widgets/custom_cupertino_button.dart';
-import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/whatsapp_contact.dart';
+import 'package:nemr_portfolio/UI/widgets/buttons/custom_cupertino_button.dart';
+import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:rive/rive.dart';
@@ -61,7 +61,7 @@ class ContactFormSent extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        const WhatsappContactWidget(),
+        const TextByIconButtonWidget(),
         const SizedBox(
           height: 25,
         ),

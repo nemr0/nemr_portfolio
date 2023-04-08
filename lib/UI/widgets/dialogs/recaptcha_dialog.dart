@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
-import 'package:nemr_portfolio/UI/widgets/windows/details_window/conatct_sub_window/whatsapp_contact.dart';
+import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
@@ -34,31 +34,37 @@ class ReCaptchaDialog extends HookWidget {
     return CupertinoButton(
       onPressed: () => Navigator.pop(context),
       child: GlassMorphism(
+          height: double.infinity,
+          width: double.infinity,
           color: kBgColor.withOpacity(.35),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: glassBoxDecoration(color: kBgColor.withOpacity(.35)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'Please, Verify You\'re a HUMAN!',
-                style: kTSAgreement,
-              ),
-              Container(
-                height: 500,
-                width: 400,
-                // padding: EdgeInsets.all(MediaQuery.of(context).size.width * .1),
-                color: kGradientColor.withOpacity(.2),
-                child: HtmlElementView(
-                  viewType: createdViewId.value,
+              const Expanded(
+                child: Text(
+                  'Please, Verify You\'re a HUMAN!',
+                  style: kTSAgreement,
                 ),
               ),
-              const WhatsappContactWidget(
-                text:
-                    'If reCaptcha does not show up, then probably your platform is not supported but you can still contact me on Whatsapp :)',
-                mainAxisAlignment: MainAxisAlignment.center,
+              Expanded(
+                flex: 5,
+                child: Container(
+                  height: 500,
+                  width: 400,
+                  // padding: EdgeInsets.all(MediaQuery.of(context).size.width * .1),
+                  color: kGradientColor.withOpacity(.2),
+                  child: HtmlElementView(
+                    viewType: createdViewId.value,
+                  ),
+                ),
+              ),
+              const Expanded(
+                child: TextByIconButtonWidget(
+                  text:
+                      'If reCaptcha does not show up, then probably your platform is not supported but you can still contact me on Whatsapp :)',
+                  mainAxisAlignment: MainAxisAlignment.center,
+                ),
               )
             ],
           )).animate().fadeIn(),

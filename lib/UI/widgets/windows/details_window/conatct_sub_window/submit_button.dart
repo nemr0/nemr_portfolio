@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helpers/is_there_any_errors.dart';
 
 import '../../../../helpers/is_mobile.dart';
-import '../../../custom_cupertino_button.dart';
+import '../../../buttons/custom_cupertino_button.dart';
 
 typedef FutureCallback = Future<void> Function();
 

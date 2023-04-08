@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:seo/html/seo_widget.dart';
 
+import '../../../../config/link_button_configs.dart';
 import '../../../../config/text_styles.dart';
 import '../../../providers/is_minimized_providers.dart';
 import '../../custom_paint/name_painter.dart';
@@ -46,6 +46,8 @@ class AboutMeWindow extends HookConsumerWidget {
       return null;
     }, []);
     final isMinimized = ref.watch(isAboutMeMinimizedProvider);
+    final scrollCTR = useScrollController();
+    final orientation = MediaQuery.of(context).orientation;
     List<Widget> title = [
       const Flexible(
         child: FittedBox(
@@ -71,38 +73,49 @@ class AboutMeWindow extends HookConsumerWidget {
       ),
     ];
     return Window(
+      iAdded: true,
       isMinProvider: isAboutMeMinimizedProvider,
       child: Seo.text(
         text: 'Omar Elnemr Mobile App Developer Flutter Developer',
-        child: SingleChildScrollView(
-          child: Center(
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: isMinimized
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Flexible(
-                          child: AvatarIcon(),
+        child: CupertinoScrollbar(
+          thumbVisibility: orientation == Orientation.landscape ? true : false,
+          controller: scrollCTR,
+          child: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              controller: scrollCTR,
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: isMinimized
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Flexible(
+                              child: AvatarIcon(),
+                            ),
+                            ...title
+                          ],
+                        )
+                      : Wrap(
+                          direction:
+                              isMinimized ? Axis.vertical : Axis.horizontal,
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.end,
+                          runAlignment: WrapAlignment.center,
+                          children: [
+                            const AvatarIcon(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: title,
+                            ),
+                            for (LinkButtonConfig config in configs)
+                              LinkButton(config: config)
+                          ],
                         ),
-                        ...title
-                      ],
-                    )
-                  : Wrap(
-                      direction: isMinimized ? Axis.vertical : Axis.horizontal,
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.end,
-                      runAlignment: WrapAlignment.center,
-                      children: [
-                        const AvatarIcon(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: title,
-                        ),
-                        for (LinkButtonConfig config in configs)
-                          LinkButton(config: config)
-                      ],
-                    ),
+                ),
+              ),
             ),
           ),
         ),

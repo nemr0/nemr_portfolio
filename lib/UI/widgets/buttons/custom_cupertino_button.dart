@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../config/colors.dart';
-import '../../config/text_styles.dart';
+import '../../../config/colors.dart';
+import '../../../config/text_styles.dart';
 
 const Duration defaultDuration = Duration(milliseconds: 300);
 
