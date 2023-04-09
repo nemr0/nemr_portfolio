@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// terms not agreed if false
-final isTermsAgreedProvider = StateProvider.autoDispose((ref) => false);
+final isTermsAgreedProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 /// no errors if null
 /// Name Error provider

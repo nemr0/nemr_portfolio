@@ -15,7 +15,7 @@ class UnderConstructionWindow extends StatelessWidget {
           width: 300,
           height: 300,
           child: RiveAnimation.asset(
-            'assets/404.riv',
+            'rive/404.riv',
             stateMachines: ['main'],
             placeHolder: Center(
               child: CupertinoActivityIndicator(),
