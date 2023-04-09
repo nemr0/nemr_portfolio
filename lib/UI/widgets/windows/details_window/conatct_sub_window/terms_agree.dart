@@ -47,7 +47,7 @@ class TermsAgree extends HookConsumerWidget {
               height: 30,
               width: 50,
               child: RiveAnimation.asset(
-                'rive/switch.riv',
+                'assets/rive/switch.riv',
                 onInit: onRiveInit,
                 fit: BoxFit.cover,
                 antialiasing: false,

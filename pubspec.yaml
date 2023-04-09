@@ -39,7 +39,8 @@ flutter:
 
   uses-material-design: false
   assets:
-    - assets/
+    - assets/icons/
+    - assets/rive/
     - html/
   fonts:
     - family: Roboto Mono

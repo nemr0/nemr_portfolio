@@ -25,7 +25,7 @@ class ContactFormSent extends StatelessWidget {
           decoration: BoxDecoration(
               color: kContainerColor, borderRadius: BorderRadius.circular(100)),
           child: const RiveAnimation.asset(
-            'rive/form_sent.riv',
+            'assets/rive/form_sent.riv',
             animations: ['loading_animation'],
             placeHolder: Center(
               child: CupertinoActivityIndicator(),

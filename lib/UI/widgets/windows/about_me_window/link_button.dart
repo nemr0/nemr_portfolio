@@ -45,7 +45,7 @@ class LinkButton extends HookWidget {
                 width: onHoverSize.value,
                 color: config.color,
                 child: Image.asset(
-                  'icons/${config.asset}.png',
+                  'assets/icons/${config.asset}.png',
                   height: onHoverSize.value - 8,
                   width: onHoverSize.value - 8,
                   fit: BoxFit.contain,
