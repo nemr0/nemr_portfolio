@@ -9,8 +9,12 @@ import 'UI/style/theme.dart';
 
 Future<void> main() async {
   await GetStorage.init();
+  const String thumbnailImgURL =
+      'https://raw.githubusercontent.com/nemr0/nemr_portfolio/main/thumbnail.png';
   // Define MetaSEO object
   MetaSEO meta = MetaSEO();
+  meta.config();
+
   // add meta seo data for web app as you want
   meta.author(author: 'Omar Elnemr');
   meta.description(description: 'Omar Elnemr\'s Portfolio.');
@@ -18,7 +22,13 @@ Future<void> main() async {
       keywords:
           'Flutter, Developer, Mobile Apps Developer, Flutter Developer, Flutter Mobile, Omar Elnemr');
   meta.nameContent(name: 'Omar Elnemr', content: 'Flutter Developer Portfolio');
-  // meta.ogImage(ogImage: '')
+  meta.ogImage(ogImage: thumbnailImgURL);
+  meta.ogTitle(ogTitle: 'Omar Elnemr');
+  meta.ogDescription(ogDescription: 'Flutter Developer.');
+  meta.twitterCard(twitterCard: TwitterCard.summary);
+  meta.twitterDescription(twitterDescription: 'Flutter Developer.');
+  meta.twitterImage(twitterImage: thumbnailImgURL);
+  meta.twitterTitle(twitterTitle: 'Omar Elnemr');
   runApp(const ProviderScope(
     child: MyApp(),
   ));
