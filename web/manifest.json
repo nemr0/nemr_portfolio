@@ -3,9 +3,9 @@
     "short_name": "Nemr's",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "Omar Elnemr Portfolio and Contact Form",
+    "background_color": "#1E1E1E",
+    "theme_color": "#FF6C01",
+    "description": "Flutter Developer with passion toward layouts and building beautiful UI/UX, Check Out My Portfolio Here.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
