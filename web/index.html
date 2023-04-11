@@ -29,7 +29,11 @@
   <meta property="og:title" content="Omar ElNemr">
   <meta property="og:description" content="Flutter Developer with passion toward layouts and building beautiful UI/UX, Check Out My Portfolio Here.">
   <meta property="og:image" content="https://raw.githubusercontent.com/nemr0/nemr_portfolio/main/thumbnail.png">
-
+  <meta property="og:image:width" content="600" />
+  <meta property="og:image:height" content="315" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/nemr0/nemr_portfolio/main/whatsapp-thumbnail.png">
+  <meta property="og:image:width" content="500" />
+  <meta property="og:image:height" content="500" />
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://www.nemr.me/">
@@ -39,7 +43,7 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="nemr_portfolio">
+  <meta name="apple-mobile-web-app-title" content="Omar ElNemr">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -86,7 +90,7 @@
   <script src="flutter.js" defer></script>
 </head>
 <body id="the-one" style="
-   background-color: #1e1e1e;
+   background-color: #2f2f2f;
  overflow: hidden;
 ">
 <style>
@@ -96,19 +100,26 @@
   background-size: cover; /* Resize the background image to cover the entire container */
   height: 100vh;
   width: 100vw;
-  background-color: #1e1e1e;
+      position: absolute;
+  opacity: 1;
+  transition: opacity .4s ease-out;
   background-image: url('assets/background.png');
 margin: 0;
   }
   .main-content {
+      position: absolute;
+    opacity: 1;
+
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity .4s ease-out;
+  transition: opacity .5s ease-out;
   }
   .loader{
+    opacity: 1;
+
   height: 220px;
   width: 190px;
   }
@@ -123,6 +134,7 @@ margin: 0;
   }
     window.addEventListener('load', function(ev) {
     var loaderContent=document.querySelector('#loader-content');
+    var loaderBg=document.querySelector('#loader-bg');
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
@@ -131,6 +143,7 @@ margin: 0;
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
           loaderContent.style.opacity="0";
+          loaderBg.style.opacity="0";
 
            delay(300).then(()=>appRunner.runApp());
 
@@ -139,11 +152,12 @@ margin: 0;
       });
     });
   </script>
-<div class="background">
+
+<div class="background" id="loader-bg">
+
+</div>
 <div class="main-content" id="loader-content">
   <img class="loader" src="assets/loader.gif" alt="loading">
 </div>
-</div>
-
 </body>
 </html>

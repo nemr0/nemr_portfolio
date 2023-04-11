@@ -50,7 +50,9 @@ class TermsAgree extends HookConsumerWidget {
                 'assets/rive/switch.riv',
                 onInit: onRiveInit,
                 fit: BoxFit.cover,
-                antialiasing: false,
+                placeHolder: const Center(
+                  child: CupertinoActivityIndicator(),
+                ),
               ),
             ),
           ),

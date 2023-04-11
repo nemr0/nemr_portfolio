@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
@@ -42,6 +41,9 @@ class AvatarIcon extends HookConsumerWidget {
           child: RiveAnimation.asset(
             'assets/rive/logo.riv',
             onInit: onRiveInit,
+            placeHolder: const Center(
+              child: CupertinoActivityIndicator(),
+            ),
           ),
         ),
       ),

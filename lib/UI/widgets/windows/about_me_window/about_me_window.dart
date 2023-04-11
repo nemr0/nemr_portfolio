@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:seo/html/seo_widget.dart';
+import 'package:seo/seo.dart';
 
 import '../../../../config/link_button_configs.dart';
 import '../../../../config/text_styles.dart';
@@ -77,6 +77,7 @@ class AboutMeWindow extends HookConsumerWidget {
       isMinProvider: isAboutMeMinimizedProvider,
       child: Seo.text(
         text: 'Omar Elnemr Mobile App Developer Flutter Developer',
+        style: TextTagStyle.h1,
         child: CupertinoScrollbar(
           thumbVisibility: orientation == Orientation.landscape ? true : false,
           controller: scrollCTR,

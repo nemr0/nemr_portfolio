@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 
         /// Start point
         home: MainScreen(),
-      ).animate().fadeIn(duration: const Duration(milliseconds: 400)),
+      ).animate().fadeIn(duration: const Duration(milliseconds: 200)),
     );
   }
 }

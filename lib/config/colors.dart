@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 /// Background Color
-const Color kBgColor = Color(0xff1E1E1E);
+const Color kBgColor = Color(0xff2f2f2f);
 const Color kContainerColor = Color(0xcb1e1e1e);
 
 /// Primary Color
