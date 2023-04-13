@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
@@ -18,12 +17,10 @@ class Window extends HookConsumerWidget {
     super.key,
     required this.isMinProvider,
     required this.child,
-    this.isHoverInit = false,
     this.duration = const Duration(milliseconds: 300),
     this.iAdded = false,
   });
   final bool iAdded;
-  final bool isHoverInit;
   final Duration duration;
   final StateProvider<bool> isMinProvider;
   final Widget child;
@@ -34,7 +31,11 @@ class Window extends HookConsumerWidget {
     final isMinimized = ref.watch(isMinProvider.notifier);
 
     /// on hover is true else false, to give a little animation
-    final isHover = useState(isHoverInit);
+    final isHover = useState(false);
+    final animationCTR =
+        useAnimationController(duration: const Duration(milliseconds: 400));
+    final animation =
+        useAnimation(Tween(begin: 0.0, end: 1.0).animate(animationCTR));
 
     /// disables minimized button for passed duration
     final isDisabled = useState<bool>(false);
@@ -48,107 +49,110 @@ class Window extends HookConsumerWidget {
           });
         }
       });
+      animationCTR.forward();
 
       return null;
     }, []);
 
-    // animating padding for hover
-    return SizedBox(
-      height: isMinimized.state ? 120 : null,
-      child: MouseRegion(
-        onHover: (p) => isMobile ? isHover.value = !isHover.value : null,
-        onEnter: (p) => isHover.value = true,
-        onExit: (p) => isHover.value = false,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(
-                sigmaX: isHover.value ? 3 : 2,
-                sigmaY: isHover.value ? 5 : 4,
-                tileMode: TileMode.repeated),
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      CupertinoColors.black.withOpacity(.15),
-                      CupertinoColors.black.withOpacity(.20),
-                    ],
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(10))),
-              child: CustomPaint(
-                willChange: true,
-                painter: WindowPainter(isHover: isHover.value),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Stack(
-                    children: [
-                      AnimatedSize(
-                          duration: duration, child: Center(child: child)),
-                      if (iAdded)
-                        Positioned(
-                          right: 10,
-                          top: 10,
-                          child: Tooltip(
-                            message: 'About',
-                            decoration: glassBoxDecoration(
-                                color: kPrimaryColor.withOpacity(.35)),
-                            child: CupertinoButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {
-                                showCupertinoDialog(
-                                    context: context,
-                                    barrierDismissible: true,
-                                    builder: (context) =>
-                                        const AboutMeDialog());
-                              },
-                              child: const Icon(
-                                CupertinoIcons.info_circle,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
-                      Positioned(
-                        left: 10,
-                        top: 10,
-                        child: MouseRegion(
-                          cursor: isMinimized.state
-                              ? SystemMouseCursors.zoomIn
-                              : SystemMouseCursors.zoomOut,
-                          child: GestureDetector(
-                            onTap: isDisabled.value
-                                ? null
-                                : () => {
-                                      isMinimized.update((state) => !state),
-                                      isDisabled.value = true
-                                    },
-                            // onMinimized!(isMinimized.state);
+    return Opacity(
+      opacity: animation,
+      child: SizedBox(
+        height: isMinimized.state ? 120 : null,
+        child: MouseRegion(
+          onHover: (p) => isMobile ? isHover.value = !isHover.value : null,
+          onEnter: (p) => isHover.value = true,
+          onExit: (p) => isHover.value = false,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                  sigmaX: isHover.value ? 3 : 2,
+                  sigmaY: isHover.value ? 5 : 4,
+                  tileMode: TileMode.repeated),
+              child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        CupertinoColors.black.withOpacity(.15),
+                        CupertinoColors.black.withOpacity(.20),
+                      ],
+                      begin: AlignmentDirectional.topStart,
+                      end: AlignmentDirectional.bottomEnd,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: CustomPaint(
+                  willChange: true,
+                  painter: WindowPainter(isHover: isHover.value),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Stack(
+                      children: [
+                        AnimatedSize(
+                            duration: duration, child: Center(child: child)),
+                        if (iAdded)
+                          Positioned(
+                            right: 10,
+                            top: 10,
                             child: Tooltip(
-                              message:
-                                  isMinimized.state ? 'Maximize' : 'Minimize',
+                              message: 'About',
                               decoration: glassBoxDecoration(
-                                  color: isMinimized.state
-                                      ? kGreenColor.withOpacity(.35)
-                                      : kYellowColor.withOpacity(.35)),
-                              child: AnimatedContainer(
-                                duration: duration,
-                                width: 15,
-                                height: 15,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: isDisabled.value
-                                        ? kGradientColor
-                                        : isMinimized.state
-                                            ? kGreenColor
-                                            : kYellowColor),
+                                  color: kPrimaryColor.withOpacity(.35)),
+                              child: CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  showCupertinoDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context) =>
+                                          const AboutMeDialog());
+                                },
+                                child: const Icon(
+                                  CupertinoIcons.info_circle,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        Positioned(
+                          left: 10,
+                          top: 10,
+                          child: MouseRegion(
+                            cursor: isMinimized.state
+                                ? SystemMouseCursors.zoomIn
+                                : SystemMouseCursors.zoomOut,
+                            child: GestureDetector(
+                              onTap: isDisabled.value
+                                  ? null
+                                  : () => {
+                                        isMinimized.update((state) => !state),
+                                        isDisabled.value = true
+                                      },
+                              // onMinimized!(isMinimized.state);
+                              child: Tooltip(
+                                message:
+                                    isMinimized.state ? 'Maximize' : 'Minimize',
+                                decoration: glassBoxDecoration(
+                                    color: isMinimized.state
+                                        ? kGreenColor.withOpacity(.35)
+                                        : kYellowColor.withOpacity(.35)),
+                                child: AnimatedContainer(
+                                  duration: duration,
+                                  width: 15,
+                                  height: 15,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: isDisabled.value
+                                          ? kGradientColor
+                                          : isMinimized.state
+                                              ? kGreenColor
+                                              : kYellowColor),
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -156,6 +160,6 @@ class Window extends HookConsumerWidget {
           ),
         ),
       ),
-    ).animate().fadeIn(duration: const Duration(milliseconds: 400));
+    );
   }
 }

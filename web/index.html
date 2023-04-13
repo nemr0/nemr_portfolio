@@ -89,40 +89,123 @@
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
-<body id="the-one" style="
+<body style="
    background-color: #2f2f2f;
  overflow: hidden;
 ">
 <style>
   .background{
-  overflow: hidden;
+ overflow: hidden;
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
   height: 100vh;
   width: 100vw;
-      position: absolute;
+  position: absolute;
   opacity: 1;
   transition: opacity .4s ease-out;
   background-image: url('assets/background.png');
-margin: 0;
-  }
-  .main-content {
-      position: absolute;
-    opacity: 1;
-
-  height: 100%;
-  width: 100%;
+  margin: 0;
+}
+   .loader-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  transition: opacity .5s ease-out;
-  }
-  .loader{
-    opacity: 1;
+  align-items: center;
+  height: 100vh;
+  opacity: 1;
+  transition: opacity .4s ease-out;
+}
 
-  height: 220px;
-  width: 190px;
-  }
+.loader {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.thinker {
+  background-image: url('assets/theThinker.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.spinner {
+        transform: rotateZ(45deg);
+        perspective: 1000px;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        color: #fff;
+      }
+        .spinner:before,
+        .spinner:after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: inherit;
+          height: inherit;
+          border-radius: 50%;
+          transform: rotateX(70deg);
+          animation: 1s spin linear infinite;
+        }
+        .spinner:after {
+          color: #FF6C01;
+          transform: rotateY(70deg);
+          animation-delay: .4s;
+        }
+
+      @keyframes rotate {
+        0% {
+          transform: translate(-50%, -50%) rotateZ(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotateZ(360deg);
+        }
+      }
+
+      @keyframes rotateccw {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(-360deg);
+        }
+      }
+
+      @keyframes spin {
+        0%,
+        100% {
+          box-shadow: .2em 0px 0 0px currentcolor;
+        }
+        12% {
+          box-shadow: .2em .2em 0 0 currentcolor;
+        }
+        25% {
+          box-shadow: 0 .2em 0 0px currentcolor;
+        }
+        37% {
+          box-shadow: -.2em .2em 0 0 currentcolor;
+        }
+        50% {
+          box-shadow: -.2em 0 0 0 currentcolor;
+        }
+        62% {
+          box-shadow: -.2em -.2em 0 0 currentcolor;
+        }
+        75% {
+          box-shadow: 0px -.2em 0 0 currentcolor;
+        }
+        87% {
+          box-shadow: .2em -.2em 0 0 currentcolor;
+        }
+      }
 
 
 </style>
@@ -154,10 +237,15 @@ margin: 0;
   </script>
 
 <div class="background" id="loader-bg">
-
 </div>
-<div class="main-content" id="loader-content">
-  <img class="loader" src="assets/loader.gif" alt="loading">
+<div class="loader-container" id="loader-content">
+  <div class="loader">
+    <div class="spinner"></div>
+    <div class="thinker"></div>
+  </div>
 </div>
+<!--<div class="main-content" id="loader-content">-->
+<!--  <img class="loader" src="assets/loader.gif" alt="loading">-->
+<!--</div>-->
 </body>
 </html>

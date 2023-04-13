@@ -3,7 +3,6 @@ import 'dart:html';
 import 'dart:ui' as ui;
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
@@ -67,7 +66,7 @@ class ReCaptchaDialog extends HookWidget {
                 ),
               )
             ],
-          )).animate().fadeIn(),
+          )),
     );
     // final errorTimer = useState<int>(0);
     // final usedDate =

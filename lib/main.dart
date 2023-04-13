@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/main_screen.dart';
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
 
         /// Start point
         home: MainScreen(),
-      ).animate().fadeIn(duration: const Duration(milliseconds: 200)),
+      ),
     );
   }
 }
