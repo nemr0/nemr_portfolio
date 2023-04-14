@@ -63,6 +63,7 @@ class AboutMeWindow extends HookConsumerWidget {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: SingleChildScrollView(
               controller: scrollCTR,
+              physics: const BouncingScrollPhysics(),
               child: Center(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
