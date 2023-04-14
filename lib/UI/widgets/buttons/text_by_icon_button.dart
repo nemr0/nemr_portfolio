@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 import 'package:nemr_portfolio/config/link_button_configs.dart';
 
@@ -34,7 +33,7 @@ class TextByIconButtonWidget extends StatelessWidget {
             width: 2,
           ),
         Expanded(
-          child: SelectableText(
+          child: Text(
             text,
             style: kTSAgreement,
           ),

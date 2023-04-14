@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show Tooltip;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
@@ -91,8 +91,8 @@ class Window extends HookConsumerWidget {
                             duration: duration, child: Center(child: child)),
                         if (iAdded)
                           Positioned(
-                            right: 10,
-                            top: 10,
+                            right: 8,
+                            top: 8,
                             child: Tooltip(
                               message: 'About',
                               decoration: glassBoxDecoration(
@@ -108,14 +108,14 @@ class Window extends HookConsumerWidget {
                                 },
                                 child: const Icon(
                                   CupertinoIcons.info_circle,
-                                  size: 20,
+                                  size: 18,
                                 ),
                               ),
                             ),
                           ),
                         Positioned(
-                          left: 10,
-                          top: 10,
+                          left: 8,
+                          top: 8,
                           child: MouseRegion(
                             cursor: isMinimized.state
                                 ? SystemMouseCursors.zoomIn
@@ -137,8 +137,8 @@ class Window extends HookConsumerWidget {
                                         : kYellowColor.withOpacity(.35)),
                                 child: AnimatedContainer(
                                   duration: duration,
-                                  width: 15,
-                                  height: 15,
+                                  width: 12,
+                                  height: 12,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
                                       color: isDisabled.value

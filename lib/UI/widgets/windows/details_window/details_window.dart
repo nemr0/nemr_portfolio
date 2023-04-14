@@ -30,9 +30,13 @@ class DetailsWindow extends HookConsumerWidget {
     final isFormSent = ref.watch(isFormSentProvider);
     final orientation = getOrientation(context);
     final scrollCTR = useScrollController();
-    const Widget underConstruction = UnderConstructionWindow();
-    const Widget formSent = ContactFormSent();
-    const Widget form = ContactMeWindow();
+    const List<Widget> selectedWidget = [
+      SizedBox.shrink(),
+      UnderConstructionWindow(),
+      ExperienceSubWindow(),
+      ContactMeWindow(),
+      ContactFormSent(),
+    ];
     useEffect(() {
       GetStorage().listenKey('form_sent', (value) {
         ref.read(isFormSentProvider.notifier).state = value;
@@ -103,20 +107,29 @@ class DetailsWindow extends HookConsumerWidget {
           ),
         ),
       ),
-      Center(
-        child: AnimatedSwitcher(
-          duration: duration,
-          child: isMin
-              ? const SizedBox.shrink()
-              : (segmentedValue == 0)
-                  ? underConstruction
-                  : (segmentedValue == 1)
-                      ? const ExperienceSubWindow()
-                      : isFormSent == true
-                          ? formSent
-                          : form,
-        ),
+      IndexedStack(
+        alignment: Alignment.topCenter,
+        index: isMin
+            ? 0
+            : isFormSent == true
+                ? 4
+                : segmentedValue + 1,
+        children: selectedWidget,
       ),
+      // Center(
+      //   child: AnimatedSwitcher(
+      //     duration: duration,
+      //     child: isMin
+      //         ? selectedWidget[0]
+      //         : (segmentedValue == 0)
+      //             ? selectedWidget[1]
+      //             : (segmentedValue == 1)
+      //                 ? selectedWidget[2]
+      //                 : isFormSent == false
+      //                     ? selectedWidget[3]
+      //                     : selectedWidget[4],
+      //   ),
+      // ),
     ];
     return Window(
         duration: duration,

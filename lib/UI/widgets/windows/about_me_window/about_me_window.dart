@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nemr_portfolio/UI/helpers/get_orientation.dart';
 import 'package:seo/seo.dart';
 
 import '../../../../config/link_button_configs.dart';
@@ -26,7 +27,7 @@ class AboutMeWindow extends HookConsumerWidget {
     final width = MediaQuery.of(context).size.width;
 
     /// width used to render animation of gradient container
-    final uWidth = MediaQuery.of(context).orientation == Orientation.landscape
+    final uWidth = getOrientation(context) == Orientation.landscape
         ? width * .3
         : width * .6;
 
@@ -47,31 +48,7 @@ class AboutMeWindow extends HookConsumerWidget {
     }, []);
     final isMinimized = ref.watch(isAboutMeMinimizedProvider);
     final scrollCTR = useScrollController();
-    final orientation = MediaQuery.of(context).orientation;
-    List<Widget> title = [
-      const Flexible(
-        child: FittedBox(
-          child: Text.rich(
-            TextSpan(style: kTSTitle, text: 'Omar Elnemr', children: [
-              TextSpan(text: '\nmobile apps dev', style: kTSSubName)
-            ]),
-            textAlign: TextAlign.end,
-          ),
-        ),
-      ),
-      Flexible(
-        child: AnimatedBuilder(
-          animation: animationCTR,
-          builder: (BuildContext context, Widget? child) {
-            return CustomPaint(
-              size: Size(uWidth * .04,
-                  (animationCTR.value * 3.2142857142857144).toDouble()),
-              painter: GradientContainerPaint(),
-            );
-          },
-        ),
-      ),
-    ];
+
     return Window(
       iAdded: true,
       isMinProvider: isAboutMeMinimizedProvider,
@@ -79,7 +56,7 @@ class AboutMeWindow extends HookConsumerWidget {
         text: 'Omar Elnemr Mobile App Developer Flutter Developer',
         style: TextTagStyle.h1,
         child: CupertinoScrollbar(
-          thumbVisibility: orientation == Orientation.landscape ? true : false,
+          thumbVisibility: true,
           controller: scrollCTR,
           child: ScrollConfiguration(
             behavior:
@@ -89,32 +66,79 @@ class AboutMeWindow extends HookConsumerWidget {
               child: Center(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
-                  child: isMinimized
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Flexible(
-                              child: AvatarIcon(),
-                            ),
-                            ...title
-                          ],
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Wrap(
+                      direction:
+                          getOrientation(context) == Orientation.landscape
+                              ? Axis.vertical
+                              : Axis.horizontal,
+                      alignment: WrapAlignment.center,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      children: [
+                        const AvatarIcon(),
+                        IntrinsicHeight(
+                          child: Column(
+                            children: [
+                              IntrinsicWidth(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Flexible(
+                                      flex: 6,
+                                      child: FittedBox(
+                                        child: Text.rich(
+                                          TextSpan(
+                                              style: kTSTitle,
+                                              text: 'Omar Elnemr',
+                                              children: [
+                                                TextSpan(
+                                                    text: '\nmobile apps dev',
+                                                    style: kTSSubName)
+                                              ]),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: AnimatedBuilder(
+                                        animation: animationCTR,
+                                        builder: (BuildContext context,
+                                            Widget? child) {
+                                          return CustomPaint(
+                                            size: Size(
+                                                8,
+                                                (animationCTR.value *
+                                                        3.2142857142857144)
+                                                    .toDouble()),
+                                            painter: GradientContainerPaint(),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (isMinimized == false)
+                                IntrinsicWidth(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      for (LinkButtonConfig config in configs)
+                                        Flexible(
+                                            child: FittedBox(
+                                                child:
+                                                    LinkButton(config: config)))
+                                    ],
+                                  ),
+                                )
+                            ],
+                          ),
                         )
-                      : Wrap(
-                          direction:
-                              isMinimized ? Axis.vertical : Axis.horizontal,
-                          alignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.end,
-                          runAlignment: WrapAlignment.center,
-                          children: [
-                            const AvatarIcon(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: title,
-                            ),
-                            for (LinkButtonConfig config in configs)
-                              LinkButton(config: config)
-                          ],
-                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
