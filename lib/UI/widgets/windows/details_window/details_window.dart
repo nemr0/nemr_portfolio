@@ -39,7 +39,85 @@ class DetailsWindow extends HookConsumerWidget {
       });
       return null;
     }, []);
-
+    final List<Widget> widgets = [
+      Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: FittedBox(
+            child: CupertinoSlidingSegmentedControl(
+              thumbColor:
+                  isMin ? CupertinoColors.tertiarySystemFill : kPrimaryColor,
+              groupValue: segmentedValue,
+              onValueChanged: (int? value) {
+                ref.read(segmentedValueProvider.notifier).state = value!;
+              },
+              children: {
+                0: GestureDetector(
+                  onTap: () {
+                    ref.read(segmentedValueProvider.notifier).state = 0;
+                    if (isMin) {
+                      ref.read(isDetailsMinimizedProvider.notifier).state =
+                          false;
+                    }
+                  },
+                  child: const FittedBox(
+                    child: Text(
+                      'Projects',
+                      style: kTSSegmentedController,
+                    ),
+                  ),
+                ),
+                1: GestureDetector(
+                  onTap: () {
+                    ref.read(segmentedValueProvider.notifier).state = 1;
+                    if (isMin) {
+                      ref.read(isDetailsMinimizedProvider.notifier).state =
+                          false;
+                    }
+                  },
+                  child: const FittedBox(
+                    child: Text(
+                      'Route',
+                      style: kTSSegmentedController,
+                    ),
+                  ),
+                ),
+                2: GestureDetector(
+                  onTap: () {
+                    ref.read(segmentedValueProvider.notifier).state = 2;
+                    if (isMin) {
+                      ref.read(isDetailsMinimizedProvider.notifier).state =
+                          false;
+                    }
+                  },
+                  child: const FittedBox(
+                    child: Text(
+                      'Contact',
+                      style: kTSSegmentedController,
+                    ),
+                  ),
+                )
+              },
+            ),
+          ),
+        ),
+      ),
+      Center(
+        child: AnimatedSwitcher(
+          duration: duration,
+          child: isMin
+              ? const SizedBox.shrink()
+              : (segmentedValue == 0)
+                  ? underConstruction
+                  : (segmentedValue == 1)
+                      ? const ExperienceSubWindow()
+                      : isFormSent == true
+                          ? formSent
+                          : form,
+        ),
+      ),
+    ];
     return Window(
         duration: duration,
         isMinProvider: isDetailsMinimizedProvider,
@@ -49,100 +127,14 @@ class DetailsWindow extends HookConsumerWidget {
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: ListView(
+            child: ListView.builder(
               controller: scrollCTR,
               physics: orientation == Orientation.portrait
                   ? const NeverScrollableScrollPhysics()
-                  : null,
+                  : const BouncingScrollPhysics(),
               shrinkWrap: orientation == Orientation.landscape ? false : true,
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 20),
-                    child: FittedBox(
-                      child: CupertinoSlidingSegmentedControl(
-                        thumbColor: isMin
-                            ? CupertinoColors.tertiarySystemFill
-                            : kPrimaryColor,
-                        groupValue: segmentedValue,
-                        onValueChanged: (int? value) {
-                          ref.read(segmentedValueProvider.notifier).state =
-                              value!;
-                        },
-                        children: {
-                          0: GestureDetector(
-                            onTap: () {
-                              ref.read(segmentedValueProvider.notifier).state =
-                                  0;
-                              if (isMin) {
-                                ref
-                                    .read(isDetailsMinimizedProvider.notifier)
-                                    .state = false;
-                              }
-                            },
-                            child: const FittedBox(
-                              child: Text(
-                                'Projects',
-                                style: kTSSegmentedController,
-                              ),
-                            ),
-                          ),
-                          1: GestureDetector(
-                            onTap: () {
-                              ref.read(segmentedValueProvider.notifier).state =
-                                  1;
-                              if (isMin) {
-                                ref
-                                    .read(isDetailsMinimizedProvider.notifier)
-                                    .state = false;
-                              }
-                            },
-                            child: const FittedBox(
-                              child: Text(
-                                'Route',
-                                style: kTSSegmentedController,
-                              ),
-                            ),
-                          ),
-                          2: GestureDetector(
-                            onTap: () {
-                              ref.read(segmentedValueProvider.notifier).state =
-                                  2;
-                              if (isMin) {
-                                ref
-                                    .read(isDetailsMinimizedProvider.notifier)
-                                    .state = false;
-                              }
-                            },
-                            child: const FittedBox(
-                              child: Text(
-                                'Contact',
-                                style: kTSSegmentedController,
-                              ),
-                            ),
-                          )
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Center(
-                  child: AnimatedSwitcher(
-                    duration: duration,
-                    child: isMin
-                        ? const SizedBox.shrink()
-                        : (segmentedValue == 0)
-                            ? underConstruction
-                            : (segmentedValue == 1)
-                                ? const ExperienceSubWindow()
-                                : isFormSent == true
-                                    ? formSent
-                                    : form,
-                  ),
-                ),
-              ],
+              itemCount: widgets.length,
+              itemBuilder: (BuildContext context, int index) => widgets[index],
             ),
           ),
         ));

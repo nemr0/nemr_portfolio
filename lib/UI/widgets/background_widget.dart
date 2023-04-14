@@ -18,12 +18,14 @@ class BackgroundWidget extends StatelessWidget {
       backgroundColor: kBgColor,
       child: Stack(
         children: [
-          FadeInImage(
-            placeholder: MemoryImage(kTransparentImage),
-            image: const NetworkImage('/assets/background.png'),
-            height: double.infinity,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          RepaintBoundary(
+            child: FadeInImage(
+              placeholder: MemoryImage(kTransparentImage),
+              image: const NetworkImage('/assets/background.png'),
+              height: double.infinity,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
           // Center(
           //   child: Image.asset(

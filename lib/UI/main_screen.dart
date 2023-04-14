@@ -8,7 +8,7 @@ import 'package:nemr_portfolio/UI/widgets/windows/about_me_window/about_me_windo
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/details_window.dart';
 
 /// Where everything is rendered
-class MainScreen extends HookConsumerWidget {
+class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,91 +16,84 @@ class MainScreen extends HookConsumerWidget {
     final isAboutMeMinimized = ref.watch(isAboutMeMinimizedProvider);
     final isDetailsMinimized = ref.watch(isDetailsMinimizedProvider);
     final orientation = getOrientation(context);
-    final animationCTR =
-        useAnimationController(duration: const Duration(milliseconds: 2000));
-    final animation =
-        useAnimation(Tween(begin: 0.0, end: 1.0).animate(animationCTR));
-    useEffect(() {
-      animationCTR.forward();
-      return null;
-    }, []);
+
     return BackgroundWidget(
       /// Landscape
-      child: Opacity(
-        opacity: animation,
-        child: (orientation == Orientation.landscape)
-            ? Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Spacer(),
-                    Flexible(
-                      flex: 8,
+      child: (orientation == Orientation.landscape)
+          ? Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Spacer(),
+                  Flexible(
+                    flex: 8,
+                    child: Column(
+                      children: [
+                        const Spacer(),
+                        Flexible(
+                            flex: isAboutMeMinimized ? 1 : 4,
+                            fit: FlexFit.tight,
+                            child: const AboutMeWindow()),
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  Flexible(
+                      flex: 12,
                       child: Column(
                         children: [
                           const Spacer(),
                           Flexible(
-                              flex: isAboutMeMinimized ? 1 : 4,
-                              fit: FlexFit.tight,
-                              child: const AboutMeWindow()),
+                              flex: isDetailsMinimized ? 1 : 10,
+                              child: const DetailsWindow()),
                           const Spacer(),
                         ],
-                      ),
-                    ),
-                    const Spacer(),
-                    Flexible(
-                        flex: 12,
-                        child: Column(
-                          children: [
-                            const Spacer(),
-                            Flexible(
-                                flex: isDetailsMinimized ? 1 : 10,
-                                child: const DetailsWindow()),
-                            const Spacer(),
-                          ],
-                        )),
-                    const Spacer(),
-                  ],
+                      )),
+                  const Spacer(),
+                ],
+              ),
+            )
+          :
+
+          /// Portrait
+          HookBuilder(builder: (context) {
+              const List<Widget> widgets = [
+                SizedBox(
+                  height: 20,
                 ),
-              )
-            :
-
-            /// Portrait
-            HookBuilder(builder: (BuildContext context) {
-                final scrollCTR = useScrollController();
-
-                return CupertinoScrollbar(
-                  thumbVisibility: true,
-                  controller: scrollCTR,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: ListView(
-                        controller: scrollCTR,
-                        shrinkWrap: true,
-                        children: const [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          AboutMeWindow(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          DetailsWindow(),
-                          SizedBox(
-                            height: 80,
-                          ),
-                        ],
-                      ),
+                AboutMeWindow(),
+                SizedBox(
+                  height: 20,
+                ),
+                DetailsWindow(),
+                SizedBox(
+                  height: 80,
+                ),
+              ];
+              final ctr = useScrollController();
+              return CupertinoScrollbar(
+                thumbVisibility: true,
+                controller: ctr,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context)
+                        .copyWith(scrollbars: false),
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: ctr,
+                      shrinkWrap: true,
+                      itemCount: widgets.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          widgets[index],
                     ),
                   ),
-                );
-              }),
-      ),
+                ),
+              );
+            }),
     );
   }
 }
