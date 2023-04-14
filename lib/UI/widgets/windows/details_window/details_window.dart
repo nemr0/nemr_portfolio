@@ -111,7 +111,7 @@ class DetailsWindow extends HookConsumerWidget {
         alignment: Alignment.topCenter,
         index: isMin
             ? 0
-            : (segmentedValue == 1 || segmentedValue == 2)
+            : (segmentedValue == 0 || segmentedValue == 1)
                 ? segmentedValue + 1
                 : isFormSent == true
                     ? 4
