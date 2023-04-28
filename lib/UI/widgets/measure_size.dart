@@ -28,6 +28,7 @@ class MeasureSize extends HookWidget {
     }
 
     SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
+
     return SizedBox(
       key: widgetKey,
       child: builder(context, oldSize.value),

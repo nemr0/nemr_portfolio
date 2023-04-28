@@ -4,8 +4,8 @@ import 'package:rive/rive.dart';
 import '../../../../config/colors.dart';
 import '../../../../config/text_styles.dart';
 
-class UnderConstructionWindow extends StatelessWidget {
-  const UnderConstructionWindow({Key? key}) : super(key: key);
+class UnderConstructionSubWindow extends StatelessWidget {
+  const UnderConstructionSubWindow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,9 @@ class UnderConstructionWindow extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              color: kContainerColor, borderRadius: BorderRadius.circular(10)),
+            color: kContainerColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: const Text(
             'This one is Under Construction!\n it will be available soon :)',
             style: kTSBody,

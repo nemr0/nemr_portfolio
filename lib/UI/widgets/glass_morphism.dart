@@ -6,18 +6,21 @@ import 'package:flutter/cupertino.dart';
 Decoration glassBoxDecoration(
 
         /// use a color with 35% opacity
-        {required Color color,
-        double radius = 10,
-        Size? size}) =>
+        {
+  required Color color,
+  double radius = 10,
+  Size? size,
+}) =>
     BoxDecoration(
       border:
           Border.all(color: CupertinoColors.white.withOpacity(.05), width: 1),
       boxShadow: [
         BoxShadow(
-            color: color.withOpacity(.2),
-            blurRadius: 10,
-            spreadRadius: 5,
-            offset: size == null ? Offset.zero : Offset(0, size.height / 2)),
+          color: color.withOpacity(.2),
+          blurRadius: 10,
+          spreadRadius: 5,
+          offset: size == null ? Offset.zero : Offset(0, size.height / 2),
+        ),
       ],
       gradient: LinearGradient(
         colors: [
@@ -62,7 +65,9 @@ class GlassMorphism extends StatelessWidget {
           height: height,
           width: width,
           decoration: glassBoxDecoration(
-              color: glassColor ?? color, size: Size(width, height)),
+            color: glassColor ?? color,
+            size: Size(width, height),
+          ),
           padding: const EdgeInsets.all(3),
           child: child,
         ),

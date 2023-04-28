@@ -33,7 +33,9 @@ class BackgroundWidget extends StatelessWidget {
 
           //   ),
           // ),
-          Center(child: SizedBox(child: child))
+          Center(
+            child: SizedBox(child: child),
+          ),
           // Container(
           //   height: double.infinity,
           //   width: double.infinity,

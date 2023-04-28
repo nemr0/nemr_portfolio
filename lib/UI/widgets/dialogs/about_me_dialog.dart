@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
-import 'package:nemr_portfolio/config/link_button_configs.dart';
+import 'package:nemr_portfolio/config/link_button_config.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
 import '../windows/about_me_window/link_button.dart';
@@ -14,7 +14,7 @@ class AboutMeDialog extends StatelessWidget {
       title: const Text('About'),
       content: Column(
         children: [
-          const TextByIconButtonWidget(
+          const TextByIconButton(
             noSpace: true,
             text: 'Built With',
             textDirection: TextDirection.rtl,
@@ -35,7 +35,7 @@ class AboutMeDialog extends StatelessWidget {
           Wrap(
             children: [
               for (LinkButtonConfig config in aboutConfigs)
-                LinkButton(config: config)
+                LinkButton(config: config),
             ],
           ),
           const Text(

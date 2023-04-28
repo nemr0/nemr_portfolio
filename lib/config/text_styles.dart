@@ -21,15 +21,20 @@ const TextStyle kTSBody = TextStyle(
 const TextStyle kTSSubName =
     TextStyle(color: kPrimaryColor, fontFamily: kVT323Family, fontSize: 16);
 const TextStyle kTSExperienceBody = TextStyle(
-    fontWeight: FontWeight.normal,
-    color: kPrimaryColor,
-    fontFamily: kRobotoMonoFamily,
-    fontSize: 16);
+  fontWeight: FontWeight.normal,
+  color: kPrimaryColor,
+  fontFamily: kRobotoMonoFamily,
+  fontSize: 16,
+);
 
 /// used for segmented controller items and submit button
 const TextStyle kTSSegmentedController = TextStyle(
-    color: CupertinoColors.white, fontFamily: kRobotoMonoFamily, fontSize: 13);
+  color: CupertinoColors.white,
+  fontFamily: kRobotoMonoFamily,
+  fontSize: 13,
+);
 const TextStyle kTSAgreement = TextStyle(
-    color: CupertinoColors.extraLightBackgroundGray,
-    fontFamily: kRobotoMonoFamily,
-    fontSize: 11);
+  color: CupertinoColors.extraLightBackgroundGray,
+  fontFamily: kRobotoMonoFamily,
+  fontSize: 11,
+);

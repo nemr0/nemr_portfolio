@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'dart:ui' as ui;
 
-class DashedLineVerticalPainter extends CustomPainter {
-  DashedLineVerticalPainter({this.withCircle = true});
+class VerticalDashedLinePainter extends CustomPainter {
+  VerticalDashedLinePainter({this.withCircle = true});
   final bool withCircle;
   @override
   void paint(Canvas canvas, Size size) {
@@ -10,12 +10,17 @@ class DashedLineVerticalPainter extends CustomPainter {
 
     if (withCircle) {
       Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-      paint0Fill.shader = ui.Gradient.radial(const Offset(0, 0), 12,
-          [const Color(0xff1E1E1E), const Color(0xff474242)], [0, 1]);
+      paint0Fill.shader = ui.Gradient.radial(
+        const Offset(0, 0),
+        12,
+        [const Color(0xff1E1E1E), const Color(0xff474242)],
+        [0, 1],
+      );
 
       canvas.drawOval(
-          Rect.fromCenter(center: const Offset(0, 0), width: 12, height: 12),
-          paint0Fill);
+        Rect.fromCenter(center: const Offset(0, 0), width: 12, height: 12),
+        paint0Fill,
+      );
       startY += 10;
     }
     final paint = Paint()

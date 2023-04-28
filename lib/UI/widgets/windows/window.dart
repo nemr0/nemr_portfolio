@@ -9,7 +9,7 @@ import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 import '../../../config/colors.dart';
 import '../../helpers/is_mobile.dart';
 import '../custom_paint/window_painter.dart';
-import '../dialogs/about_dialog.dart';
+import '../dialogs/about_me_dialog.dart';
 
 /// Window Widget for every created window
 class Window extends HookConsumerWidget {
@@ -20,6 +20,7 @@ class Window extends HookConsumerWidget {
     this.duration = const Duration(milliseconds: 300),
     this.iAdded = false,
   });
+
   final bool iAdded;
   final Duration duration;
   final StateProvider<bool> isMinProvider;
@@ -41,18 +42,27 @@ class Window extends HookConsumerWidget {
     final isDisabled = useState<bool>(false);
     // adds a listener to isDisabled to automatically re-assigning
     // its value if true
-    useEffect(() {
-      isDisabled.addListener(() {
-        if (isDisabled.value) {
-          Future.delayed(duration, () {
-            isDisabled.value = false;
-          });
-        }
-      });
-      animationCTR.forward();
+    useEffect(
+      () {
+        isDisabled.addListener(() {
+          if (isDisabled.value) {
+            Future.delayed(duration, () {
+              isDisabled.value = false;
+            });
+          }
+        });
+        animationCTR.forward();
 
-      return null;
-    }, []);
+        return null;
+      },
+      [],
+    );
+    selectMinimizeIconColor(bool isDisabled, bool isMinimized) {
+      if (isDisabled) return kGradientColor;
+      if (isMinimized) return kGreenColor;
+
+      return kYellowColor;
+    }
 
     return Opacity(
       opacity: animation,
@@ -66,20 +76,22 @@ class Window extends HookConsumerWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: BackdropFilter(
               filter: ImageFilter.blur(
-                  sigmaX: isHover.value ? 3 : 2,
-                  sigmaY: isHover.value ? 5 : 4,
-                  tileMode: TileMode.repeated),
+                sigmaX: isHover.value ? 3 : 2,
+                sigmaY: isHover.value ? 5 : 4,
+                tileMode: TileMode.repeated,
+              ),
               child: Container(
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        CupertinoColors.black.withOpacity(.15),
-                        CupertinoColors.black.withOpacity(.20),
-                      ],
-                      begin: AlignmentDirectional.topStart,
-                      end: AlignmentDirectional.bottomEnd,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                  gradient: LinearGradient(
+                    colors: [
+                      CupertinoColors.black.withOpacity(.15),
+                      CupertinoColors.black.withOpacity(.20),
+                    ],
+                    begin: AlignmentDirectional.topStart,
+                    end: AlignmentDirectional.bottomEnd,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
                 child: CustomPaint(
                   willChange: true,
                   painter: WindowPainter(isHover: isHover.value),
@@ -88,7 +100,9 @@ class Window extends HookConsumerWidget {
                     child: Stack(
                       children: [
                         AnimatedSize(
-                            duration: duration, child: Center(child: child)),
+                          duration: duration,
+                          child: Center(child: child),
+                        ),
                         if (iAdded)
                           Positioned(
                             right: 8,
@@ -96,15 +110,16 @@ class Window extends HookConsumerWidget {
                             child: Tooltip(
                               message: 'About',
                               decoration: glassBoxDecoration(
-                                  color: kPrimaryColor.withOpacity(.35)),
+                                color: kPrimaryColor.withOpacity(.35),
+                              ),
                               child: CupertinoButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
                                   showCupertinoDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (context) =>
-                                          const AboutMeDialog());
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) => const AboutMeDialog(),
+                                  );
                                 },
                                 child: const Icon(
                                   CupertinoIcons.info_circle,
@@ -125,27 +140,28 @@ class Window extends HookConsumerWidget {
                                   ? null
                                   : () => {
                                         isMinimized.update((state) => !state),
-                                        isDisabled.value = true
+                                        isDisabled.value = true,
                                       },
                               // onMinimized!(isMinimized.state);
                               child: Tooltip(
                                 message:
                                     isMinimized.state ? 'Maximize' : 'Minimize',
                                 decoration: glassBoxDecoration(
-                                    color: isMinimized.state
-                                        ? kGreenColor.withOpacity(.35)
-                                        : kYellowColor.withOpacity(.35)),
+                                  color: isMinimized.state
+                                      ? kGreenColor.withOpacity(.35)
+                                      : kYellowColor.withOpacity(.35),
+                                ),
                                 child: AnimatedContainer(
                                   duration: duration,
                                   width: 12,
                                   height: 12,
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      color: isDisabled.value
-                                          ? kGradientColor
-                                          : isMinimized.state
-                                              ? kGreenColor
-                                              : kYellowColor),
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: selectMinimizeIconColor(
+                                      isDisabled.value,
+                                      isMinimized.state,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

@@ -7,7 +7,7 @@ import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:seo/html/seo_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../config/link_button_configs.dart';
+import '../../../../config/link_button_config.dart';
 
 onLinkLaunch(String link) async => await canLaunchUrl(Uri.parse(link))
     ? launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication)
@@ -22,6 +22,7 @@ class LinkButton extends HookWidget {
   Widget build(BuildContext context) {
     final Decoration decoration = glassBoxDecoration(color: config.color);
     final onHoverSize = useState(30.0);
+
     return Seo.link(
       href: config.link ?? '',
       anchor: config.asset,
@@ -36,21 +37,21 @@ class LinkButton extends HookWidget {
               : const BoxDecoration(color: Color(0x00000000)),
           textStyle: kTSAgreement,
           child: CupertinoButton(
-              padding: EdgeInsets.zero,
-              onPressed: config.link == null
-                  ? null
-                  : () => onLinkLaunch((config.link)!),
-              child: GlassMorphism(
-                height: onHoverSize.value,
-                width: onHoverSize.value,
-                color: config.color,
-                child: Image.asset(
-                  'assets/icons/${config.asset}.png',
-                  height: onHoverSize.value - 8,
-                  width: onHoverSize.value - 8,
-                  fit: BoxFit.contain,
-                ),
-              )),
+            padding: EdgeInsets.zero,
+            onPressed:
+                config.link == null ? null : () => onLinkLaunch((config.link)!),
+            child: GlassMorphism(
+              height: onHoverSize.value,
+              width: onHoverSize.value,
+              color: config.color,
+              child: Image.asset(
+                'assets/icons/${config.asset}.png',
+                height: onHoverSize.value - 8,
+                width: onHoverSize.value - 8,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
         ),
       ),
     );

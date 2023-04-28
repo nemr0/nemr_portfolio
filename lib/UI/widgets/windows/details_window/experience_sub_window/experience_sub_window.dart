@@ -30,6 +30,7 @@ class ExperienceSubWindow extends HookWidget {
     const String educationOne =
         'MANAGEMENT INFORMATION SYSTEMS,\nELSHEROUK ACADEMY,\nGraduation Project:';
     const String educationTwo = '\nSmart Attendance System using QR code.';
+
     return RepaintBoundary(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -53,7 +54,7 @@ class ExperienceSubWindow extends HookWidget {
                 children: [
                   CustomPaint(
                     size: Size(1, size?.height ?? 50),
-                    painter: DashedLineVerticalPainter(withCircle: false),
+                    painter: VerticalDashedLinePainter(withCircle: false),
                   ),
                   const SizedBox(
                     width: 8,
@@ -93,7 +94,7 @@ class ExperienceSubWindow extends HookWidget {
                   children: [
                     CustomPaint(
                       size: Size(1, size?.height ?? 100),
-                      painter: DashedLineVerticalPainter(),
+                      painter: VerticalDashedLinePainter(),
                     ),
                     const SizedBox(
                       width: 8,
@@ -101,25 +102,29 @@ class ExperienceSubWindow extends HookWidget {
                     const Expanded(
                       flex: 3,
                       child: SelectableText.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                            text: experienceOne,
-                          ),
-                          TextSpan(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: experienceOne,
+                            ),
+                            TextSpan(
                               text: experienceTwo,
                               style: TextStyle(
                                 fontSize: 12,
                                 color: CupertinoColors.white,
-                              )),
-                          TextSpan(text: experienceThree),
-                          TextSpan(
-                            text: experienceFour,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: CupertinoColors.white,
+                              ),
                             ),
-                          ),
-                        ], style: kTSExperienceBody),
+                            TextSpan(text: experienceThree),
+                            TextSpan(
+                              text: experienceFour,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: CupertinoColors.white,
+                              ),
+                            ),
+                          ],
+                          style: kTSExperienceBody,
+                        ),
                       ),
                     ),
                   ],
@@ -128,9 +133,10 @@ class ExperienceSubWindow extends HookWidget {
             ),
             spacer,
             Seo.text(
-                text: educationWord,
-                style: TextTagStyle.h2,
-                child: const Text(educationWord, style: kTSTitle)),
+              text: educationWord,
+              style: TextTagStyle.h2,
+              child: const Text(educationWord, style: kTSTitle),
+            ),
             spacer,
             MeasureSize(
               builder: (context, size) => Row(
@@ -139,7 +145,7 @@ class ExperienceSubWindow extends HookWidget {
                 children: [
                   CustomPaint(
                     size: Size(1, size?.height ?? 50),
-                    painter: DashedLineVerticalPainter(),
+                    painter: VerticalDashedLinePainter(),
                   ),
                   const SizedBox(
                     width: 8,
@@ -148,23 +154,24 @@ class ExperienceSubWindow extends HookWidget {
                     text: educationDate + educationOne + educationTwo,
                     child: const Expanded(
                       child: SelectableText.rich(TextSpan(
-                          text: educationDate,
-                          children: [
-                            TextSpan(
-                              text: educationOne,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: CupertinoColors.white,
-                              ),
+                        text: educationDate,
+                        children: [
+                          TextSpan(
+                            text: educationOne,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: CupertinoColors.white,
                             ),
-                            TextSpan(
-                              text: educationTwo,
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            )
-                          ],
-                          style: kTSExperienceBody)),
+                          ),
+                          TextSpan(
+                            text: educationTwo,
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                        style: kTSExperienceBody,
+                      )),
                     ),
                   ),
                 ],

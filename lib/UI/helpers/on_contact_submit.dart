@@ -23,14 +23,22 @@ import 'package:nemr_portfolio/model/send_mail.dart';
 //         context: context,
 //         builder: (context) => const ReCaptchaDialog()));
 // ignore_for_file: use_build_context_synchronously
-onSubmit(BuildContext context, String company, String name, String email,
-    String phone, String desc) async {
+onSubmit(
+  BuildContext context,
+  String company,
+  String name,
+  String email,
+  String phone,
+  String desc,
+) async {
   String? reCaptchaToken = await showCupertinoDialog(
-      barrierDismissible: true,
-      context: context,
-      builder: (context) => const ReCaptchaDialog());
+    barrierDismissible: true,
+    context: context,
+    builder: (context) => const ReCaptchaDialog(),
+  );
   if (reCaptchaToken == null) {
     showErrorDialog(context, 'I guess You\'re a Robot :(');
+
     return;
   }
   GetStorage get = GetStorage();

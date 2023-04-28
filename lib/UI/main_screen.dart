@@ -16,6 +16,8 @@ class MainScreen extends ConsumerWidget {
     final isAboutMeMinimized = ref.watch(isAboutMeMinimizedProvider);
     final isDetailsMinimized = ref.watch(isDetailsMinimizedProvider);
     final orientation = getOrientation(context);
+    final int aboutFlex = isAboutMeMinimized ? 1 : 4;
+    final int detailsFlex = isDetailsMinimized ? 1 : 10;
 
     return BackgroundWidget(
       /// Landscape
@@ -33,25 +35,28 @@ class MainScreen extends ConsumerWidget {
                       children: [
                         const Spacer(),
                         Flexible(
-                            flex: isAboutMeMinimized ? 1 : 4,
-                            fit: FlexFit.tight,
-                            child: const AboutMeWindow()),
+                          flex: aboutFlex,
+                          fit: FlexFit.tight,
+                          child: const AboutMeWindow(),
+                        ),
                         const Spacer(),
                       ],
                     ),
                   ),
                   const Spacer(),
                   Flexible(
-                      flex: 12,
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          Flexible(
-                              flex: isDetailsMinimized ? 1 : 10,
-                              child: const DetailsWindow()),
-                          const Spacer(),
-                        ],
-                      )),
+                    flex: 12,
+                    child: Column(
+                      children: [
+                        const Spacer(),
+                        Flexible(
+                          flex: detailsFlex,
+                          child: const DetailsWindow(),
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
                   const Spacer(),
                 ],
               ),
@@ -74,6 +79,7 @@ class MainScreen extends ConsumerWidget {
                 ),
               ];
               final ctr = useScrollController();
+
               return CupertinoScrollbar(
                 thumbVisibility: true,
                 controller: ctr,

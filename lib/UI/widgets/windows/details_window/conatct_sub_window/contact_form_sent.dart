@@ -23,7 +23,9 @@ class ContactFormSent extends StatelessWidget {
           width: 200,
           height: 200,
           decoration: BoxDecoration(
-              color: kContainerColor, borderRadius: BorderRadius.circular(100)),
+            color: kContainerColor,
+            borderRadius: BorderRadius.circular(100),
+          ),
           child: const RiveAnimation.asset(
             'assets/rive/form_sent.riv',
             animations: ['loading_animation'],
@@ -38,7 +40,9 @@ class ContactFormSent extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              color: kContainerColor, borderRadius: BorderRadius.circular(10)),
+            color: kContainerColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: const Text(
             'Form Successfully Sent!\nI\'ll contact you asap :)',
             style: kTSBody,
@@ -50,18 +54,18 @@ class ContactFormSent extends StatelessWidget {
         ),
         Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) =>
-              CCupertinoButton(
+              CustomCupertinoButton(
             text: 'Re-Send?',
-            onPressed: () async {
-              await GetStorage().remove('desc');
-              ref.read(isFormSentProvider.notifier).state = false;
+            onPressed: () {
+              GetStorage().remove('desc').then((value) =>
+                  ref.read(isFormSentProvider.notifier).state = false);
             },
           ),
         ),
         const SizedBox(
           height: 25,
         ),
-        const TextByIconButtonWidget(),
+        const TextByIconButton(),
         const SizedBox(
           height: 25,
         ),

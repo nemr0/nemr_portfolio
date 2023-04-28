@@ -32,17 +32,34 @@ class DetailsWindow extends HookConsumerWidget {
     final scrollCTR = useScrollController();
     const List<Widget> selectedWidget = [
       SizedBox.shrink(),
-      UnderConstructionWindow(),
+      UnderConstructionSubWindow(),
       ExperienceSubWindow(),
-      ContactMeWindow(),
+      ContactSubWindow(),
       ContactFormSent(),
     ];
-    useEffect(() {
-      GetStorage().listenKey('form_sent', (value) {
-        ref.read(isFormSentProvider.notifier).state = value;
-      });
-      return null;
-    }, []);
+
+    selectIndex(bool isMin, int segmentedValue, bool? isFormSent) {
+      if (isMin) {
+        return 0;
+      }
+      if (segmentedValue == 0 || segmentedValue == 1) return segmentedValue + 1;
+      if (isFormSent == true) {
+        return 4;
+      }
+
+      return 3;
+    }
+
+    useEffect(
+      () {
+        GetStorage().listenKey('form_sent', (value) {
+          ref.read(isFormSentProvider.notifier).state = value;
+        });
+
+        return null;
+      },
+      [],
+    );
     final List<Widget> widgets = [
       Align(
         alignment: Alignment.topCenter,
@@ -101,7 +118,7 @@ class DetailsWindow extends HookConsumerWidget {
                       style: kTSSegmentedController,
                     ),
                   ),
-                )
+                ),
               },
             ),
           ),
@@ -109,13 +126,7 @@ class DetailsWindow extends HookConsumerWidget {
       ),
       IndexedStack(
         alignment: Alignment.topCenter,
-        index: isMin
-            ? 0
-            : (segmentedValue == 0 || segmentedValue == 1)
-                ? segmentedValue + 1
-                : isFormSent == true
-                    ? 4
-                    : 3,
+        index: selectIndex(isMin, segmentedValue, isFormSent),
         children: selectedWidget,
       ),
       // Center(
@@ -133,25 +144,26 @@ class DetailsWindow extends HookConsumerWidget {
       //   ),
       // ),
     ];
+
     return Window(
-        duration: duration,
-        isMinProvider: isDetailsMinimizedProvider,
-        child: CupertinoScrollbar(
-          thumbVisibility: orientation == Orientation.landscape ? true : false,
-          controller: scrollCTR,
-          child: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: ListView.builder(
-              controller: scrollCTR,
-              physics: orientation == Orientation.portrait
-                  ? const NeverScrollableScrollPhysics()
-                  : const BouncingScrollPhysics(),
-              shrinkWrap: orientation == Orientation.landscape ? false : true,
-              itemCount: widgets.length,
-              itemBuilder: (BuildContext context, int index) => widgets[index],
-            ),
+      duration: duration,
+      isMinProvider: isDetailsMinimizedProvider,
+      child: CupertinoScrollbar(
+        thumbVisibility: orientation == Orientation.landscape ? true : false,
+        controller: scrollCTR,
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: ListView.builder(
+            controller: scrollCTR,
+            physics: orientation == Orientation.portrait
+                ? const NeverScrollableScrollPhysics()
+                : const BouncingScrollPhysics(),
+            shrinkWrap: orientation == Orientation.landscape ? false : true,
+            itemCount: widgets.length,
+            itemBuilder: (BuildContext context, int index) => widgets[index],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

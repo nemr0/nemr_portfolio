@@ -8,8 +8,8 @@ import '../../../buttons/custom_cupertino_button.dart';
 
 typedef FutureCallback = Future<void> Function();
 
-class SubmitContactButton extends HookConsumerWidget {
-  const SubmitContactButton({
+class SubmitButton extends HookConsumerWidget {
+  const SubmitButton({
     Key? key,
     this.onSubmit,
   }) : super(key: key);
@@ -32,7 +32,7 @@ class SubmitContactButton extends HookConsumerWidget {
     ));
     aligner() {
       if (animationCtr.isAnimating) return;
-      if (isThereAnyError == true) {
+      if (isThereAnyError) {
         if (animationCtr.isCompleted) {
           animationCtr.reverse();
         } else {
@@ -47,16 +47,15 @@ class SubmitContactButton extends HookConsumerWidget {
         onEnter: (_) => aligner(),
         child: GestureDetector(
           onTap: isMobile ? aligner : null,
-          child: CCupertinoButton(
+          child: CustomCupertinoButton(
             text: 'Submit',
             padding: const EdgeInsets.symmetric(horizontal: 10),
             isLoading: isLoading.value,
             onPressed: isThereAnyError
                 ? null
-                : () async {
+                : () {
                     isLoading.value = true;
-                    await onSubmit?.call();
-                    isLoading.value = false;
+                    onSubmit?.call().then((value) => isLoading.value = false);
                   },
           ),
         ),

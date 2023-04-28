@@ -13,10 +13,10 @@ const Color kYellowColor = Color(0xffFFCF55);
 /// Green Color
 const Color kGreenColor = Color(0xff05FF00);
 
-/// container fill background color
-const Color kContainerBgColor = Color(0x26000000);
-const Color kContainerOnHoverBgColor = Color(0x40000000);
-const Color kContainerSubAboutBgColor = Color(0x40000000);
+// /// container fill background color
+// const Color kContainerBgColor = Color(0x26000000);
+// const Color kContainerOnHoverBgColor = Color(0x40000000);
+// const Color kContainerSubAboutBgColor = Color(0x40000000);
 
 /// one of [kContainerGradient] colors
 const Color kGradientColor = Color(0xffC5BFBF);

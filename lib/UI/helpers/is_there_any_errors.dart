@@ -11,12 +11,13 @@ final isThereAnyErrorProvider = Provider.autoDispose<bool>((ref) {
   final isPhoneEmpty = ref.watch(phoneTECProvider).text.isEmpty;
   final isNameEmpty = ref.watch(nameTECProvider).text.isEmpty;
   final isTermsAgreed = ref.watch(isTermsAgreedProvider);
+
   return isNameEmpty ||
       isEmailEmpty ||
       isPhoneEmpty ||
       phoneError != null ||
       emailError != null ||
       nameError != null ||
-      isTermsAgreed == false;
+      !isTermsAgreed;
   // return false;
 });

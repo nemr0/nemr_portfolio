@@ -38,10 +38,10 @@ class TermsAgree extends HookConsumerWidget {
           GestureDetector(
             // cursor: SystemMouseCursors.click,
             onTap: () {
+              final bool? termsAgreedVal = (isTermsAgreed.value?.value);
               if (isTermsAgreed.value == null) return;
-              isTermsAgreed.value?.value = !(isTermsAgreed.value?.value)!;
-              ref.read(isTermsAgreedProvider.notifier).state =
-                  (isTermsAgreed.value?.value)!;
+              isTermsAgreed.value?.value = !termsAgreedVal!;
+              ref.read(isTermsAgreedProvider.notifier).state = termsAgreedVal!;
             },
             child: SizedBox(
               height: 30,
@@ -65,7 +65,7 @@ class TermsAgree extends HookConsumerWidget {
               maxLines: 4,
               style: kTSAgreement,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -5,14 +5,14 @@ import '../../../config/text_styles.dart';
 
 const Duration defaultDuration = Duration(milliseconds: 300);
 
-class CCupertinoButton extends StatelessWidget {
-  const CCupertinoButton(
-      {Key? key,
-      this.onPressed,
-      this.isLoading = false,
-      required this.text,
-      this.padding})
-      : super(key: key);
+class CustomCupertinoButton extends StatelessWidget {
+  const CustomCupertinoButton({
+    Key? key,
+    this.onPressed,
+    this.isLoading = false,
+    required this.text,
+    this.padding,
+  }) : super(key: key);
   final bool isLoading;
   final VoidCallback? onPressed;
   final String text;

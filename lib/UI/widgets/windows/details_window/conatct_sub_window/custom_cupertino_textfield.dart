@@ -8,8 +8,8 @@ import 'package:nemr_portfolio/config/text_styles.dart';
 import '../../../../../config/colors.dart';
 
 /// Custom Cupertino Text Field
-class CCTextField extends HookConsumerWidget {
-  const CCTextField({
+class CustomCupertinoTextField extends HookConsumerWidget {
+  const CustomCupertinoTextField({
     super.key,
     required this.storageKey,
     required this.controller,
@@ -63,26 +63,38 @@ class CCTextField extends HookConsumerWidget {
     final width = MediaQuery.of(context).size.width;
     final orientation = MediaQuery.of(context).orientation;
     final error = errorProvider != null ? ref.watch(errorProvider!) : null;
-    useEffect(() {
-      if (errorProvider != null) {
-        controller.addListener(() {
-          ref.watch((errorProvider?.notifier)!).state =
-              validator!(controller.text);
-        });
+    useEffect(
+      () {
+        if (errorProvider != null) {
+          controller.addListener(() {
+            ref.watch((errorProvider?.notifier)!).state =
+                validator!(controller.text);
+          });
+        }
+
+        return null;
+      },
+      [controller],
+    );
+    double rightPaddingOfTextField(Orientation orientation, double width) {
+      if (noRightPadding == true) {
+        return 0;
       }
-      return null;
-    }, [controller]);
+      if (orientation == Orientation.landscape) {
+        return width * .1;
+      }
+
+      return width * .05;
+    }
+
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-              right: noRightPadding == true
-                  ? 0
-                  : orientation == Orientation.landscape
-                      ? width * .1
-                      : width * .05),
+            top: 8.0,
+            bottom: 8.0,
+            right: rightPaddingOfTextField(orientation, width),
+          ),
           child: CupertinoTextField(
             readOnly: isDisabled,
             onTapOutside: (s) => onEditingCompleted,
@@ -100,7 +112,8 @@ class CCTextField extends HookConsumerWidget {
             style: isDisabled
                 ? const TextStyle(color: CupertinoColors.activeGreen)
                 : const TextStyle(
-                    color: CupertinoColors.extraLightBackgroundGray),
+                    color: CupertinoColors.extraLightBackgroundGray,
+                  ),
             prefix: Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Icon(
@@ -109,7 +122,9 @@ class CCTextField extends HookConsumerWidget {
               ),
             ),
             decoration: BoxDecoration(
-                color: kTFColor, borderRadius: BorderRadius.circular(10)),
+              color: kTFColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
             keyboardType: inputType,
             textInputAction: inputAction ?? TextInputAction.next,
             keyboardAppearance: Brightness.dark,
@@ -124,7 +139,7 @@ class CCTextField extends HookConsumerWidget {
               style:
                   kTSAgreement.copyWith(color: CupertinoColors.destructiveRed),
             ),
-          )
+          ),
       ],
     );
   }

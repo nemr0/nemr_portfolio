@@ -12,6 +12,7 @@ Future<void> main() async {
   ));
 }
 
+//ignore: prefer-match-file-name
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

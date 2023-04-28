@@ -12,8 +12,8 @@ import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 import '../../../../../config/validators.dart';
 import 'custom_cupertino_textfield.dart';
 
-class ContactMeWindow extends HookConsumerWidget {
-  const ContactMeWindow({
+class ContactSubWindow extends HookConsumerWidget {
+  const ContactSubWindow({
     super.key,
   });
 
@@ -36,72 +36,83 @@ class ContactMeWindow extends HookConsumerWidget {
       ),
 
       // company
-      CCTextField(
-          controller: companyCTR,
-          placeholder: 'Company',
-          icon: CupertinoIcons.house_alt_fill,
-          inputType: TextInputType.text,
-          storageKey: 'company',
-          validator: (String? s) => null),
+      CustomCupertinoTextField(
+        controller: companyCTR,
+        placeholder: 'Company',
+        icon: CupertinoIcons.house_alt_fill,
+        inputType: TextInputType.text,
+        storageKey: 'company',
+        validator: (String? s) => null,
+      ),
       const SizedBox(
         height: sHeight,
       ),
       // name
-      CCTextField(
-          controller: nameCTR,
-          placeholder: 'Name *',
-          icon: CupertinoIcons.profile_circled,
-          inputType: TextInputType.name,
-          errorProvider: nameErrorProvider,
-          storageKey: 'name',
-          validator: validateName),
+      CustomCupertinoTextField(
+        controller: nameCTR,
+        placeholder: 'Name *',
+        icon: CupertinoIcons.profile_circled,
+        inputType: TextInputType.name,
+        errorProvider: nameErrorProvider,
+        storageKey: 'name',
+        validator: validateName,
+      ),
       const SizedBox(
         height: sHeight,
       ),
       // phone
-      CCTextField(
-          controller: phoneCTR,
-          placeholder: 'Phone * exp: 201147898061',
-          errorProvider: phoneErrorProvider,
-          icon: CupertinoIcons.phone_fill,
-          inputType: TextInputType.phone,
-          textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
-          storageKey: 'phone',
-          validator: validateMobile),
+      CustomCupertinoTextField(
+        controller: phoneCTR,
+        placeholder: 'Phone * exp: 201147898061',
+        errorProvider: phoneErrorProvider,
+        icon: CupertinoIcons.phone_fill,
+        inputType: TextInputType.phone,
+        textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
+        storageKey: 'phone',
+        validator: validateMobile,
+      ),
       const SizedBox(
         height: sHeight,
       ),
       // email
-      CCTextField(
-          errorProvider: emailErrorProvider,
-          controller: emailCTR,
-          placeholder: 'Email *',
-          icon: CupertinoIcons.mail_solid,
-          inputType: TextInputType.emailAddress,
-          storageKey: 'email',
-          validator: validateEmail),
+      CustomCupertinoTextField(
+        errorProvider: emailErrorProvider,
+        controller: emailCTR,
+        placeholder: 'Email *',
+        icon: CupertinoIcons.mail_solid,
+        inputType: TextInputType.emailAddress,
+        storageKey: 'email',
+        validator: validateEmail,
+      ),
       const SizedBox(
         height: sHeight,
       ),
       // description
-      CCTextField(
-          controller: descCTR,
-          placeholder: 'Description (A Brief about what you need) :) ',
-          icon: CupertinoIcons.news_solid,
-          inputType: TextInputType.text,
-          inputAction: TextInputAction.next,
-          storageKey: 'desc',
-          minLines: 4,
-          maxLines: 8,
-          validator: (s) => null),
+      CustomCupertinoTextField(
+        controller: descCTR,
+        placeholder: 'Description (A Brief about what you need) :) ',
+        icon: CupertinoIcons.news_solid,
+        inputType: TextInputType.text,
+        inputAction: TextInputAction.next,
+        storageKey: 'desc',
+        minLines: 4,
+        maxLines: 8,
+        validator: (s) => null,
+      ),
       const SizedBox(
         height: sHeight,
       ),
       const TermsAgree(),
-      const TextByIconButtonWidget(),
-      SubmitContactButton(
-        onSubmit: () => onSubmit(context, companyCTR.text, nameCTR.text,
-            emailCTR.text, phoneCTR.text, descCTR.text),
+      const TextByIconButton(),
+      SubmitButton(
+        onSubmit: () => onSubmit(
+          context,
+          companyCTR.text,
+          nameCTR.text,
+          emailCTR.text,
+          phoneCTR.text,
+          descCTR.text,
+        ),
       ),
       const SizedBox(
         height: sHeight * .5,

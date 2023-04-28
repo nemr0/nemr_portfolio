@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helpers/get_orientation.dart';
 import 'package:seo/seo.dart';
 
-import '../../../../config/link_button_configs.dart';
+import '../../../../config/link_button_config.dart';
 import '../../../../config/text_styles.dart';
 import '../../../providers/is_minimized_providers.dart';
 import '../../custom_paint/name_painter.dart';
@@ -32,20 +32,25 @@ class AboutMeWindow extends HookConsumerWidget {
         : width * .6;
 
     final animationCTR = useAnimationController(
-        duration: const Duration(seconds: 1),
-        upperBound: uWidth * .035,
-        animationBehavior: AnimationBehavior.preserve);
-    useEffect(() {
-      animationCTR.forward();
-      animationCTR.addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          animationCTR.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          animationCTR.forward();
-        }
-      });
-      return null;
-    }, []);
+      duration: const Duration(seconds: 1),
+      upperBound: uWidth * .035,
+      animationBehavior: AnimationBehavior.preserve,
+    );
+    useEffect(
+      () {
+        animationCTR.forward();
+        animationCTR.addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            animationCTR.reverse();
+          } else if (status == AnimationStatus.dismissed) {
+            animationCTR.forward();
+          }
+        });
+
+        return null;
+      },
+      [],
+    );
     final isMinimized = ref.watch(isAboutMeMinimizedProvider);
     final scrollCTR = useScrollController();
 
@@ -91,13 +96,15 @@ class AboutMeWindow extends HookConsumerWidget {
                                       child: FittedBox(
                                         child: Text.rich(
                                           TextSpan(
-                                              style: kTSTitle,
-                                              text: 'Omar Elnemr',
-                                              children: [
-                                                TextSpan(
-                                                    text: '\nmobile apps dev',
-                                                    style: kTSSubName)
-                                              ]),
+                                            style: kTSTitle,
+                                            text: 'Omar Elnemr',
+                                            children: [
+                                              TextSpan(
+                                                text: '\nmobile apps dev',
+                                                style: kTSSubName,
+                                              ),
+                                            ],
+                                          ),
                                           textAlign: TextAlign.end,
                                         ),
                                       ),
@@ -105,15 +112,18 @@ class AboutMeWindow extends HookConsumerWidget {
                                     Flexible(
                                       child: AnimatedBuilder(
                                         animation: animationCTR,
-                                        builder: (BuildContext context,
-                                            Widget? child) {
+                                        builder: (
+                                          BuildContext context,
+                                          Widget? child,
+                                        ) {
                                           return CustomPaint(
                                             size: Size(
-                                                8,
-                                                (animationCTR.value *
-                                                        3.2142857142857144)
-                                                    .toDouble()),
-                                            painter: GradientContainerPaint(),
+                                              8,
+                                              (animationCTR.value *
+                                                      3.2142857142857144)
+                                                  .toDouble(),
+                                            ),
+                                            painter: NamePainter(),
                                           );
                                         },
                                       ),
@@ -121,22 +131,23 @@ class AboutMeWindow extends HookConsumerWidget {
                                   ],
                                 ),
                               ),
-                              if (isMinimized == false)
+                              if (!isMinimized)
                                 IntrinsicWidth(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       for (LinkButtonConfig config in configs)
                                         Flexible(
-                                            child: FittedBox(
-                                                child:
-                                                    LinkButton(config: config)))
+                                          child: FittedBox(
+                                            child: LinkButton(config: config),
+                                          ),
+                                        ),
                                     ],
                                   ),
-                                )
+                                ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
