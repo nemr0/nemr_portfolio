@@ -8,10 +8,10 @@ Widget errorDialog(String e, VoidCallback onPressed) => GlassMorphism(
       height: 100,
       width: 200,
       child: CupertinoAlertDialog(
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
+          children: [
             Icon(
               CupertinoIcons.xmark_circle_fill,
               color: CupertinoColors.destructiveRed,

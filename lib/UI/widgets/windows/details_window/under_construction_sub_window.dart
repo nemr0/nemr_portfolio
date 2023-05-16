@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../config/colors.dart';
+import '../../../../config/link_button_config.dart';
 import '../../../../config/text_styles.dart';
 
 class UnderConstructionSubWindow extends StatelessWidget {
@@ -33,6 +35,10 @@ class UnderConstructionSubWindow extends StatelessWidget {
             style: kTSBody,
             textAlign: TextAlign.center,
           ),
+        ),
+        const TextByIconButton(
+          text: "<-- You Can Check My CV here",
+          config: kCVLinkButtonConfig,
         ),
       ],
     );

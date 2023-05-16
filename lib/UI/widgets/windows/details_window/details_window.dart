@@ -4,7 +4,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/providers/details_providers.dart';
 import 'package:nemr_portfolio/UI/providers/is_minimized_providers.dart';
-import 'package:nemr_portfolio/UI/widgets/windows/details_window/experience_sub_window/experience_sub_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/details_window/under_construction_sub_window.dart';
 import 'package:nemr_portfolio/UI/widgets/windows/window.dart';
 
@@ -33,7 +32,7 @@ class DetailsWindow extends HookConsumerWidget {
     const List<Widget> selectedWidget = [
       SizedBox.shrink(),
       UnderConstructionSubWindow(),
-      ExperienceSubWindow(),
+      UnderConstructionSubWindow(),
       ContactSubWindow(),
       ContactFormSent(),
     ];
