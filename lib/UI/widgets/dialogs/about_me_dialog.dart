@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
-import 'package:nemr_portfolio/config/link_button_config.dart';
+import 'package:nemr_portfolio/model/link_button_config.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
-import '../windows/about_me_window/link_button.dart';
+import '../buttons/link_button.dart';
 
 class AboutMeDialog extends StatelessWidget {
   const AboutMeDialog({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class AboutMeDialog extends StatelessWidget {
             ],
           ),
           const Text(
-            'Also, all of Flutter Community Contributions, I hope I\'m not forgetting anyone :\'',
+            'Also, all of Flutter Community Contributions, I hope I\'m not forgetting anyone ❤️',
             style: kTSAgreement,
             textAlign: TextAlign.center,
           ),
@@ -58,6 +58,5 @@ List<LinkButtonConfig> aboutConfigs = [
   kFRiverpodLinkButtonConfig,
   kFHooksLinkButtonConfig,
   kEmailJSLinkButtonConfig,
-  kGithubLinkButtonConfig,
   kVercelLinkButtonConfig,
 ];

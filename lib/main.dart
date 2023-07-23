@@ -1,12 +1,17 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:nemr_portfolio/UI/main_screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 import 'package:seo/seo.dart';
+import 'package:url_strategy/url_strategy.dart';
+
+import 'UI/router/router_config.dart';
 import 'UI/style/theme.dart';
 
 Future<void> main() async {
+  setPathUrlStrategy();
   await GetStorage.init();
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
   runApp(const ProviderScope(
     child: MyApp(),
   ));
@@ -25,14 +30,12 @@ class MyApp extends StatelessWidget {
       /// widget tree observer
       tree: WidgetTree(context: context),
 
-      /// cupertino app
-      child: const CupertinoApp(
+      /// Material App
+      child: MaterialApp.router(
+        routerConfig: router,
         debugShowCheckedModeBanner: false,
         title: 'Omar Elnemr',
         theme: theme,
-
-        /// Start point
-        home: MainScreen(),
       ),
     );
   }
