@@ -19,6 +19,8 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const StartPoint(),
+      pageBuilder: (context, state) =>
+          CupertinoPage(key: state.pageKey, child: const StartPoint()),
       routes: [
         GoRoute(
           path: 'projects',
@@ -27,6 +29,7 @@ final router = GoRouter(
               path: Routes.projectHalaJary,
               name: Routes.projectHalaJary,
               pageBuilder: (context, state) => CupertinoModalPopupPage(
+                key: state.pageKey,
                 builder: (BuildContext context) => ProjectView(
                   config: configs[0],
                 ),
@@ -36,6 +39,7 @@ final router = GoRouter(
               path: Routes.projectLocalizationTextGenerator,
               name: Routes.projectLocalizationTextGenerator,
               pageBuilder: (context, state) => CupertinoModalPopupPage(
+                key: state.pageKey,
                 builder: (BuildContext context) => ProjectView(
                   config: configs[1],
                 ),
@@ -45,6 +49,7 @@ final router = GoRouter(
               path: Routes.projectDartDonut,
               name: Routes.projectDartDonut,
               pageBuilder: (context, state) => CupertinoModalPopupPage(
+                key: state.pageKey,
                 builder: (BuildContext context) => ProjectView(
                   config: configs[2],
                 ),
@@ -55,6 +60,7 @@ final router = GoRouter(
               path: Routes.projectImIn,
               name: Routes.projectImIn,
               pageBuilder: (context, state) => CupertinoModalPopupPage(
+                key: state.pageKey,
                 builder: (BuildContext context) => ProjectView(
                   config: configs[3],
                 ),
@@ -68,6 +74,7 @@ final router = GoRouter(
           path: Routes.about,
           name: Routes.about,
           pageBuilder: (context, state) => CupertinoModalPopupPage(
+            key: state.pageKey,
             builder: (context) => const AboutMeDialog(),
             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
           ),
@@ -75,6 +82,18 @@ final router = GoRouter(
         GoRoute(
           path: Routes.error,
           name: Routes.error,
+          pageBuilder: (context, state) => CupertinoModalPopupPage(
+            builder: (context) => BackgroundWidget(
+              child: Window(
+                padding: EdgeInsets.only(
+                  top: context.height * .05,
+                  right: context.width * .05,
+                  left: context.width * .05,
+                ),
+                child: const NotFoundWidget(),
+              ),
+            ),
+          ),
           builder: (context, state) => BackgroundWidget(
             child: Window(
               padding: EdgeInsets.only(
