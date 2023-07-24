@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rive/rive.dart';
 
 import '../../../config/colors.dart';
-import '../../../model/link_button_config.dart';
 import '../../../config/text_styles.dart';
 import '../../../generated/assets.dart';
 import 'about_me/avatar_widget.dart';
@@ -42,11 +43,12 @@ class NotFoundWidget extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        TextByIconButton(
-          text: "<-- Go Back To Home Page",
-          config: kHeartLinkButtonConfig.copyWith(
-            link: 'https://nemr.me',
-            newPage: false,
+        IconButton(
+          onPressed: () => context.go('/'),
+          icon: const FaIcon(
+            FontAwesomeIcons.house,
+            size: 50,
+            color: CupertinoColors.white,
           ),
         ),
       ],
