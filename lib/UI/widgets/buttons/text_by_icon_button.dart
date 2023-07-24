@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
-import 'package:nemr_portfolio/config/link_button_config.dart';
+import 'package:nemr_portfolio/model/link_button_config.dart';
 
 import '../../../config/text_styles.dart';
-import '../windows/about_me_window/link_button.dart';
+import 'link_button.dart';
 
 /// Originally was WhatsappContactWidget as text beside a whatsapp icon button
 /// now it defaults to whatsapp icon with button
