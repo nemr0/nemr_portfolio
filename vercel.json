@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "Omar Elnemr",
+  "rewrites": [
+
+    {"source": "/", "destination": "/"},
+    {"source": "/about-this-app", "destination": "/about-this-app"},
+    {"source": "/projects", "destination": "/projects"},
+    {"source": "/projects/imin", "destination": "/projects/imin"},
+    {"source": "/projects/HalaJary", "destination": "/projects/HalaJary"},
+    {"source": "/projects/dart_donut", "destination": "/projects/dart_donut"},
+    {"source": "/*", "destination": "/404"}
+  ]
+}

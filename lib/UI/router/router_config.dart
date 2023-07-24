@@ -72,6 +72,20 @@ final router = GoRouter(
             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
           ),
         ),
+        GoRoute(
+          path: Routes.error,
+          name: Routes.error,
+          builder: (context, state) => BackgroundWidget(
+            child: Window(
+              padding: EdgeInsets.only(
+                top: context.height * .05,
+                right: context.width * .05,
+                left: context.width * .05,
+              ),
+              child: const NotFoundWidget(),
+            ),
+          ),
+        ),
       ],
     ),
   ],

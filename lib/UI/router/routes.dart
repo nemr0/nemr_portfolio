@@ -5,4 +5,5 @@ class Routes {
   static const String projectImIn = 'imin';
   static const String projectHalaJary = 'HalaJary';
   static const String about = 'about-this-app';
+  static const String error = '404';
 }
