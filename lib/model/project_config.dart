@@ -1,6 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/model/link_button_config.dart';
 
 import '../UI/router/routes.dart';

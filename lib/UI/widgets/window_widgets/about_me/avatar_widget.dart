@@ -121,7 +121,7 @@ class AvatarWidget extends HookWidget {
                       return CustomPaint(
                         size: Size(
                           15,
-                          (animationCTR.value * 2.9).toDouble(),
+                          (animationCTR.value * 2.2).toDouble(),
                         ),
                         painter: NamePainter(),
                       );

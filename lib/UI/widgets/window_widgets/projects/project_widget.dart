@@ -75,7 +75,8 @@ class ProjectWidget extends StatelessWidget {
                   child: GlassMorphism(
                     width: context.width,
                     borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(10)),
+                      bottom: Radius.circular(10),
+                    ),
                     color: CupertinoColors.black.withOpacity(.7),
                     child: Text(
                       config.name,

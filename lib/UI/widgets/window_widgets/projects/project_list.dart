@@ -2,11 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
-import 'package:nemr_portfolio/UI/widgets/buttons/link_button.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_widget.dart';
-import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
-import 'package:nemr_portfolio/config/text_styles.dart';
-import 'package:nemr_portfolio/model/link_button_config.dart';
 
 import '../../../../model/project_config.dart';
 
@@ -44,7 +40,7 @@ class ProjectList extends StatelessWidget {
               },
             ),
           ),
-          if (currentIndex != 2)
+          if (currentIndex != configs.length - 1)
             Align(
               alignment: Alignment.centerLeft,
               child: IconButton(
