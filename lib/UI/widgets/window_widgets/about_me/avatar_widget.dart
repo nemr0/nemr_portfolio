@@ -66,11 +66,11 @@ class AvatarWidget extends HookWidget {
                         // text: 'Omar Elnemr',
                         AnimatedTextKit(
                           animatedTexts: [
-                            TypewriterAnimatedText(
-                              'Software Engineer',
-                              textAlign: TextAlign.end,
-                              textStyle: kTSSubName,
-                            ),
+                            // TypewriterAnimatedText(
+                            //   'Software Engineer',
+                            //   textAlign: TextAlign.end,
+                            //   textStyle: kTSSubName,
+                            // ),
                             TypewriterAnimatedText(
                               'Mobile App Developer',
                               textAlign: TextAlign.end,
@@ -82,7 +82,12 @@ class AvatarWidget extends HookWidget {
                               textStyle: kTSSubName,
                             ),
                             TypewriterAnimatedText(
-                              'Ui/Ux Designer',
+                              'Short-Content Creator',
+                              textAlign: TextAlign.end,
+                              textStyle: kTSSubName,
+                            ),
+                            TypewriterAnimatedText(
+                              'Ui/Ux Enthusiastic',
                               textAlign: TextAlign.end,
                               textStyle: kTSSubName,
                             ),

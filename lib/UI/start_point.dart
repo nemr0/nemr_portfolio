@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
-import 'package:nemr_portfolio/UI/router/routes.dart';
 import 'package:nemr_portfolio/UI/widgets/background_widget.dart';
-import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_widget.dart';
+import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_list.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/avatar_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/profile_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/title_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
-import 'package:nemr_portfolio/model/project_config.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:seo/html/seo_widget.dart';
 
-/// TODO: Re-Implement
 /// Where everything is rendered
 class StartPoint extends HookWidget {
   const StartPoint({Key? key, this.id}) : super(key: key);
@@ -99,84 +96,6 @@ class StartPoint extends HookWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ProjectList extends StatelessWidget {
-  const ProjectList({
-    super.key,
-    required this.projectCTR,
-    this.onPageChanged,
-    required this.currentIndex,
-  });
-
-  final void Function(int)? onPageChanged;
-  final PageController projectCTR;
-  final int currentIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.height * .3,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: PageView.builder(
-              itemCount: 3,
-              controller: projectCTR,
-              onPageChanged: onPageChanged,
-              itemBuilder: (_, i) {
-                return Transform.scale(
-                  scale: i == currentIndex ? 1 : 0.9,
-                  child: const ProjectWidget(
-                    config: ProjectConfig(
-                      id: Routes.projectLocalizationTextGenerator,
-                      url: 'https://i.ibb.co/7GcjJMn/glocalization.png',
-                      name: Routes.projectLocalizationTextGenerator,
-                      desc: '',
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          if (currentIndex != 2)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () {
-                  projectCTR.nextPage(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.bounceIn,
-                  );
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.solidCircleLeft,
-                  size: 20,
-                  color: CupertinoColors.white,
-                ),
-              ),
-            ),
-          if (currentIndex != 0)
-            Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                onPressed: () {
-                  projectCTR.previousPage(
-                    duration: const Duration(milliseconds: 100),
-                    curve: Curves.bounceIn,
-                  );
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.solidCircleRight,
-                  size: 20,
-                  color: CupertinoColors.white,
-                ),
-              ),
-            ),
-        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../config/colors.dart';
 import '../generated/assets.dart';
 
 /// Config for [LinkButton] Widget
@@ -224,6 +225,17 @@ const LinkButtonConfig kVercelLinkButtonConfig = LinkButtonConfig(
   link: 'https://vercel.com/nemr0',
   color: Color.fromRGBO(255, 255, 255, .35),
   name: 'Vercel',
+);
+const LinkButtonConfig kAppstoreLinkButtonConfig = LinkButtonConfig(
+  name: 'Check it on Appstore',
+  color: kContainerColor,
+  link: 'https://apps.apple.com/us/app/hala-jary/id6445865046',
+  icon: FontAwesomeIcons.appStoreIos,
+);
+const LinkButtonConfig kPlayStoreLinkButtonConfig = LinkButtonConfig(
+  name: 'Check it on PlayStore',
+  color: kContainerColor,
+  icon: FontAwesomeIcons.googlePlay,
 );
 
 const List<LinkButtonConfig> contactConfigs = [

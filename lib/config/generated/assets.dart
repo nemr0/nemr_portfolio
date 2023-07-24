@@ -86,13 +86,17 @@ class Assets {
       'lib/model_view/is_there_any_errors.dart';
   static const String projectsListWheelScrollViewX =
       'lib/UI/widgets/window_widgets/projects/list_wheel_scroll_view_x.dart';
+  static const String projectsProjectList =
+      'lib/UI/widgets/window_widgets/projects/project_list.dart';
+  static const String projectsProjectView =
+      'lib/UI/widgets/window_widgets/projects/project_view.dart';
   static const String projectsProjectWidget =
       'lib/UI/widgets/window_widgets/projects/project_widget.dart';
   static const String rive404 = 'assets/rive/404.riv';
   static const String riveFormSent = 'assets/rive/form_sent.riv';
   static const String riveLogo = 'assets/rive/logo.riv';
   static const String riveSwitch = 'assets/rive/switch.riv';
-  static const String routerCupertinoDialogPage =
+  static const String routerCupertinoModalPopupPage =
       'lib/UI/router/cupertino_modal_popup_page.dart';
   static const String routerRouterConfig = 'lib/UI/router/router_config.dart';
   static const String routerRoutes = 'lib/UI/router/routes.dart';

@@ -36,14 +36,21 @@ class LinkButton extends HookWidget {
     );
     final onHoverSize = useState(20.0);
     final image = config.asset == null
-        ? FaIcon(
-            config.icon,
-            color: CupertinoColors.black,
-            size: onHoverSize.value,
+        ? GlassMorphism(
+            height: onHoverSize.value + 10,
+            width: onHoverSize.value + 10,
+            color: kContainerColor,
+            child: Center(
+              child: FaIcon(
+                config.icon,
+                color: CupertinoColors.white,
+                size: onHoverSize.value,
+              ),
+            ),
           )
         : GlassMorphism(
-            height: onHoverSize.value,
-            width: onHoverSize.value,
+            height: onHoverSize.value + 10,
+            width: onHoverSize.value + 10,
             color: config.color,
             borderRadius: BorderRadius.circular(3),
             child: usePrecacheImage(Image.asset(

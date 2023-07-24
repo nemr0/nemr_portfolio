@@ -81,11 +81,12 @@ class Window extends HookWidget {
                   child: Stack(
                     children: [
                       Center(child: child),
-                      const Positioned(
-                        top: 10,
-                        right: 10,
-                        child: AboutButton(),
-                      ),
+                      if (aboutEnabled)
+                        const Positioned(
+                          top: 10,
+                          right: 10,
+                          child: AboutButton(),
+                        ),
                     ],
                   ),
                 ),
