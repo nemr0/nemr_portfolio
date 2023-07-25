@@ -7,7 +7,6 @@ import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 
 import '../../../config/colors.dart';
 import '../../helper/is_mobile.dart';
-import 'about_me/about_button.dart';
 
 /// Window Widget
 class Window extends HookWidget {
@@ -20,7 +19,6 @@ class Window extends HookWidget {
     this.width,
     this.height,
     this.inColor = kContainerColor,
-    this.aboutEnabled = false,
     this.padding = EdgeInsets.zero,
   });
 
@@ -31,7 +29,6 @@ class Window extends HookWidget {
   final bool onlyTopRadius;
   final double radius;
   final Color inColor;
-  final bool aboutEnabled;
   final EdgeInsets padding;
 
   @override
@@ -78,17 +75,7 @@ class Window extends HookWidget {
                   height: height,
                   inColor: inColor,
                   hovered: hovered.value,
-                  child: Stack(
-                    children: [
-                      Center(child: child),
-                      if (aboutEnabled)
-                        const Positioned(
-                          top: 10,
-                          right: 10,
-                          child: AboutButton(),
-                        ),
-                    ],
-                  ),
+                  child: child,
                 ),
                 // if (aboutEnabled) const AboutButton(),
               ),

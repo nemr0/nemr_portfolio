@@ -6,6 +6,7 @@ import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/router/routes.dart';
 import 'package:nemr_portfolio/model/project_config.dart';
 
+import '../../model/link_button_config.dart';
 import '../start_point.dart';
 import '../widgets/background_widget.dart';
 import '../widgets/dialogs/about_me_dialog.dart';
@@ -30,8 +31,20 @@ final router = GoRouter(
               name: Routes.projectHalaJary,
               pageBuilder: (context, state) => CupertinoModalPopupPage(
                 key: state.pageKey,
-                builder: (BuildContext context) => ProjectView(
-                  config: configs[0],
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                builder: (BuildContext context) => const ProjectView(
+                  config: ProjectConfig(
+                    id: Routes.projectHalaJary,
+                    url: 'https://i.ibb.co/3sMtsSL/halajary.png',
+                    name: 'Hala Jary',
+                    desc: '''A Web-App in Flutter Web-view
+Contributed by:
+- Fixing Permissions.
+- Uploading to AppStore .''',
+                    icons: [
+                      kAppstoreLinkButtonConfig,
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -40,6 +53,7 @@ final router = GoRouter(
               name: Routes.projectLocalizationTextGenerator,
               pageBuilder: (context, state) => CupertinoModalPopupPage(
                 key: state.pageKey,
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                 builder: (BuildContext context) => ProjectView(
                   config: configs[1],
                 ),
@@ -83,6 +97,7 @@ final router = GoRouter(
           path: Routes.error,
           name: Routes.error,
           pageBuilder: (context, state) => CupertinoModalPopupPage(
+            key: state.pageKey,
             builder: (context) => BackgroundWidget(
               child: Window(
                 padding: EdgeInsets.only(

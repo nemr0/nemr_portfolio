@@ -1,18 +1,20 @@
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:nemr_portfolio/model/project_config.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../model/link_button_config.dart';
+import '../../../helper/hooks/precache_image_hook.dart';
 import '../../buttons/link_button.dart';
 import '../../glass_morphism.dart';
 
-class ProjectWidget extends StatelessWidget {
+class ProjectWidget extends HookWidget {
   const ProjectWidget({Key? key, required this.config, this.last = false})
       : super(key: key);
   final ProjectConfig config;
@@ -41,35 +43,32 @@ class ProjectWidget extends StatelessWidget {
         : InkWell(
             mouseCursor: SystemMouseCursors.click,
             onTap: () {
-              context.goNamed(config.id);
+              context.goNamed(
+                config.id,
+                // queryParameters: {}
+              );
             },
             child: Stack(
               children: [
                 GradientBorderGlassBox(
-                  radius: 10,
-                  height: 300,
-                  width: context.width,
-                  inColor: kAltContainerColor,
-                  onlyTopRadius: false,
-                  child: FastCachedImage(
-                    url: config.url,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (ctx, progress) => const Center(
-                      child: CupertinoActivityIndicator(
-                        radius: 15,
-                      ),
-                    ),
-                    errorBuilder: (ctx, _, __) => Text(
-                      'Could Not Load Image',
-                      style: CupertinoTheme.of(context)
-                          .textTheme
-                          .textStyle
-                          .copyWith(
-                            color: Theme.of(ctx).colorScheme.error,
-                          ),
-                    ),
-                  ),
-                ),
+                    radius: 10,
+                    height: 300,
+                    width: context.width,
+                    inColor: kAltContainerColor,
+                    onlyTopRadius: false,
+                    child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: config.url,
+                        fit: BoxFit.cover,
+                        imageErrorBuilder: (ctx, _, __) => Text(
+                              'Could Not Load Image',
+                              style: CupertinoTheme.of(context)
+                                  .textTheme
+                                  .textStyle
+                                  .copyWith(
+                                    color: Theme.of(ctx).colorScheme.error,
+                                  ),
+                            )))),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: GlassMorphism(

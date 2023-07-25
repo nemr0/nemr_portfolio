@@ -1,4 +1,3 @@
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
@@ -11,7 +10,6 @@ import 'UI/style/theme.dart';
 Future<void> main() async {
   setPathUrlStrategy();
   await GetStorage.init();
-  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
   runApp(const ProviderScope(
     child: MyApp(),
   ));

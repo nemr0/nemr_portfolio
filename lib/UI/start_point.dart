@@ -12,6 +12,7 @@ import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:seo/html/seo_widget.dart';
 
+// final pageCTRProvider=Provider((ref) => PageController(viewportFraction: 0.4));
 /// Where everything is rendered
 class StartPoint extends HookWidget {
   const StartPoint({Key? key, this.id}) : super(key: key);
@@ -36,12 +37,12 @@ class StartPoint extends HookWidget {
       ],
       if (context.orientation == Orientation.landscape) ...[
         const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               flex: 4,
               child: AvatarWidget(),
             ),
+            Spacer(),
             Expanded(
               flex: 5,
               child: ProfileWidget(),
@@ -83,7 +84,6 @@ class StartPoint extends HookWidget {
               right: context.width * .05,
               left: context.width * .05,
             ),
-            aboutEnabled: true,
             child: ScrollConfiguration(
               behavior: const CupertinoScrollBehavior(),
               child: ScrollablePositionedList.builder(

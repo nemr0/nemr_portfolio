@@ -2,8 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String aboutMeAboutButton =
-      'lib/UI/widgets/window_widgets/about_me/about_button.dart';
   static const String aboutMeAvatarIcon =
       'lib/UI/widgets/window_widgets/about_me/avatar_icon.dart';
   static const String aboutMeAvatarWidget =
@@ -12,6 +10,8 @@ class Assets {
       'lib/UI/widgets/window_widgets/about_me/profile_widget.dart';
   static const String borderPaintGradientBoxBorder =
       'lib/UI/helper/border_paint/gradient_box_border.dart';
+  static const String buttonsAboutButton =
+      'lib/UI/widgets/buttons/about_button.dart';
   static const String buttonsCustomCupertinoButton =
       'lib/UI/widgets/buttons/custom_cupertino_button.dart';
   static const String buttonsLinkButton =

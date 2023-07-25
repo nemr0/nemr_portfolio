@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Tooltip;
 import 'package:go_router/go_router.dart';
-import '../../../../config/colors.dart';
-import '../../../../config/text_styles.dart';
-import '../../../router/routes.dart';
-import '../../glass_morphism.dart';
+import '../../../config/colors.dart';
+import '../../../config/text_styles.dart';
+import '../../router/routes.dart';
+import '../glass_morphism.dart';
 
 class AboutButton extends StatelessWidget {
   const AboutButton({Key? key}) : super(key: key);
