@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' show IconButton, Theme;
+import 'package:flutter/cupertino.dart'
+    show CupertinoColors, CupertinoScrollbar, CupertinoTheme;
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -20,8 +21,9 @@ class ProjectView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollCTR = useScrollController();
     final Widget image = ClipRRect(
-      borderRadius: BorderRadius.circular(40),
+      borderRadius: BorderRadius.circular(30),
       child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
           placeholder: kTransparentImage,
           image: config.url,
@@ -33,12 +35,15 @@ class ProjectView extends HookWidget {
                     ),
               ))),
     );
-    final Widget icons = Wrap(
-      verticalDirection: VerticalDirection.down,
-      children: [
-        for (LinkButtonConfig buttonConfig in (config.icons)!)
-          LinkButton(config: buttonConfig),
-      ],
+    final Widget icons = Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Wrap(
+        verticalDirection: VerticalDirection.down,
+        children: [
+          for (LinkButtonConfig buttonConfig in (config.icons)!)
+            LinkButton(config: buttonConfig),
+        ],
+      ),
     );
 
     final Widget desc = Align(
@@ -53,102 +58,108 @@ class ProjectView extends HookWidget {
       ),
     );
 
-    return Window(
-      radius: 40,
-      inColor: kAltContainerColor,
-      duration: const Duration(milliseconds: 10),
-      padding: EdgeInsets.only(
-        left: context.width * .02,
-        right: context.width * .02,
-        top: context.height * .02,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.solidCircleXmark,
-                  color: kYellowColor,
-                ),
-                onPressed: () => context.go('/'),
-              ),
-            ),
-            const Spacer(),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text.rich(
-                    TextSpan(
-                      text:
-                          'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
-                      style: kTSBoldTitle.copyWith(color: kPrimaryColor),
+    return Dismissible(
+      key: UniqueKey(),
+      direction: DismissDirection.down,
+      onDismissed: (d) => context.go('/'),
+      child: Window(
+        radius: 40,
+        inColor: kAltContainerColor,
+        height: context.height * .98,
+        duration: const Duration(milliseconds: 10),
+        padding: EdgeInsets.only(
+          left: context.width * .02,
+          right: context.width * .02,
+          top: context.height * .02,
+        ),
+        child: CupertinoScrollbar(
+          controller: scrollCTR,
+          thumbVisibility: true,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: ListView(
+                controller: scrollCTR,
+                shrinkWrap: true,
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Center(
+                    child: Text(
+                      'Swipe Down to Close',
+                      style: kSwipeText,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: const FaIcon(
+                          FontAwesomeIcons.solidCircleXmark,
+                          color: kYellowColor,
+                        ),
+                        onPressed: () => context.go('/'),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0),
+                      child: FittedBox(
+                        child: Text.rich(
+                          TextSpan(
+                            text:
+                                'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
+                            style: kTSBoldTitle.copyWith(color: kPrimaryColor),
+                            children: [
+                              TextSpan(
+                                text: '${config.name.toUpperCase()}\n',
+                                style: const TextStyle(
+                                  color: CupertinoColors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ),
+                  ),
+                  if (context.orientation == Orientation.landscape) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        TextSpan(
-                          text: config.name.toUpperCase(),
-                          style: const TextStyle(
-                            color: CupertinoColors.white,
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [desc, icons],
                           ),
                         ),
+                        Expanded(child: image),
                       ],
                     ),
-                    textAlign: TextAlign.start,
+                  ],
+                  if (context.orientation == Orientation.portrait) ...[
+                    image,
+                    if (config.icons != null) icons,
+                    desc,
+                  ],
+                  const SizedBox(
+                    height: 50,
                   ),
-                ),
-              ),
-            ),
-            if (context.orientation == Orientation.landscape) ...[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [desc, icons],
-                    ),
-                  ),
-                  Expanded(child: image),
                 ],
               ),
-            ],
-            if (context.orientation == Orientation.portrait) ...[
-              Expanded(
-                flex: 4,
-                child: image,
-              ),
-              if (config.icons != null)
-                Expanded(
-                  child: icons,
-                ),
-              Expanded(
-                flex: 4,
-                child: desc,
-              ),
-            ],
-            const Spacer(),
-          ],
+            ),
+          ),
         ),
       ),
-      // Positioned(
-      //   top: 10,
-      //   left: 10,
-      //   child: IconButton(
-      //     icon: const FaIcon(
-      //       FontAwesomeIcons.solidCircleXmark,
-      //       color: kYellowColor,
-      //     ),
-      //     onPressed: () => context.go('/'),
-      //   ),
-      // ),
     );
   }
 }

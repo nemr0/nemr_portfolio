@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show Colors;
 
 import 'colors.dart';
 import 'font_families.dart';
@@ -63,6 +64,11 @@ const TextStyle kTSSegmentedController = TextStyle(
 );
 const TextStyle kTSAgreement = TextStyle(
   color: CupertinoColors.extraLightBackgroundGray,
+  fontFamily: kRobotoMonoFamily,
+  fontSize: 11,
+);
+const TextStyle kSwipeText = TextStyle(
+  color: Colors.white24,
   fontFamily: kRobotoMonoFamily,
   fontSize: 11,
 );
