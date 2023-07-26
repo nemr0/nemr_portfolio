@@ -63,17 +63,24 @@ class ContactMeWidget extends HookWidget {
           backgroundColor: Colors.transparent,
           children: List<Widget>.generate(
             configs.length,
-            (index) => CupertinoTextFormFieldRow(
-              style: kTSAgreement,
-              decoration: const BoxDecoration(color: Colors.transparent),
-              prefix: Icon(
-                configs[index].icon,
-              ),
-              textInputAction: configs[index].inputAction,
-              controller: controllers[index],
-              placeholder: configs[index].placeholder,
-              validator: configs[index].validator,
-            ),
+            (index) => HookBuilder(builder: (context) {
+              final focus = useFocusNode();
+              return CupertinoTextFormFieldRow(
+                focusNode: focus,
+                onTap: () {
+                  focus.requestFocus();
+                },
+                style: kTSAgreement,
+                decoration: const BoxDecoration(color: Colors.transparent),
+                prefix: Icon(
+                  configs[index].icon,
+                ),
+                textInputAction: configs[index].inputAction,
+                controller: controllers[index],
+                placeholder: configs[index].placeholder,
+                validator: configs[index].validator,
+              );
+            }),
           ),
         ),
       ),
