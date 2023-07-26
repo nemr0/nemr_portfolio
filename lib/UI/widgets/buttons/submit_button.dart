@@ -1,23 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:nemr_portfolio/model_view/is_there_any_errors.dart';
 
-import '../../../helper/is_mobile.dart';
-import '../../buttons/custom_cupertino_button.dart';
+import '../../helper/is_mobile.dart';
+import 'custom_cupertino_button.dart';
 
-typedef FutureCallback = Future<void> Function();
+typedef FutureCallback = Future<void> Function()?;
 
-class SubmitButton extends HookConsumerWidget {
+class SubmitButton extends HookWidget {
   const SubmitButton({
     Key? key,
     this.onSubmit,
+    // required this.isThereAnyError,
   }) : super(key: key);
-  final FutureCallback? onSubmit;
-
+  final FutureCallback onSubmit;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isThereAnyError = ref.watch(isThereAnyErrorProvider);
+  Widget build(BuildContext context) {
     final isLoading = useState(false);
     final animationCtr =
         useAnimationController(duration: const Duration(milliseconds: 300));
@@ -32,26 +29,26 @@ class SubmitButton extends HookConsumerWidget {
     ));
     aligner() {
       if (animationCtr.isAnimating) return;
-      if (isThereAnyError) {
-        if (animationCtr.isCompleted) {
-          animationCtr.reverse();
-        } else {
-          animationCtr.forward();
-        }
+      // if (isThereAnyError) {
+      if (animationCtr.isCompleted) {
+        animationCtr.reverse();
+      } else {
+        animationCtr.forward();
       }
+      // }
     }
 
     return AlignTransition(
       alignment: animation,
       child: MouseRegion(
-        onEnter: (_) => aligner(),
+        onEnter: (_) => onSubmit == null ? aligner() : null,
         child: GestureDetector(
           onTap: isMobile ? aligner : null,
           child: CustomCupertinoButton(
             text: 'Submit',
             padding: const EdgeInsets.symmetric(horizontal: 10),
             isLoading: isLoading.value,
-            onPressed: isThereAnyError
+            onPressed: onSubmit == null
                 ? null
                 : () {
                     isLoading.value = true;

@@ -16,6 +16,8 @@ class Assets {
       'lib/UI/widgets/buttons/custom_cupertino_button.dart';
   static const String buttonsLinkButton =
       'lib/UI/widgets/buttons/link_button.dart';
+  static const String buttonsSubmitButton =
+      'lib/UI/widgets/buttons/submit_button.dart';
   static const String buttonsTextByIconButton =
       'lib/UI/widgets/buttons/text_by_icon_button.dart';
   static const String configColors = 'lib/config/colors.dart';
@@ -29,14 +31,8 @@ class Assets {
       'lib/config/welcome_template.dart';
   static const String contactMeContactFormSent =
       'lib/UI/widgets/window_widgets/contact_me/contact_form_sent.dart';
-  static const String contactMeContactSubWindow =
-      'lib/UI/widgets/window_widgets/contact_me/contact_sub_window.dart';
-  static const String contactMeCustomCupertinoTextfield =
-      'lib/UI/widgets/window_widgets/contact_me/custom_cupertino_textfield.dart';
-  static const String contactMeSubmitButton =
-      'lib/UI/widgets/window_widgets/contact_me/submit_button.dart';
-  static const String contactMeTermsAgree =
-      'lib/UI/widgets/window_widgets/contact_me/terms_agree.dart';
+  static const String contactMeContactMeWidget =
+      'lib/UI/widgets/window_widgets/contact_me/contact_me_widget.dart';
   static const String customPaintNamePainter =
       'lib/UI/helper/custom_paint/name_painter.dart';
   static const String customPaintVerticalDashedLinePainter =
@@ -78,12 +74,7 @@ class Assets {
       'lib/model/link_button_config.dart';
   static const String modelProjectConfig = 'lib/model/project_config.dart';
   static const String modelSendMail = 'lib/model/send_mail.dart';
-  static const String modelViewContactProviders =
-      'lib/model_view/contact_providers.dart';
-  static const String modelViewDetailsProviders =
-      'lib/model_view/details_providers.dart';
-  static const String modelViewIsThereAnyErrors =
-      'lib/model_view/is_there_any_errors.dart';
+  static const String modelTextFieldConfig = 'lib/model/text_field_config.dart';
   static const String projectsListWheelScrollViewX =
       'lib/UI/widgets/window_widgets/projects/list_wheel_scroll_view_x.dart';
   static const String projectsProjectList =
@@ -92,6 +83,8 @@ class Assets {
       'lib/UI/widgets/window_widgets/projects/project_view.dart';
   static const String projectsProjectWidget =
       'lib/UI/widgets/window_widgets/projects/project_widget.dart';
+  static const String providerFormSentProvider =
+      'lib/UI/provider/form_sent_provider.dart';
   static const String rive404 = 'assets/rive/404.riv';
   static const String riveFormSent = 'assets/rive/form_sent.riv';
   static const String riveLogo = 'assets/rive/logo.riv';

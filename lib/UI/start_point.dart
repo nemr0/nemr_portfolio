@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
+import 'package:nemr_portfolio/UI/provider/form_sent_provider.dart';
 import 'package:nemr_portfolio/UI/widgets/background_widget.dart';
+import 'package:nemr_portfolio/UI/widgets/window_widgets/contact_me/contact_form_sent.dart';
+import 'package:nemr_portfolio/UI/widgets/window_widgets/contact_me/contact_me_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_list.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/avatar_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/profile_widget.dart';
@@ -29,6 +33,7 @@ class StartPoint extends HookWidget {
     const space = SizedBox(
       height: 20,
     );
+
     final List<Widget> children = [
       if (context.orientation == Orientation.portrait) ...[
         const AvatarWidget(),
@@ -61,6 +66,19 @@ class StartPoint extends HookWidget {
         onPageChanged: (i) => pageIndex.value = i,
         currentIndex: pageIndex.value,
       ),
+      space,
+      const TitleWidget(
+          icon: FontAwesomeIcons.solidEnvelope, text: 'Contact Me'),
+      const SizedBox(
+        height: 10,
+      ),
+      Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final formSent = ref.watch(isFormSentProvider);
+          return formSent ? const ContactFormSent() : const ContactMeWidget();
+        },
+      ),
+      space,
     ];
     useEffect(() {
       if (id == null) {
