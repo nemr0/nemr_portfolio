@@ -52,7 +52,7 @@ class Window extends HookWidget {
     );
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.transparent,
       body: Align(
         alignment: Alignment.bottomCenter,

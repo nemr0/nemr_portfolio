@@ -13,6 +13,7 @@ extension ContextConfig on BuildContext {
           /// make it portrait
           Orientation.portrait
           : MediaQuery.of(this).orientation;
+  double get keyboardHeight => MediaQuery.of(this).viewInsets.bottom;
 
   /// [MediaQuery].of(context).size.height
   double get height => MediaQuery.of(this).size.height;

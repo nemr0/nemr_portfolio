@@ -79,6 +79,9 @@ class StartPoint extends HookWidget {
         },
       ),
       space,
+      // SizedBox(
+      //   height: context.keyboardHeight,
+      // ),
     ];
     useEffect(() {
       if (id == null) {
