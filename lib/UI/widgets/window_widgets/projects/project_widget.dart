@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
@@ -60,14 +61,27 @@ class ProjectWidget extends HookWidget {
                         placeholder: kTransparentImage,
                         image: config.url,
                         fit: BoxFit.cover,
-                        imageErrorBuilder: (ctx, _, __) => Text(
-                              'Could Not Load Image',
-                              style: CupertinoTheme.of(context)
-                                  .textTheme
-                                  .textStyle
-                                  .copyWith(
-                                    color: Theme.of(ctx).colorScheme.error,
-                                  ),
+                        imageErrorBuilder: (ctx, _, __) => Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.triangleExclamation,
+                                  size: 30,
+                                  color:
+                                      Theme.of(ctx).colorScheme.errorContainer,
+                                ),
+                                Text(
+                                  'Could Not Load Image',
+                                  style: CupertinoTheme.of(context)
+                                      .textTheme
+                                      .textStyle
+                                      .copyWith(
+                                        color: Theme.of(ctx).colorScheme.error,
+                                      ),
+                                ),
+                              ],
                             )))),
                 Align(
                   alignment: Alignment.bottomCenter,

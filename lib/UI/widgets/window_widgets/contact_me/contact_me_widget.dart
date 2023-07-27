@@ -30,57 +30,69 @@ class ContactMeWidget extends HookWidget {
       return context.width * .04;
     }
 
-    final validated = useState(false);
     return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: () {
-        Form.maybeOf(primaryFocus!.context!)?.save();
-        validated.value =
-            Form.maybeOf(primaryFocus!.context!)?.validate() ?? false;
-      },
+      autovalidateMode: AutovalidateMode.disabled,
       child: Padding(
         padding: EdgeInsets.only(
           top: 8.0,
           bottom: 8.0,
           right: rightPaddingOfTextField(),
         ),
-        child: CupertinoFormSection.insetGrouped(
+        child:
+            // Column(
+            // children: List<Widget>.generate(
+            //     configs.length,
+            //     (index) => CupertinoTextFormFieldRow(
+            //       autocorrect: false,
+            //       autofocus: true,
+            //       style: kTSAgreement,
+            //       decoration: const BoxDecoration(color: Colors.transparent),
+            //       prefix: Icon(
+            //         configs[index].icon,
+            //       ),
+            //       textInputAction: configs[index].inputAction,
+            //       controller: controllers[index],
+            //       placeholder: configs[index].placeholder,
+            //       validator: configs[index].validator,
+            //     ),
+            //   ),
+            // ),
+
+            CupertinoFormSection.insetGrouped(
           footer: Consumer(builder: (context, ref, _) {
             return SubmitButton(
-              onSubmit: validated.value
-                  ? () async => onSubmit(
-                        context,
-                        ref,
-                        controllers[0].text,
-                        controllers[1].text,
-                        controllers[2].text,
-                        controllers[3].text,
-                        controllers[4].text,
-                      )
-                  : null,
-            );
+                onSubmit: () async => onSubmit(
+                      context,
+                      ref,
+                      controllers[0].text,
+                      controllers[1].text,
+                      controllers[2].text,
+                      controllers[3].text,
+                      controllers[4].text,
+                    ));
           }),
           backgroundColor: Colors.transparent,
           children: List<Widget>.generate(
             configs.length,
-            (index) => HookBuilder(builder: (context) {
-              final focus = useFocusNode();
-              return CupertinoTextFormFieldRow(
-                focusNode: focus,
-                onTap: () {
-                  focus.requestFocus();
-                },
-                style: kTSAgreement,
-                decoration: const BoxDecoration(color: Colors.transparent),
-                prefix: Icon(
-                  configs[index].icon,
-                ),
-                textInputAction: configs[index].inputAction,
-                controller: controllers[index],
-                placeholder: configs[index].placeholder,
-                validator: configs[index].validator,
-              );
-            }),
+            (index) => CupertinoTextFormFieldRow(
+              inputFormatters: configs[index].inputFormatters,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              autofocus: true,
+              keyboardType: configs[index].inputType,
+              style: kTSAgreement,
+              decoration: const BoxDecoration(color: Colors.transparent),
+              prefix: Icon(
+                configs[index].icon,
+              ),
+              onChanged: (v) =>
+                  GetStorage().write(configs[index].storageKey, v),
+              textInputAction: configs[index].inputAction,
+              controller: controllers[index],
+              maxLines: configs[index].maxLines,
+              minLines: configs[index].minLines,
+              placeholder: configs[index].placeholder,
+              validator: configs[index].validator,
+            ),
           ),
         ),
       ),

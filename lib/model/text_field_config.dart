@@ -1,10 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 
 import '../config/validators.dart';
 
 class TextFieldConfig extends Equatable {
   const TextFieldConfig({
+    this.inputFormatters = const [],
+    this.maxLines = 1,
+    this.minLines = 1,
     required this.placeholder,
     required this.storageKey,
     required this.icon,
@@ -19,19 +23,23 @@ class TextFieldConfig extends Equatable {
   final String? Function(String?)? validator;
   final IconData icon;
   final TextInputAction inputAction;
+  final int maxLines;
+  final int minLines;
+  final List<TextInputFormatter> inputFormatters;
 
   @override
   List<Object?> get props =>
       [placeholder, storageKey, validator, icon, inputType];
 }
 
-const List<TextFieldConfig> configs = [
-  TextFieldConfig(
+List<TextFieldConfig> configs = [
+  const TextFieldConfig(
     placeholder: 'Company',
     storageKey: 'company',
+    // inputFormatters: [FilteringTextInputFormatter.],
     icon: CupertinoIcons.house_alt_fill,
   ),
-  TextFieldConfig(
+  const TextFieldConfig(
     placeholder: 'Name *',
     storageKey: 'name',
     inputType: TextInputType.name,
@@ -41,20 +49,25 @@ const List<TextFieldConfig> configs = [
   TextFieldConfig(
     placeholder: 'Phone * exp: 201111111111',
     icon: CupertinoIcons.phone_fill,
-    inputType: TextInputType.phone,
+    inputType:
+        const TextInputType.numberWithOptions(signed: true, decimal: true),
     storageKey: 'phone',
+    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
     validator: validateMobile,
   ),
-  TextFieldConfig(
+  const TextFieldConfig(
     placeholder: 'Email *',
     icon: CupertinoIcons.mail_solid,
     inputType: TextInputType.emailAddress,
     storageKey: 'email',
     validator: validateEmail,
   ),
-  TextFieldConfig(
+  const TextFieldConfig(
     placeholder: 'Description (A Brief about what you need) :) ',
     icon: CupertinoIcons.news_solid,
     storageKey: 'desc',
+    inputType: TextInputType.multiline,
+    maxLines: 10,
+    minLines: 4,
   ),
 ];
