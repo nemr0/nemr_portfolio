@@ -8,20 +8,18 @@ import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:seo/html/seo_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:html' as html;
 import '../../../model/link_button_config.dart';
 
 onLinkLaunch(
-  String link, {
-  bool newPage = true,
-}) async {
-  if (await canLaunchUrl(Uri.parse(link))) {
-    launchUrl(
-      Uri.parse(link),
-      webOnlyWindowName: newPage ? '_black' : '_self',
-    );
-  }
+  String link,
+  // {bool newPage = true,}
+) async {
+  html.window.open(
+    link,
+    '_self',
+  );
 }
 
 class LinkButton extends HookWidget {
@@ -74,9 +72,8 @@ class LinkButton extends HookWidget {
           textStyle: kTSAgreement,
           child: CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: config.link == null
-                ? null
-                : () => onLinkLaunch((config.link)!, newPage: config.newPage),
+            onPressed:
+                config.link == null ? null : () => onLinkLaunch((config.link)!),
             child: image,
           ),
         ),

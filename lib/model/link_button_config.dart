@@ -14,7 +14,7 @@ class LinkButtonConfig extends Equatable {
     this.link,
     required this.color,
     this.toolTipOn = true,
-    this.newPage = true,
+    // this.newPage = true,
   });
 
   LinkButtonConfig copyWith({
@@ -22,7 +22,7 @@ class LinkButtonConfig extends Equatable {
     String? link,
     Color? color,
     bool? toolTipOn,
-    bool? newPage,
+    // bool? newPage,
     String? name,
   }) =>
       LinkButtonConfig(
@@ -30,11 +30,11 @@ class LinkButtonConfig extends Equatable {
         color: color ?? this.color,
         link: link ?? this.link,
         toolTipOn: toolTipOn ?? this.toolTipOn,
-        newPage: newPage ?? this.newPage,
+        // newPage: newPage ?? this.newPage,
         name: name ?? this.name,
       );
   final IconData? icon;
-  final bool newPage;
+  // final bool newPage;
   final String? asset;
   final String? link;
   final Color color;
@@ -42,8 +42,11 @@ class LinkButtonConfig extends Equatable {
   final String name;
 
   @override
-  List<Object?> get props =>
-      [icon, newPage, asset, link, color, toolTipOn, name];
+  List<Object?> get props => [
+        icon,
+        // newPage,
+        asset, link, color, toolTipOn, name
+      ];
 }
 
 /// Linkedin Link

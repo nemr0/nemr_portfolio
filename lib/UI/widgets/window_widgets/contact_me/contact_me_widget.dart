@@ -77,7 +77,7 @@ class ContactMeWidget extends HookWidget {
             (index) => CupertinoTextFormFieldRow(
               inputFormatters: configs[index].inputFormatters,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              autofocus: true,
+              // autofocus: true,
               keyboardType: configs[index].inputType,
               style: kTSAgreement,
               decoration: const BoxDecoration(color: Colors.transparent),
