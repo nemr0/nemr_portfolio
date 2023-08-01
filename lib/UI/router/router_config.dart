@@ -15,77 +15,56 @@ import '../widgets/window_widgets/window.dart';
 import 'cupertino_modal_popup_page.dart';
 
 final router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const StartPoint(),
-      pageBuilder: (context, state) =>
-          CupertinoPage(key: state.pageKey, child: const StartPoint()),
-      routes: [
-        GoRoute(
-          path: 'projects',
-          routes: [
-            GoRoute(
-              path: Routes.projectHalaJary,
-              name: Routes.projectHalaJary,
-              pageBuilder: (context, state) => CupertinoModalPopupPage(
-                key: state.pageKey,
-                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                builder: (BuildContext context) =>
-                    ProjectView(config: configs[0]),
-              ),
-            ),
-            GoRoute(
-              path: Routes.projectLocalizationTextGenerator,
-              name: Routes.projectLocalizationTextGenerator,
-              pageBuilder: (context, state) => CupertinoModalPopupPage(
-                key: state.pageKey,
-                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                builder: (BuildContext context) => ProjectView(
-                  config: configs[1],
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const StartPoint(),
+        pageBuilder: (context, state) =>
+            CupertinoPage(key: state.pageKey, child: const StartPoint()),
+        routes: [
+          GoRoute(
+            path: 'projects',
+            routes: [
+              for (ProjectConfig config in configs)
+                GoRoute(
+                  path: config.id,
+                  name: config.id,
+                  pageBuilder: (context, state) => CupertinoModalPopupPage(
+                    key: state.pageKey,
+                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                    builder: (BuildContext context) =>
+                        ProjectView(config: config),
+                  ),
                 ),
-              ),
-            ),
-            GoRoute(
-              path: Routes.projectDartDonut,
-              name: Routes.projectDartDonut,
-              pageBuilder: (context, state) => CupertinoModalPopupPage(
-                key: state.pageKey,
-                builder: (BuildContext context) => ProjectView(
-                  config: configs[2],
-                ),
-                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              ),
-            ),
-            GoRoute(
-              path: Routes.projectImIn,
-              name: Routes.projectImIn,
-              pageBuilder: (context, state) => CupertinoModalPopupPage(
-                key: state.pageKey,
-                builder: (BuildContext context) => ProjectView(
-                  config: configs[3],
-                ),
-                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              ),
-            ),
-          ],
-          builder: (context, state) => const StartPoint(),
-        ),
-        GoRoute(
-          path: Routes.about,
-          name: Routes.about,
-          pageBuilder: (context, state) => CupertinoModalPopupPage(
-            key: state.pageKey,
-            builder: (context) => const AboutMeDialog(),
-            filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            ],
+            builder: (context, state) => const StartPoint(),
           ),
-        ),
-        GoRoute(
-          path: Routes.error,
-          name: Routes.error,
-          pageBuilder: (context, state) => CupertinoModalPopupPage(
-            key: state.pageKey,
-            builder: (context) => BackgroundWidget(
+          GoRoute(
+            path: Routes.about,
+            name: Routes.about,
+            pageBuilder: (context, state) => CupertinoModalPopupPage(
+              key: state.pageKey,
+              builder: (context) => const AboutMeDialog(),
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            ),
+          ),
+          GoRoute(
+            path: Routes.error,
+            name: Routes.error,
+            pageBuilder: (context, state) => CupertinoModalPopupPage(
+              key: state.pageKey,
+              builder: (context) => BackgroundWidget(
+                child: Window(
+                  padding: EdgeInsets.only(
+                    top: context.height * .05,
+                    right: context.width * .05,
+                    left: context.width * .05,
+                  ),
+                  child: const NotFoundWidget(),
+                ),
+              ),
+            ),
+            builder: (context, state) => BackgroundWidget(
               child: Window(
                 padding: EdgeInsets.only(
                   top: context.height * .05,
@@ -96,28 +75,17 @@ final router = GoRouter(
               ),
             ),
           ),
-          builder: (context, state) => BackgroundWidget(
-            child: Window(
-              padding: EdgeInsets.only(
-                top: context.height * .05,
-                right: context.width * .05,
-                left: context.width * .05,
-              ),
-              child: const NotFoundWidget(),
-            ),
-          ),
-        ),
-      ],
-    ),
-  ],
-  errorBuilder: (context, state) => BackgroundWidget(
-    child: Window(
-      padding: EdgeInsets.only(
-        top: context.height * .05,
-        right: context.width * .05,
-        left: context.width * .05,
+          // GoRoute(path: Routes.contactMe)
+        ],
       ),
-      child: const NotFoundWidget(),
-    ),
-  ),
-);
+    ],
+    errorBuilder: (context, state) {
+      // use a post frame callback to perform your navigation after
+      // the build frame has finished
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        context.goNamed(Routes.error);
+      });
+
+      // you must return a widget anyway
+      return const SizedBox.shrink();
+    });

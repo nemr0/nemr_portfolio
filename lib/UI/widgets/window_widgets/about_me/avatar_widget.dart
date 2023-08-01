@@ -50,10 +50,10 @@ class AvatarWidget extends HookWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: ListView(
-            shrinkWrap: true,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.min,
+          child: Column(
+            // shrinkWrap: true,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
               if (aboutEnabled)
                 const Align(
@@ -76,6 +76,7 @@ class AvatarWidget extends HookWidget {
                           ),
                           // text: 'Omar Elnemr',
                           AnimatedTextKit(
+                            pause: const Duration(milliseconds: 500),
                             animatedTexts: [
                               // TypewriterAnimatedText(
                               //   'Software Engineer',
@@ -143,7 +144,7 @@ class AvatarWidget extends HookWidget {
               ),
               Center(
                 child: Wrap(
-                  verticalDirection: VerticalDirection.up,
+                  // verticalDirection: VerticalDirection.up,
                   children: [
                     for (LinkButtonConfig config in contactConfigs)
                       LinkButton(config: config),

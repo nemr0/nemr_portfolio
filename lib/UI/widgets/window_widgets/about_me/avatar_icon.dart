@@ -23,13 +23,16 @@ class AvatarIcon extends HookWidget {
         glowColor: kPrimaryColor,
         endRadius: 80,
         child: MouseRegion(
-          onExit: (a) => isHovered.value = false,
-          onHover: (a) => isHovered.value = true,
-          onEnter: (a) => isMobile ? isHovered.value = true : null,
-          child: CircleAvatar(
-            radius: isHovered.value ? 40 : 50,
-            backgroundColor: kPrimaryColor,
-            backgroundImage: const AssetImage(Assets.iconsAvatar),
+          onExit: isMobile ? null : (a) => isHovered.value = false,
+          onHover: isMobile ? null : (a) => isHovered.value = true,
+          // onEnter: (a) => isMobile ? isHovered.value = true : null,
+          child: GestureDetector(
+            onTap: isMobile ? () => isHovered.value = !isHovered.value : null,
+            child: CircleAvatar(
+              radius: isHovered.value ? 40 : 50,
+              backgroundColor: kPrimaryColor,
+              backgroundImage: const AssetImage(Assets.iconsAvatar),
+            ),
           ),
         ),
       ),

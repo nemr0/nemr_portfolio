@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:nemr_portfolio/config/colors.dart';
 
 class CupertinoModalPopupPage<T> extends Page<T> {
   final Offset? anchorPoint;
@@ -14,7 +15,7 @@ class CupertinoModalPopupPage<T> extends Page<T> {
   const CupertinoModalPopupPage({
     required this.builder,
     this.anchorPoint,
-    this.barrierColor = kCupertinoModalBarrierColor,
+    this.barrierColor = kContainerColor,
     this.barrierDismissible = true,
     this.barrierLabel = "Dismiss",
     this.semanticsDismissible = true,

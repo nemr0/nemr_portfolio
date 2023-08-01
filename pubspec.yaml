@@ -24,7 +24,6 @@ dependencies:
   gradient_borders: ^1.0.0
   hooks_riverpod: ^2.3.0
   rive: ^0.11.5
-  scrollable_positioned_list: ^0.3.8
   seo: ^0.0.4
   transparent_image: ^2.0.1
   url_strategy: ^0.2.0

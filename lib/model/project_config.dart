@@ -1,4 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/model/link_button_config.dart';
 
 import '../UI/router/routes.dart';
@@ -111,5 +113,34 @@ Contributed by:
     Implemented Push Notifications through FCM and flutter local notification.
 - Deployed to Appstore and Play store.''',
   ),
+  const ProjectConfig(
+      id: Routes.projectUnigate,
+      url: 'https://i.ibb.co/nfFJk87/unigate.png',
+      name: 'Unigate',
+      desc: '''
+GRADUATION PROJECT: Smart Attendance System using QR code 
+  Degree: Excellent.
+    - Participated in IUGRC 2021 .
+    - Built with Flutter, React, node.js and more technologies.''',
+      icons: [
+        LinkButtonConfig(
+            name: 'Unigate Full Prototype',
+            color: kContainerColor,
+            icon: FontAwesomeIcons.solidFileVideo,
+            link:
+                'https://drive.google.com/file/d/19tlqSBVf2wQGRIY1l7Fnk0PwXXEA4XTR/view?usp=sharing/preview'),
+        LinkButtonConfig(
+            name: 'Mobile App Figma Prototype',
+            color: kContainerColor,
+            icon: FontAwesomeIcons.figma,
+            link:
+                'https://www.figma.com/proto/l4Ws7UYweWiWjQuQbhO6gL/Unigate?node-id=554-5&starting-point-node-id=7%3A1373&mode=design&t=TT0RnhgQzSopqaCj-1'),
+        LinkButtonConfig(
+            name: 'IUGRC 2021 Certificate',
+            color: kContainerColor,
+            icon: FontAwesomeIcons.stamp,
+            link:
+                'https://drive.google.com/file/d/1FABAYYE2TmTTLfcWqyb93cnENMetus7f/view?usp=sharing/preview'),
+      ]),
   const ProjectConfig(id: 'id', url: 'url', name: 'name', desc: 'desc'),
 ];

@@ -23,22 +23,25 @@ class ProjectWidget extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return last
-        ? GradientBorderGlassBox(
-            radius: 10,
-            height: 300,
-            width: context.width,
-            inColor: kAltContainerColor,
-            onlyTopRadius: false,
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'More?',
-                  style: kTSTitle,
-                ),
-                LinkButton(config: kGithubLinkButtonConfig),
-              ],
+        ? InkWell(
+            onTap: () => onLinkLaunch(kGithubLinkButtonConfig.link!),
+            child: GradientBorderGlassBox(
+              radius: 10,
+              height: 300,
+              width: context.width,
+              inColor: kAltContainerColor,
+              onlyTopRadius: false,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'More?',
+                    style: kTSTitle,
+                  ),
+                  LinkButton(config: kGithubLinkButtonConfig),
+                ],
+              ),
             ),
           )
         : InkWell(

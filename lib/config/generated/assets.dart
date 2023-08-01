@@ -53,6 +53,8 @@ class Assets {
       'lib/UI/helper/on_contact_submit.dart';
   static const String helperShowErrorDialog =
       'lib/UI/helper/show_error_dialog.dart';
+  static const String hooksFormValidatorHook =
+      'lib/UI/helper/hooks/form_validator_hook.dart';
   static const String hooksPrecacheImageHook =
       'lib/UI/helper/hooks/precache_image_hook.dart';
   static const String htmlRecaptcha = 'html/recaptcha.html';
@@ -75,8 +77,6 @@ class Assets {
   static const String modelProjectConfig = 'lib/model/project_config.dart';
   static const String modelSendMail = 'lib/model/send_mail.dart';
   static const String modelTextFieldConfig = 'lib/model/text_field_config.dart';
-  static const String projectsListWheelScrollViewX =
-      'lib/UI/widgets/window_widgets/projects/list_wheel_scroll_view_x.dart';
   static const String projectsProjectList =
       'lib/UI/widgets/window_widgets/projects/project_list.dart';
   static const String projectsProjectView =
