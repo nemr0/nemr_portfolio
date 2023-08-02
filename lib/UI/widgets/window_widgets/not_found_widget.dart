@@ -17,7 +17,7 @@ class NotFoundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Window(
-      inColor: kTFColor,
+      inColor: kTFColor.withOpacity(.9),
       padding: EdgeInsets.only(
         top: context.height * .04,
         right: context.width * .03,
