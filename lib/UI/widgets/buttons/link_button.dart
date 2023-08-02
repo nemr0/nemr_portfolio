@@ -86,9 +86,8 @@ class LinkButton extends HookWidget {
               : const BoxDecoration(color: Color(0x00000000)),
           child: CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: config.link == null
-                ? null
-                : () async {
+            onPressed: config.onPressed != null
+                ? () async {
                     tooltipKey.currentState?.ensureTooltipVisible();
 
                     if (!isMobile) {
@@ -100,8 +99,25 @@ class LinkButton extends HookWidget {
                     // tooltipKey.currentState?.();
                     onHoverSize.value = ButtonSize.small;
 
-                    onLinkLaunch((config.link)!);
-                  },
+                    config.onPressed?.call();
+                  }
+                : config.link == null
+                    ? null
+                    : () async {
+                        tooltipKey.currentState?.ensureTooltipVisible();
+
+                        if (!isMobile) {
+                          onHoverSize.value = ButtonSize.small;
+                          await Future.delayed(
+                              const Duration(milliseconds: 50));
+                        }
+                        onHoverSize.value = ButtonSize.large;
+                        await Future.delayed(const Duration(milliseconds: 100));
+                        // tooltipKey.currentState?.();
+                        onHoverSize.value = ButtonSize.small;
+
+                        onLinkLaunch((config.link)!);
+                      },
             child: image,
           ),
         ),

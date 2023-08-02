@@ -8,6 +8,7 @@ import '../generated/assets.dart';
 /// Config for [LinkButton] Widget
 class LinkButtonConfig extends Equatable {
   const LinkButtonConfig({
+    this.onPressed,
     required this.name,
     this.icon,
     this.asset,
@@ -23,6 +24,7 @@ class LinkButtonConfig extends Equatable {
     Color? color,
     bool? toolTipOn,
     // bool? newPage,
+    VoidCallback? onPressed,
     String? name,
   }) =>
       LinkButtonConfig(
@@ -30,11 +32,12 @@ class LinkButtonConfig extends Equatable {
         color: color ?? this.color,
         link: link ?? this.link,
         toolTipOn: toolTipOn ?? this.toolTipOn,
+        onPressed: onPressed ?? this.onPressed,
         // newPage: newPage ?? this.newPage,
         name: name ?? this.name,
       );
   final IconData? icon;
-  // final bool newPage;
+  final VoidCallback? onPressed;
   final String? asset;
   final String? link;
   final Color color;

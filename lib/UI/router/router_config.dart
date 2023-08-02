@@ -2,16 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/router/routes.dart';
 import 'package:nemr_portfolio/model/project_config.dart';
 
 import '../start_point.dart';
-import '../widgets/background_widget.dart';
 import '../widgets/dialogs/about_me_dialog.dart';
 import '../widgets/window_widgets/not_found_widget.dart';
 import '../widgets/window_widgets/projects/project_view.dart';
-import '../widgets/window_widgets/window.dart';
 import 'cupertino_modal_popup_page.dart';
 
 final router = GoRouter(
@@ -47,27 +44,9 @@ final router = GoRouter(
             name: Routes.error,
             pageBuilder: (context, state) => CupertinoModalPopupPage(
               key: state.pageKey,
-              builder: (context) => BackgroundWidget(
-                child: Window(
-                  padding: EdgeInsets.only(
-                    top: context.height * .05,
-                    right: context.width * .05,
-                    left: context.width * .05,
-                  ),
-                  child: const NotFoundWidget(),
-                ),
-              ),
+              builder: (context) => const NotFoundWidget(),
             ),
-            builder: (context, state) => BackgroundWidget(
-              child: Window(
-                padding: EdgeInsets.only(
-                  top: context.height * .05,
-                  right: context.width * .05,
-                  left: context.width * .05,
-                ),
-                child: const NotFoundWidget(),
-              ),
-            ),
+            builder: (context, state) => const NotFoundWidget(),
           ),
           // GoRoute(path: Routes.contactMe)
         ],

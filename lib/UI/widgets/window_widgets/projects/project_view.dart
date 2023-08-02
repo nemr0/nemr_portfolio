@@ -107,11 +107,12 @@ class ProjectView extends HookWidget {
                   ),
                 ),
                 const Expanded(
-                  child: Center(
-                    child: Text(
-                      'Swipe Down to Close',
-                      style: kSwipeText,
-                    ),
+                  flex: 2,
+                  child: Text(
+                    'Swipe Down to Close',
+                    style: kSwipeText,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
                   ),
                 ),
                 const Spacer(),
