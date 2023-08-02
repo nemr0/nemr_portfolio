@@ -46,22 +46,28 @@ class ProjectView extends HookWidget {
       ),
     );
 
-    final Widget desc = Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15.0),
-        child: Text(
-          config.desc,
-          style: kTSBody,
-          textAlign: TextAlign.start,
+    final Widget desc = SelectionArea(
+      // magnifierConfiguration: TextMagnifierConfiguration(),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: Text(
+            config.desc,
+            style: kTSBody,
+            textAlign: TextAlign.start,
+          ),
         ),
       ),
     );
 
-    return Dismissible(
-      key: UniqueKey(),
-      direction: DismissDirection.down,
-      onDismissed: (d) => context.go('/'),
+    return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        // int sensitivity = 10;
+        if (details.delta.dy > 8) {
+          context.pop();
+        }
+      },
       child: Window(
         radius: 40,
         inColor: kAltContainerColor,
@@ -72,95 +78,113 @@ class ProjectView extends HookWidget {
           right: context.width * .02,
           top: context.height * .02,
         ),
-        child: CupertinoScrollbar(
-          controller: scrollCTR,
-          thumbVisibility: true,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SelectionArea(
-                child: ListView(
-                  controller: scrollCTR,
-                  shrinkWrap: true,
-                  children: [
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Center(
-                      child: Text(
-                        'Swipe Down to Close',
-                        style: kSwipeText,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          icon: const FaIcon(
-                            FontAwesomeIcons.solidCircleXmark,
-                            color: kYellowColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const SizedBox(
+              height: 5,
+            ),
+            const Center(
+              child: Text(
+                'Swipe Down to Close',
+                style: kSwipeText,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Expanded(
+              child: CupertinoScrollbar(
+                thumbVisibility: true,
+                controller: scrollCTR,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(40),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView(
+                        controller: scrollCTR,
+                        shrinkWrap: true,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: IconButton(
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.solidCircleXmark,
+                                  color: kYellowColor,
+                                ),
+                                onPressed: () => context.pop(),
+                              ),
+                            ),
                           ),
-                          onPressed: () => context.go('/'),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: FittedBox(
-                          child: Text.rich(
-                            TextSpan(
-                              text:
-                                  'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
-                              style:
-                                  kTSBoldTitle.copyWith(color: kPrimaryColor),
-                              children: [
-                                TextSpan(
-                                  text: '${config.name.toUpperCase()}\n',
-                                  style: const TextStyle(
-                                    color: CupertinoColors.white,
+                          SelectionArea(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: FittedBox(
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text:
+                                          'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
+                                      style: kTSBoldTitle.copyWith(
+                                          color: kPrimaryColor),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              '${config.name.toUpperCase()}\n',
+                                          style: const TextStyle(
+                                            color: CupertinoColors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    textAlign: TextAlign.start,
                                   ),
                                 ),
+                              ),
+                            ),
+                          ),
+                          if (context.orientation == Orientation.landscape) ...[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [desc, icons],
+                                  ),
+                                ),
+                                Expanded(child: image),
                               ],
                             ),
-                            textAlign: TextAlign.start,
+                          ],
+                          if (context.orientation == Orientation.portrait) ...[
+                            image,
+                            if (config.icons != null) icons,
+                            desc,
+                          ],
+                          const SizedBox(
+                            height: 50,
                           ),
-                        ),
-                      ),
-                    ),
-                    if (context.orientation == Orientation.landscape) ...[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [desc, icons],
-                            ),
-                          ),
-                          Expanded(child: image),
                         ],
                       ),
-                    ],
-                    if (context.orientation == Orientation.portrait) ...[
-                      image,
-                      if (config.icons != null) icons,
-                      desc,
-                    ],
-                    const SizedBox(
-                      height: 50,
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

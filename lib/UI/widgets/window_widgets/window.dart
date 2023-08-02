@@ -133,8 +133,8 @@ class GradientBorderGlassBox extends StatelessWidget {
                 width: 1,
                 gradient: LinearGradient(
                   colors: hovered
-                      ? [k7Gradient, borderColor, k7Gradient]
-                      : [borderColor, k7Gradient, borderColor],
+                      ? [borderColor, k7Gradient, borderColor]
+                      : [k7Gradient, borderColor, k7Gradient],
                 ),
               ),
             ),

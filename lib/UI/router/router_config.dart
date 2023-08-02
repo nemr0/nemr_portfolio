@@ -22,23 +22,17 @@ final router = GoRouter(
         pageBuilder: (context, state) =>
             CupertinoPage(key: state.pageKey, child: const StartPoint()),
         routes: [
-          GoRoute(
-            path: 'projects',
-            routes: [
-              for (ProjectConfig config in configs)
-                GoRoute(
-                  path: config.id,
-                  name: config.id,
-                  pageBuilder: (context, state) => CupertinoModalPopupPage(
-                    key: state.pageKey,
-                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                    builder: (BuildContext context) =>
-                        ProjectView(config: config),
-                  ),
-                ),
-            ],
-            builder: (context, state) => const StartPoint(),
-          ),
+          for (ProjectConfig config in configs)
+            GoRoute(
+              path: 'project/${config.id}',
+              name: config.id,
+              pageBuilder: (context, state) => CupertinoModalPopupPage(
+                key: state.pageKey,
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                builder: (BuildContext context) => ProjectView(config: config),
+              ),
+            ),
+
           GoRoute(
             path: Routes.about,
             name: Routes.about,
@@ -79,12 +73,12 @@ final router = GoRouter(
         ],
       ),
     ],
+    // errorPageBuilder: (context,state)=>,
     errorBuilder: (context, state) {
       // use a post frame callback to perform your navigation after
       // the build frame has finished
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        context.goNamed(Routes.error);
-      });
+      WidgetsBinding.instance
+          .addPostFrameCallback((timeStamp) => context.goNamed(Routes.error));
 
       // you must return a widget anyway
       return const SizedBox.shrink();

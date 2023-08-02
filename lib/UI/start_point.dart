@@ -84,6 +84,7 @@ class StartPoint extends HookWidget {
     // useEffect(() {
     //   return null;
     // }, const []);
+    final scrollCTR = useScrollController();
 
     return Seo.text(
       text: seoTagOne,
@@ -94,13 +95,23 @@ class StartPoint extends HookWidget {
             right: context.width * .05,
             left: context.width * .05,
           ),
-          child: ScrollConfiguration(
-            behavior: const CupertinoScrollBehavior(),
-            child: ListView.builder(
-              padding: const EdgeInsets.all(20),
-              shrinkWrap: true,
-              itemCount: children.length,
-              itemBuilder: (BuildContext context, int index) => children[index],
+          child: Padding(
+            padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
+            child: CupertinoScrollbar(
+              thumbVisibility: true,
+              controller: scrollCTR,
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: ListView.builder(
+                  controller: scrollCTR,
+                  padding: const EdgeInsets.all(20),
+                  shrinkWrap: true,
+                  itemCount: children.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      children[index],
+                ),
+              ),
             ),
           ),
         ),

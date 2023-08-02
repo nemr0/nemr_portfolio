@@ -20,11 +20,12 @@ class AvatarWidget extends HookWidget {
   final bool aboutEnabled;
   @override
   Widget build(BuildContext context) {
+    const duration = Duration(seconds: 1);
     final uWidth = context.orientation == Orientation.landscape
         ? context.width * .4
         : context.width * .6;
     final animationCTR = useAnimationController(
-      duration: const Duration(seconds: 1),
+      duration: duration,
       upperBound: uWidth * .035,
       animationBehavior: AnimationBehavior.preserve,
     );
@@ -47,6 +48,7 @@ class AvatarWidget extends HookWidget {
     return GradientBorderGlassBox(
       inColor: kAltContainerColor,
       onlyTopRadius: false,
+      hovered: true,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
@@ -76,7 +78,7 @@ class AvatarWidget extends HookWidget {
                           ),
                           // text: 'Omar Elnemr',
                           AnimatedTextKit(
-                            pause: const Duration(milliseconds: 500),
+                            pause: duration,
                             animatedTexts: [
                               // TypewriterAnimatedText(
                               //   'Software Engineer',

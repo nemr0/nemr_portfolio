@@ -19,9 +19,7 @@ class AboutButton extends StatelessWidget {
       ),
       child: CupertinoButton(
         padding: EdgeInsets.zero,
-        onPressed: () {
-          context.goNamed(Routes.about);
-        },
+        onPressed: () => context.goNamed(Routes.about),
         child: const Icon(
           CupertinoIcons.info_circle,
           size: 18,
