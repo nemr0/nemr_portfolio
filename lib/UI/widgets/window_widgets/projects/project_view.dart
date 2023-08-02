@@ -60,7 +60,9 @@ class ProjectView extends HookWidget {
         ),
       ),
     );
-
+    const space = SizedBox(
+      height: 8,
+    );
     return GestureDetector(
       onVerticalDragUpdate: (details) {
         // int sensitivity = 10;
@@ -83,18 +85,39 @@ class ProjectView extends HookWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            const SizedBox(
-              height: 5,
+            space,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: const FaIcon(
+                          FontAwesomeIcons.solidCircleXmark,
+                          color: kYellowColor,
+                        ),
+                        onPressed: () => context.pop(),
+                      ),
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  child: Center(
+                    child: Text(
+                      'Swipe Down to Close',
+                      style: kSwipeText,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+              ],
             ),
-            const Center(
-              child: Text(
-                'Swipe Down to Close',
-                style: kSwipeText,
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
+            space,
             Expanded(
               child: CupertinoScrollbar(
                 thumbVisibility: true,
@@ -110,19 +133,6 @@ class ProjectView extends HookWidget {
                         controller: scrollCTR,
                         shrinkWrap: true,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: IconButton(
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.solidCircleXmark,
-                                  color: kYellowColor,
-                                ),
-                                onPressed: () => context.pop(),
-                              ),
-                            ),
-                          ),
                           SelectionArea(
                             child: Align(
                               alignment: Alignment.centerLeft,
