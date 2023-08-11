@@ -103,14 +103,17 @@ class StartPoint extends HookWidget {
               child: ScrollConfiguration(
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: ListView.builder(
-                  controller: scrollCTR,
-                  padding: const EdgeInsets.all(20),
-                  shrinkWrap: true,
-                  itemCount: children.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      children[index],
-                ),
+                child: HookBuilder(builder: (context) {
+                  useAutomaticKeepAlive(wantKeepAlive: true);
+                  return ListView.builder(
+                    controller: scrollCTR,
+                    padding: const EdgeInsets.all(20),
+                    shrinkWrap: true,
+                    itemCount: children.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        children[index],
+                  );
+                }),
               ),
             ),
           ),

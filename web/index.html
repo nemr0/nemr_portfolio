@@ -25,7 +25,7 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.nemr.me/">
+  <meta property="og:url" content="https://nemr.dev/">
   <meta property="og:title" content="Omar ElNemr">
   <meta property="og:description" content="Mobile App Developer / Flutter Developer / Short-Content Creator / Design Enthusiastic / Software Engineer, Check Out My Portfolio Here.">
   <meta property="og:image" content="https://i.ibb.co/JmKDQMz/thumbnail.png">
@@ -36,7 +36,7 @@
   <meta property="og:image:height" content="500" />
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://www.nemr.me/">
+  <meta property="twitter:url" content="https://nemr.dev/">
   <meta property="twitter:title" content="Omar ElNemr">
   <meta property="twitter:description" content="Mobile App Developer / Flutter Developer / Short-Content Creator / Design Enthusiastic / Software Engineer, Check Out My Portfolio Here.">
   <meta property="twitter:image" content="https://i.ibb.co/NtMkFKX/twitter-thumbnail.png">
@@ -52,14 +52,14 @@
   <title>Omar ElNemr</title>
   <link rel="manifest" href="manifest.json">
   <!--               ASSETS/              -->
-  <link rel="preload" href="https://www.nemr.me/assets/background.png" as="fetch" crossorigin>
+<!--  <link rel="preload" href="https://nemr.dev/assets/background.png" as="fetch" crossorigin>-->
 
   <!--               /RIVE FILES/           -->
-  <link rel="preload" href="https://www.nemr.me/assets/assets/rive/switch.riv" as="fetch" crossorigin>
-  <link rel="preload" href="https://www.nemr.me/assets/assets/rive/404.riv" as="fetch" crossorigin>
-  <link rel="preload" href="https://www.nemr.me/assets/assets/rive/form_sent.riv" as="fetch" crossorigin>
+<!--  <link rel="preload" href="https://nemr.dev/assets/assets/rive/switch.riv" as="fetch" crossorigin>-->
+<!--  <link rel="preload" href="https://nemr.dev/assets/assets/rive/404.riv" as="fetch" crossorigin>-->
+<!--  <link rel="preload" href="https://nemr.dev/assets/assets/rive/form_sent.riv" as="fetch" crossorigin>-->
 
-<!--  <link rel="preload" href="https://www.nemr.me/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf" as="fetch" crossorigin>-->
+<!--  <link rel="preload" href="https://nemr.dev/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf" as="fetch" crossorigin>-->
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -191,6 +191,7 @@
 
 
   <script>
+
   function delay(time){
   return new Promise(resolve => setTimeout(resolve,time));
   }
@@ -198,12 +199,14 @@
     var loaderContent=document.querySelector('#loader-content');
     var loaderBg=document.querySelector('#loader-bg');
       // Download main.dart.js
+
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
+
           loaderContent.style.opacity="0";
           loaderBg.style.opacity="0";
 

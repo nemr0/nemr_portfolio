@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_widget.dart';
 
 import '../../../../model/project_config.dart';
 
-class ProjectList extends StatelessWidget {
+class ProjectList extends HookWidget {
   const ProjectList({
     super.key,
     required this.projectCTR,
@@ -20,6 +21,7 @@ class ProjectList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    useAutomaticKeepAlive(wantKeepAlive: true);
     return SizedBox(
       height: context.height * .3,
       child: Stack(
