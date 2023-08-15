@@ -3,7 +3,10 @@ import '../config/environment_variables.dart';
 import '../config/welcome_template.dart';
 
 class SendMail {
-  init() => EmailJS.init(
+  SendMail() {
+    _init();
+  }
+  void _init() => EmailJS.init(
         const Options(
           privateKey: EnvironmentVariables.emailJSPrivateKey,
           publicKey: EnvironmentVariables.emailJSPublicKey,

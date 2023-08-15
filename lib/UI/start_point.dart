@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,6 +14,8 @@ import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/profile_widget
 import 'package:nemr_portfolio/UI/widgets/window_widgets/title_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:seo/html/seo_widget.dart';
+
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 // final pageCTRProvider=Provider((ref) => PageController(viewportFraction: 0.4));
 /// Where everything is rendered
@@ -73,7 +76,10 @@ class StartPoint extends HookWidget {
       Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
           final formSent = ref.watch(isFormSentProvider);
-          return formSent ? const ContactFormSent() : const ContactMeWidget();
+          return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              child:
+                  formSent ? const ContactFormSent() : const ContactMeWidget());
         },
       ),
       space,
@@ -90,6 +96,7 @@ class StartPoint extends HookWidget {
       text: seoTagOne,
       child: BackgroundWidget(
         child: Window(
+          scaffoldKey: scaffoldKey,
           padding: EdgeInsets.only(
             top: context.height * .05,
             right: context.width * .05,

@@ -23,7 +23,7 @@ final router = GoRouter(
             GoRoute(
               path: 'project/${config.id}',
               name: config.id,
-              pageBuilder: (context, state) => CupertinoModalPopupPage(
+              pageBuilder: (context, state) => HeroPage(
                 key: state.pageKey,
                 filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                 builder: (BuildContext context) => ProjectView(config: config),
@@ -33,7 +33,7 @@ final router = GoRouter(
           GoRoute(
             path: Routes.about,
             name: Routes.about,
-            pageBuilder: (context, state) => CupertinoModalPopupPage(
+            pageBuilder: (context, state) => HeroPage(
               key: state.pageKey,
               builder: (context) => const AboutMeDialog(),
               filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
@@ -42,7 +42,7 @@ final router = GoRouter(
           GoRoute(
             path: Routes.error,
             name: Routes.error,
-            pageBuilder: (context, state) => CupertinoModalPopupPage(
+            pageBuilder: (context, state) => HeroPage(
               key: state.pageKey,
               builder: (context) => const NotFoundWidget(),
             ),

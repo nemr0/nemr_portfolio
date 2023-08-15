@@ -78,34 +78,43 @@ class ProjectWidget extends HookWidget {
                         width: context.width,
                         inColor: kAltContainerColor,
                         onlyTopRadius: false,
-                        child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: config.url,
-                            fit: BoxFit.cover,
-                            imageErrorBuilder: (ctx, _, __) => Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.triangleExclamation,
-                                      size: 30,
-                                      color: Theme.of(ctx)
-                                          .colorScheme
-                                          .errorContainer,
-                                    ),
-                                    Text(
-                                      'Could Not Load Image',
-                                      style: CupertinoTheme.of(context)
-                                          .textTheme
-                                          .textStyle
-                                          .copyWith(
-                                            color:
-                                                Theme.of(ctx).colorScheme.error,
+                        child: Hero(
+                          transitionOnUserGestures: true,
+                          tag: config.id,
+                          child:
+                              usePrecacheFadeInImage(FadeInImage.memoryNetwork(
+                                  placeholder: kTransparentImage,
+                                  image: config.url,
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder: (ctx, _, __) => Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FaIcon(
+                                            FontAwesomeIcons
+                                                .triangleExclamation,
+                                            size: 30,
+                                            color: Theme.of(ctx)
+                                                .colorScheme
+                                                .errorContainer,
                                           ),
-                                    ),
-                                  ],
-                                )))),
+                                          Text(
+                                            'Could Not Load Image',
+                                            style: CupertinoTheme.of(context)
+                                                .textTheme
+                                                .textStyle
+                                                .copyWith(
+                                                  color: Theme.of(ctx)
+                                                      .colorScheme
+                                                      .error,
+                                                ),
+                                          ),
+                                        ],
+                                      ))),
+                        )),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: GlassMorphism(

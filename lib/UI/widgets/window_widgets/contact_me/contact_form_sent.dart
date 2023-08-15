@@ -62,7 +62,7 @@ class ContactFormSent extends StatelessWidget {
                 CustomCupertinoButton(
               text: 'Re-Send?',
               onPressed: () {
-                GetStorage().remove('form-sent');
+                GetStorage().write('form-sent', false);
                 ref.read(isFormSentProvider.notifier).state = false;
               },
             ),

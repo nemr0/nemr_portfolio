@@ -22,18 +22,23 @@ class ProjectView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final scrollCTR = useScrollController();
-    final Widget image = ClipRRect(
-      borderRadius: BorderRadius.circular(30),
-      child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
-          placeholder: kTransparentImage,
-          image: config.url,
-          fit: BoxFit.cover,
-          imageErrorBuilder: (ctx, _, __) => Text(
-                'Could Not Load Image',
-                style: CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                      color: Theme.of(ctx).colorScheme.error,
-                    ),
-              ))),
+    final Widget image = Hero(
+      transitionOnUserGestures: true,
+      tag: config.id,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image: config.url,
+            fit: BoxFit.cover,
+            imageErrorBuilder: (ctx, _, __) => Text(
+                  'Could Not Load Image',
+                  style:
+                      CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                            color: Theme.of(ctx).colorScheme.error,
+                          ),
+                ))),
+      ),
     );
     final Widget icons = Padding(
       padding: const EdgeInsets.all(15.0),

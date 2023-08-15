@@ -8,8 +8,9 @@ import 'package:nemr_portfolio/UI/provider/form_sent_provider.dart';
 import 'package:nemr_portfolio/UI/widgets/dialogs/recaptcha_dialog.dart';
 import 'package:nemr_portfolio/model/send_mail.dart';
 
-onSubmit(
-  BuildContext context,
+import '../start_point.dart';
+
+Future<void> onSubmit(
   WidgetRef ref,
   String company,
   String name,
@@ -19,28 +20,54 @@ onSubmit(
 ) async {
   String? reCaptchaToken = await showCupertinoDialog(
     barrierDismissible: true,
-    context: context,
+    context: scaffoldKey.currentContext!,
     builder: (context) => const ReCaptchaDialog(),
   );
   if (reCaptchaToken == null) {
     SchedulerBinding.instance.addPostFrameCallback(
-      (timeStamp) => showErrorDialog(context, 'I guess You\'re a Robot :('),
+      (timeStamp) => showErrorDialog(
+          scaffoldKey.currentContext!, 'I guess You\'re a Robot :('),
     );
 
     return;
   }
   GetStorage get = GetStorage();
-  SendMail mailer = SendMail()..init();
-  try {
-    await mailer.welcome(name, email, reCaptchaToken);
-    await mailer.info(name, company, email, phone, desc);
+  SendMail mailer = SendMail();
 
+  /// sending two mails together
+  List<EmailJSResponseStatus> emails = await Future.wait([
+    mailer.welcome(name, email, reCaptchaToken),
+    mailer.info(name, company, email, phone, desc)
+  ]);
+
+  /// on success
+  if (emails.first.status == 200 && emails.last.status == 200) {
+    /// save to local storage
     get.write('form_sent', true);
+
+    /// change state
     ref.read(isFormSentProvider.notifier).state = true;
-  } on EmailJSResponseStatus catch (e, _) {
-    get.write('form_sent', false);
-    ref.read(isFormSentProvider.notifier).state = false;
-    SchedulerBinding.instance
-        .addPostFrameCallback((timeStamp) => showErrorDialog(context, e.text));
   }
+
+  /// on error
+  else {
+    /// save to local storage
+    get.write('form_sent', false);
+
+    /// change state
+    ref.read(isFormSentProvider.notifier).state = false;
+
+    /// get error
+    String err;
+    if (emails.first.status != 200) {
+      err = emails.first.toString();
+    } else {
+      err = emails.last.toString();
+    }
+
+    /// show error
+    SchedulerBinding.instance.addPostFrameCallback(
+        (timeStamp) => showErrorDialog(scaffoldKey.currentContext!, err));
+  }
+  return;
 }

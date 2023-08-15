@@ -9,6 +9,7 @@ import 'package:nemr_portfolio/UI/widgets/buttons/submit_button.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
 
 import '../../../../model/text_field_config.dart';
+import '../../buttons/text_by_icon_button.dart';
 
 class ContactMeWidget extends HookWidget {
   const ContactMeWidget({
@@ -17,10 +18,11 @@ class ContactMeWidget extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GetStorage storage = GetStorage();
     List controllers = List.generate(
         configs.length,
         (index) => useTextEditingController(
-            text: GetStorage().read(configs[index].storageKey)));
+            text: storage.read(configs[index].storageKey)));
     // [companyCTR, nameCTR, phoneCTR, emailCTR, descCTR];
     double rightPaddingOfTextField() {
       if (context.orientation == Orientation.landscape) {
@@ -38,39 +40,25 @@ class ContactMeWidget extends HookWidget {
           bottom: 8.0,
           right: rightPaddingOfTextField(),
         ),
-        child:
-            // Column(
-            // children: List<Widget>.generate(
-            //     configs.length,
-            //     (index) => CupertinoTextFormFieldRow(
-            //       autocorrect: false,
-            //       autofocus: true,
-            //       style: kTSAgreement,
-            //       decoration: const BoxDecoration(color: Colors.transparent),
-            //       prefix: Icon(
-            //         configs[index].icon,
-            //       ),
-            //       textInputAction: configs[index].inputAction,
-            //       controller: controllers[index],
-            //       placeholder: configs[index].placeholder,
-            //       validator: configs[index].validator,
-            //     ),
-            //   ),
-            // ),
-
-            CupertinoFormSection.insetGrouped(
-          footer: Consumer(builder: (context, ref, _) {
-            return SubmitButton(
-                onSubmit: () async => onSubmit(
-                      context,
-                      ref,
-                      controllers[0].text,
-                      controllers[1].text,
-                      controllers[2].text,
-                      controllers[3].text,
-                      controllers[4].text,
-                    ));
-          }),
+        child: CupertinoFormSection.insetGrouped(
+          footer: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const TextByIconButton(),
+              Consumer(builder: (context, ref, _) {
+                return SubmitButton(
+                    onSubmit: () async => onSubmit(
+                          ref,
+                          controllers[0].text,
+                          controllers[1].text,
+                          controllers[2].text,
+                          controllers[3].text,
+                          controllers[4].text,
+                        ));
+              }),
+            ],
+          ),
           backgroundColor: Colors.transparent,
           children: List<Widget>.generate(
             configs.length,
@@ -84,8 +72,7 @@ class ContactMeWidget extends HookWidget {
               prefix: Icon(
                 configs[index].icon,
               ),
-              onChanged: (v) =>
-                  GetStorage().write(configs[index].storageKey, v),
+              onChanged: (v) => storage.write(configs[index].storageKey, v),
               textInputAction: configs[index].inputAction,
               controller: controllers[index],
               maxLines: configs[index].maxLines,
