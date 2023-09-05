@@ -86,33 +86,41 @@ class ProjectWidget extends HookWidget {
                                   placeholder: kTransparentImage,
                                   image: config.url,
                                   fit: BoxFit.cover,
-                                  imageErrorBuilder: (ctx, _, __) => Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          FaIcon(
-                                            FontAwesomeIcons
-                                                .triangleExclamation,
-                                            size: 30,
-                                            color: Theme.of(ctx)
-                                                .colorScheme
-                                                .errorContainer,
-                                          ),
-                                          Text(
-                                            'Could Not Load Image',
-                                            style: CupertinoTheme.of(context)
-                                                .textTheme
-                                                .textStyle
-                                                .copyWith(
-                                                  color: Theme.of(ctx)
-                                                      .colorScheme
-                                                      .error,
+                                  imageErrorBuilder: (ctx, _, __) => Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Spacer(),
+                                            Expanded(
+                                              child: FaIcon(
+                                                FontAwesomeIcons
+                                                    .triangleExclamation,
+                                                size: 30,
+                                                color: kYellowColor,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: FittedBox(
+                                                child: Text(
+                                                  'Could Not Load Image',
+                                                  style: CupertinoTheme.of(
+                                                          context)
+                                                      .textTheme
+                                                      .textStyle
+                                                      .copyWith(
+                                                          color:
+                                                              kGradientColor),
                                                 ),
-                                          ),
-                                        ],
+                                              ),
+                                            ),
+                                            Spacer(),
+                                          ],
+                                        ),
                                       ))),
                         )),
                     Align(

@@ -33,7 +33,7 @@ class ProjectConfig extends Equatable {
 List<ProjectConfig> configs = [
   const ProjectConfig(
     id: Routes.projectHalaJary,
-    url: 'https://i.ibb.co/3sMtsSL/halajary.png',
+    url: 'https://i.postimg.cc/gJpx91t5/halajary.png',
     name: 'Hala Jary',
     desc: '''A Web-App in Flutter Web-view
 Contributed by:
@@ -45,7 +45,7 @@ Contributed by:
   ),
   ProjectConfig(
     id: Routes.projectLocalizationTextGenerator,
-    url: 'https://i.ibb.co/7GcjJMn/glocalization.png',
+    url: 'https://i.postimg.cc/Y2bhVn6n/localization-text-generator.png',
     name: Routes.projectLocalizationTextGenerator,
     desc:
         '''A Dart CLI Tool that can help you generate json file for all texts in all screens in a Flutter project to implement localization.
@@ -72,7 +72,7 @@ Contributed by:
   ),
   ProjectConfig(
     id: Routes.projectDartDonut,
-    url: 'https://i.ibb.co/Z84Sdj4/dart-donut.gif',
+    url: 'https://i.postimg.cc/ZRjKGndB/donut.gif',
     name: Routes.projectDartDonut,
     desc:
         'An Implementation of donut.c in dart using zBuffer algorithm this uses the exact same logic implemented by a1kon.',
@@ -85,7 +85,7 @@ Contributed by:
   ),
   ProjectConfig(
     id: Routes.projectImIn,
-    url: 'https://i.ibb.co/9pLDXYq/imin.png',
+    url: 'https://i.postimg.cc/4d1mXwr3/imin.png',
     name: 'I\'m In',
     icons: [
       kDribbleLinkButtonConfig.copyWith(
@@ -115,7 +115,7 @@ Contributed by:
   ),
   const ProjectConfig(
       id: Routes.projectUnigate,
-      url: 'https://i.ibb.co/nfFJk87/unigate.png',
+      url: 'https://i.postimg.cc/cLKgfR8D/unigate.png',
       name: 'Unigate',
       desc: '''
 GRADUATION PROJECT: Smart Attendance System using QR code 
