@@ -36,7 +36,6 @@ class StartPoint extends HookWidget {
               projectCTR.value.dispose();
             },
         const []);
-    final pageIndex = useState<int>(0);
     const space = SizedBox(
       height: 20,
       width: 20,
@@ -71,8 +70,6 @@ class StartPoint extends HookWidget {
       space,
       ProjectList(
         projectCTR: projectCTR.value,
-        onPageChanged: (i) => pageIndex.value = i,
-        currentIndex: pageIndex.value,
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +81,7 @@ class StartPoint extends HookWidget {
             inColor: kAltContainerColor,
             child: IconButton(
                 onPressed: () {
-                  projectCTR.value.undo();
+                  projectCTR.value..undo();
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.xmark,

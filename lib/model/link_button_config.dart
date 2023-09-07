@@ -46,7 +46,7 @@ class LinkButtonConfig extends Equatable {
 
   @override
   List<Object?> get props => [
-        icon,
+        icon, onPressed,
         // newPage,
         asset, link, color, toolTipOn, name
       ];

@@ -28,8 +28,17 @@ class TextFieldConfig extends Equatable {
   final List<TextInputFormatter> inputFormatters;
 
   @override
-  List<Object?> get props =>
-      [placeholder, storageKey, validator, icon, inputType];
+  List<Object?> get props => [
+        maxLines,
+        minLines,
+        inputFormatters,
+        placeholder,
+        storageKey,
+        validator,
+        icon,
+        inputType,
+        inputAction
+      ];
 }
 
 List<TextFieldConfig> configs = [
