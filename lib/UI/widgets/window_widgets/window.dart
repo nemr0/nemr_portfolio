@@ -100,6 +100,7 @@ class GradientBorderGlassBox extends StatelessWidget {
     this.hovered = false,
     required this.child,
     this.borderColor = k7Primary,
+    this.onTap,
   });
 
   final bool onlyTopRadius;
@@ -110,6 +111,7 @@ class GradientBorderGlassBox extends StatelessWidget {
   final bool hovered;
   final Widget child;
   final Color borderColor;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +146,12 @@ class GradientBorderGlassBox extends StatelessWidget {
             //   color: inColor,
 
             // ),
-            child: child,
+            child: InkWell(
+                onTap: onTap,
+                mouseCursor: onTap == null
+                    ? SystemMouseCursors.basic
+                    : SystemMouseCursors.click,
+                child: child),
           ),
         ),
       ),

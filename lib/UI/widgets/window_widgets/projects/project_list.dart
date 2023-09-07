@@ -1,7 +1,9 @@
+// import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_widget.dart';
 
@@ -16,96 +18,54 @@ class ProjectList extends HookWidget {
   });
 
   final void Function(int)? onPageChanged;
-  final PageController projectCTR;
+  final CardSwiperController projectCTR;
   final int currentIndex;
 
   @override
   Widget build(BuildContext context) {
+    final double length = context.height * .3;
     useAutomaticKeepAlive(wantKeepAlive: true);
+
     return SizedBox(
-      height: context.height * .3,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: PageView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: configs.length,
-              controller: projectCTR,
-              onPageChanged: onPageChanged,
-              itemBuilder: (_, i) {
-                return ProjectWidget(
-                  config: configs[i],
-                  last: i == configs.length - 1,
-                  clickable: i == currentIndex,
-                );
-              },
-            ),
-          ),
-          Positioned.fill(
-              child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (currentIndex != configs.length - 1)
-                Expanded(
-                  flex: 2,
-                  child: InkWell(
-                    onTap: () => projectCTR.nextPage(
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.bounceIn,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: const BoxDecoration(
-                            color: CupertinoColors.black,
-                            shape: BoxShape.circle),
-                        child: const FaIcon(
-                          FontAwesomeIcons.solidCircleLeft,
-                          size: 30,
-                          color: CupertinoColors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              if (currentIndex == configs.length - 1)
-                const Expanded(flex: 2, child: SizedBox()),
-              const Spacer(
-                flex: 3,
-              ),
-              if (currentIndex == 0) const Expanded(flex: 2, child: SizedBox()),
-              if (currentIndex != 0)
-                Expanded(
-                  flex: 2,
-                  child: InkWell(
-                    onTap: () => projectCTR.previousPage(
-                      duration: const Duration(milliseconds: 100),
-                      curve: Curves.bounceIn,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: const BoxDecoration(
-                            color: CupertinoColors.black,
-                            shape: BoxShape.circle),
-                        child: const FaIcon(
-                          FontAwesomeIcons.solidCircleRight,
-                          size: 30,
-                          color: CupertinoColors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          )),
-        ],
+      height: length,
+      child: CardSwiper(
+        scale: .7,
+        initialIndex: currentIndex,
+        // physics: const NeverScrollableScrollPhysics(),
+        cardsCount: configs.length,
+        onSwipe: (_, c, d) {
+          onPageChanged?.call(c!);
+          if (d == CardSwiperDirection.none) projectCTR.swipeRight();
+          // switch (d) {
+          //     case CardSwiperDirection.right:
+          //     case CardSwiperDirection.top:
+          //
+          //     case CardSwiperDirection.left:
+          //     case CardSwiperDirection.bottom:
+          //       // onPageChanged?.call(c! - 2);
+          //       controller.value
+          //         ..undo()
+          //         ..undo();
+          //     case CardSwiperDirection.none:
+          //     default:
+          //   }
+
+          return true;
+        },
+
+        controller: projectCTR,
+        numberOfCardsDisplayed: configs.length - 2,
+        cardBuilder: (ctx, i, __, ___) {
+          if (i == configs.length - 1)
+            return GithubProjectWidget(length: length);
+
+          return ProjectWidget(
+            config: configs[i],
+            last: i == configs.length - 1,
+            clickable: i == currentIndex,
+            length: length,
+          );
+        },
       ),
     );
   }

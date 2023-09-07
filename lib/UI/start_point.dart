@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,6 +14,7 @@ import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/avatar_widget.
 import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/profile_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/title_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
+import 'package:nemr_portfolio/config/colors.dart';
 import 'package:seo/html/seo_widget.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -28,11 +30,16 @@ class StartPoint extends HookWidget {
     const String seoTagOne =
         'Flutter Developer Software Engineer Portfolio Omar Elnemr nemrdev Ui Ux User Interface User Experience State Management BloC Riverpod Provider GetX';
 
-    final projectCTR = usePageController(viewportFraction: 0.4);
-
+    final projectCTR = useState(CardSwiperController());
+    useEffect(
+        () => () {
+              projectCTR.value.dispose();
+            },
+        const []);
     final pageIndex = useState<int>(0);
     const space = SizedBox(
       height: 20,
+      width: 20,
     );
 
     final List<Widget> children = [
@@ -63,9 +70,42 @@ class StartPoint extends HookWidget {
       ),
       space,
       ProjectList(
-        projectCTR: projectCTR,
+        projectCTR: projectCTR.value,
         onPageChanged: (i) => pageIndex.value = i,
         currentIndex: pageIndex.value,
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GradientBorderGlassBox(
+            onlyTopRadius: false,
+            radius: 100,
+            inColor: kAltContainerColor,
+            child: IconButton(
+                onPressed: () {
+                  projectCTR.value.undo();
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.xmark,
+                  color: CupertinoColors.white,
+                )),
+          ),
+          space,
+          GradientBorderGlassBox(
+            onlyTopRadius: false,
+            radius: 100,
+            inColor: kAltContainerColor,
+            child: IconButton(
+                onPressed: () {
+                  projectCTR.value.swipeRight();
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.chevronRight,
+                  color: CupertinoColors.white,
+                )),
+          ),
+        ],
       ),
       space,
       const TitleWidget(

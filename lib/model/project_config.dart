@@ -33,7 +33,7 @@ class ProjectConfig extends Equatable {
 List<ProjectConfig> configs = [
   const ProjectConfig(
     id: Routes.projectHalaJary,
-    url: 'https://i.postimg.cc/gJpx91t5/halajary.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.png',
     name: 'Hala Jary',
     desc: '''A Web-App in Flutter Web-view
 Contributed by:
@@ -45,7 +45,8 @@ Contributed by:
   ),
   ProjectConfig(
     id: Routes.projectLocalizationTextGenerator,
-    url: 'https://i.postimg.cc/Y2bhVn6n/localization-text-generator.png',
+    url:
+        'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.png',
     name: Routes.projectLocalizationTextGenerator,
     desc:
         '''A Dart CLI Tool that can help you generate json file for all texts in all screens in a Flutter project to implement localization.
@@ -72,7 +73,7 @@ Contributed by:
   ),
   ProjectConfig(
     id: Routes.projectDartDonut,
-    url: 'https://i.postimg.cc/ZRjKGndB/donut.gif',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/donut.gif',
     name: Routes.projectDartDonut,
     desc:
         'An Implementation of donut.c in dart using zBuffer algorithm this uses the exact same logic implemented by a1kon.',
@@ -85,7 +86,7 @@ Contributed by:
   ),
   ProjectConfig(
     id: Routes.projectImIn,
-    url: 'https://i.postimg.cc/4d1mXwr3/imin.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.png',
     name: 'I\'m In',
     icons: [
       kDribbleLinkButtonConfig.copyWith(
@@ -115,7 +116,7 @@ Contributed by:
   ),
   const ProjectConfig(
       id: Routes.projectUnigate,
-      url: 'https://i.postimg.cc/cLKgfR8D/unigate.png',
+      url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.png',
       name: 'Unigate',
       desc: '''
 GRADUATION PROJECT: Smart Attendance System using QR code 

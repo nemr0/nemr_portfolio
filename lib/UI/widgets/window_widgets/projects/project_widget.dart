@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
@@ -11,135 +10,132 @@ import 'package:nemr_portfolio/model/project_config.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../model/link_button_config.dart';
-import '../../../helper/hooks/precache_image_hook.dart';
 import '../../buttons/link_button.dart';
 import '../../glass_morphism.dart';
 
-class ProjectWidget extends HookWidget {
+class ProjectWidget extends StatelessWidget {
   const ProjectWidget({
+    required this.length,
     Key? key,
     this.clickable = false,
     required this.config,
     this.last = false,
   }) : super(key: key);
+  final double length;
   final bool clickable;
   final ProjectConfig config;
   final bool last;
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: clickable ? 1 : .5,
-      child: Transform.scale(
-        scale: clickable ? 1 : 0.9,
-        child: last
-            ? InkWell(
-                mouseCursor: !clickable
-                    ? SystemMouseCursors.basic
-                    : SystemMouseCursors.click,
-                onTap: clickable
-                    ? () => onLinkLaunch(kGithubLinkButtonConfig.link!)
-                    : null,
-                child: GradientBorderGlassBox(
-                  radius: 10,
-                  height: 300,
-                  width: context.width,
-                  inColor: kAltContainerColor,
-                  onlyTopRadius: false,
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'More?',
-                        style: kTSTitle,
-                      ),
-                      LinkButton(config: kGithubLinkButtonConfig),
-                    ],
+    return SizedBox(
+      height: length,
+      width: length,
+      child: GradientBorderGlassBox(
+          onTap: clickable
+              ? () {
+                  context.goNamed(
+                    config.id,
+                    // queryParameters: {}
+                  );
+                }
+              : null,
+          radius: 10,
+          height: length,
+          width: length,
+          inColor: kAltContainerColor,
+          onlyTopRadius: false,
+          child: HookBuilder(builder: (context) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Hero(
+                    transitionOnUserGestures: true,
+                    tag: config.id,
+                    child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: config.url,
+                        fit: BoxFit.cover,
+                        width: length,
+                        imageErrorBuilder: (ctx, _, __) => Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Spacer(),
+                                  Expanded(
+                                    child: FaIcon(
+                                      FontAwesomeIcons.triangleExclamation,
+                                      size: 30,
+                                      color: kYellowColor,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: FittedBox(
+                                      child: Text(
+                                        'Could Not Load Image',
+                                        style: CupertinoTheme.of(context)
+                                            .textTheme
+                                            .textStyle
+                                            .copyWith(color: kGradientColor),
+                                      ),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                ],
+                              ),
+                            )),
                   ),
                 ),
-              )
-            : InkWell(
-                mouseCursor: !clickable
-                    ? SystemMouseCursors.basic
-                    : SystemMouseCursors.click,
-                onTap: clickable
-                    ? () {
-                        context.goNamed(
-                          config.id,
-                          // queryParameters: {}
-                        );
-                      }
-                    : null,
-                child: Stack(
-                  children: [
-                    GradientBorderGlassBox(
-                        radius: 10,
-                        height: 300,
-                        width: context.width,
-                        inColor: kAltContainerColor,
-                        onlyTopRadius: false,
-                        child: Hero(
-                          transitionOnUserGestures: true,
-                          tag: config.id,
-                          child:
-                              usePrecacheFadeInImage(FadeInImage.memoryNetwork(
-                                  placeholder: kTransparentImage,
-                                  image: config.url,
-                                  fit: BoxFit.cover,
-                                  imageErrorBuilder: (ctx, _, __) => Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Spacer(),
-                                            Expanded(
-                                              child: FaIcon(
-                                                FontAwesomeIcons
-                                                    .triangleExclamation,
-                                                size: 30,
-                                                color: kYellowColor,
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: FittedBox(
-                                                child: Text(
-                                                  'Could Not Load Image',
-                                                  style: CupertinoTheme.of(
-                                                          context)
-                                                      .textTheme
-                                                      .textStyle
-                                                      .copyWith(
-                                                          color:
-                                                              kGradientColor),
-                                                ),
-                                              ),
-                                            ),
-                                            Spacer(),
-                                          ],
-                                        ),
-                                      ))),
-                        )),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: GlassMorphism(
-                        width: context.width,
-                        borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.circular(10),
-                        ),
-                        color: CupertinoColors.black.withOpacity(.7),
-                        child: Text(
-                          config.name,
-                          style: kTSBody,
-                        ),
-                      ),
-                    ),
-                  ],
+                GlassMorphism(
+                  width: length,
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(10),
+                  ),
+                  color: CupertinoColors.black.withOpacity(.7),
+                  child: Text(
+                    config.name,
+                    style: kTSBody,
+                  ),
                 ),
-              ),
+              ],
+            );
+          })),
+    );
+  }
+}
+
+class GithubProjectWidget extends StatelessWidget {
+  const GithubProjectWidget({
+    super.key,
+    required this.length,
+  });
+
+  final double length;
+
+  @override
+  Widget build(BuildContext context) {
+    return GradientBorderGlassBox(
+      onTap: () => onLinkLaunch(kGithubLinkButtonConfig.link!),
+      radius: 10,
+      height: length,
+      width: length,
+      inColor: kAltContainerColor,
+      onlyTopRadius: false,
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'More?',
+            style: kTSTitle,
+          ),
+          LinkButton(config: kGithubLinkButtonConfig),
+        ],
       ),
     );
   }
