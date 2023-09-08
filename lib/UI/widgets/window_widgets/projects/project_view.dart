@@ -23,11 +23,13 @@ class ProjectView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final topScroll = useState(true);
     useEffect(() {
       GetStorage().write(UsedStrings.projectIndexKey, config.index);
       return null;
     }, const []);
     final scrollCTR = useScrollController();
+
     final Widget image = Hero(
       transitionOnUserGestures: true,
       tag: config.id,
@@ -82,15 +84,17 @@ class ProjectView extends HookWidget {
         }
       },
       child: Window(
-        radius: 40,
+        radius: topScroll.value ? 40 : 0,
         inColor: kAltContainerColor,
-        height: context.height * .98,
+        height: context.height,
         duration: const Duration(milliseconds: 10),
-        padding: EdgeInsets.only(
-          left: context.width * .02,
-          right: context.width * .02,
-          top: context.height * .02,
-        ),
+        padding: topScroll.value
+            ? EdgeInsets.only(
+                left: context.width * .02,
+                right: context.width * .02,
+                top: context.height * .03,
+              )
+            : EdgeInsets.zero,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,75 +135,90 @@ class ProjectView extends HookWidget {
             ),
             space,
             Expanded(
-              child: CupertinoScrollbar(
-                thumbVisibility: true,
-                controller: scrollCTR,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: ListView(
-                        controller: scrollCTR,
-                        shrinkWrap: true,
-                        children: [
-                          SelectionArea(
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: FittedBox(
-                                  child: Text.rich(
-                                    TextSpan(
-                                      text:
-                                          'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
-                                      style: kTSBoldTitle.copyWith(
-                                          color: kPrimaryColor),
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              '${config.name.toUpperCase()}\n',
-                                          style: const TextStyle(
-                                            color: CupertinoColors.white,
+              child: NotificationListener<ScrollNotification>(
+                onNotification: (ScrollNotification scrollNotification) {
+                  final current = scrollNotification.metrics.pixels;
+                  // final max=scrollNotification.metrics.maxScrollExtent;
+                  final min = scrollNotification.metrics.minScrollExtent;
+                  if (current == min) {
+                    topScroll.value = true;
+                  } else {
+                    topScroll.value = false;
+                  }
+                  return false;
+                },
+                child: CupertinoScrollbar(
+                  thumbVisibility: true,
+                  controller: scrollCTR,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(40),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: ListView(
+                          controller: scrollCTR,
+                          shrinkWrap: true,
+                          children: [
+                            SelectionArea(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: FittedBox(
+                                    child: Text.rich(
+                                      TextSpan(
+                                        text:
+                                            'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
+                                        style: kTSBoldTitle.copyWith(
+                                            color: kPrimaryColor),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                '${config.name.toUpperCase()}\n',
+                                            style: const TextStyle(
+                                              color: CupertinoColors.white,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                      textAlign: TextAlign.start,
                                     ),
-                                    textAlign: TextAlign.start,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          if (context.orientation == Orientation.landscape) ...[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [desc, icons],
+                            if (context.orientation ==
+                                Orientation.landscape) ...[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [desc, icons],
+                                    ),
                                   ),
-                                ),
-                                Expanded(child: image),
-                              ],
+                                  Expanded(child: image),
+                                ],
+                              ),
+                            ],
+                            if (context.orientation ==
+                                Orientation.portrait) ...[
+                              image,
+                              if (config.icons != null) icons,
+                              desc,
+                            ],
+                            const SizedBox(
+                              height: 50,
                             ),
                           ],
-                          if (context.orientation == Orientation.portrait) ...[
-                            image,
-                            if (config.icons != null) icons,
-                            desc,
-                          ],
-                          const SizedBox(
-                            height: 50,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

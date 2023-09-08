@@ -48,8 +48,9 @@ class Window extends HookWidget {
         child: SizedBox(
           height: height,
           width: width,
-          child: Padding(
+          child: AnimatedPadding(
             padding: padding,
+            duration: Duration(milliseconds: 200),
             child: MouseRegion(
               onHover: (p) => isMobile ? hovered.value = !hovered.value : null,
               onEnter: (p) => hovered.value = true,
