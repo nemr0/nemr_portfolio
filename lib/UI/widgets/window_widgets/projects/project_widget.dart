@@ -29,7 +29,7 @@ class ProjectWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedScale(
       scale: current ? 1 : .8,
-      duration: Duration(milliseconds: 200),
+      duration: Duration(milliseconds: 100),
       child: SizedBox(
         height: length,
         width: length,
