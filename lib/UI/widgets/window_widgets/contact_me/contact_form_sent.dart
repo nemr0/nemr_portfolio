@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/custom_cupertino_button.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
@@ -9,7 +8,7 @@ import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:nemr_portfolio/generated/assets.dart';
 import 'package:rive/rive.dart';
 
-import '../../../provider/form_sent_provider.dart';
+import '../../../../config/consts.dart';
 
 class ContactFormSent extends StatelessWidget {
   const ContactFormSent({Key? key}) : super(key: key);
@@ -57,15 +56,12 @@ class ContactFormSent extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) =>
-                CustomCupertinoButton(
-              text: 'Re-Send?',
-              onPressed: () {
-                GetStorage().write('form-sent', false);
-                ref.read(isFormSentProvider.notifier).state = false;
-              },
-            ),
+          CustomCupertinoButton(
+            text: 'Re-Send?',
+            onPressed: () {
+              GetStorage().write(UsedStrings.formSentKey, false);
+              // ref.read(isFormSentProvider.notifier).state = false;
+            },
           ),
           const SizedBox(
             height: 25,

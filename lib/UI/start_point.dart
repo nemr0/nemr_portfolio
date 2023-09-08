@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
-import 'package:nemr_portfolio/UI/provider/form_sent_provider.dart';
 import 'package:nemr_portfolio/UI/widgets/background_widget.dart';
+import 'package:nemr_portfolio/UI/widgets/horizontal_padding.dart';
+import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/avatar_widget.dart';
+import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/profile_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/contact_me/contact_form_sent.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/contact_me/contact_me_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_list.dart';
-import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/avatar_widget.dart';
-import 'package:nemr_portfolio/UI/widgets/window_widgets/about_me/profile_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/title_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
-import 'package:nemr_portfolio/config/colors.dart';
+import 'package:nemr_portfolio/config/consts.dart';
 import 'package:seo/html/seo_widget.dart';
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -22,20 +21,52 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 // final pageCTRProvider=Provider((ref) => PageController(viewportFraction: 0.4));
 /// Where everything is rendered
 class StartPoint extends HookWidget {
-  const StartPoint({Key? key, this.id}) : super(key: key);
-  final int? id;
+  const StartPoint({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final double length = context.height * .3;
+
     const String seoTagOne =
         'Flutter Developer Software Engineer Portfolio Omar Elnemr nemrdev Ui Ux User Interface User Experience State Management BloC Riverpod Provider GetX';
+    final initialPage = GetStorage().read(UsedStrings.projectIndexKey) ?? 0;
+    final projectCTR = usePageController(
+        viewportFraction:
+            (context.orientation == Orientation.landscape) ? 0.2 : 0.5,
+        initialPage: initialPage,
+        keys: [context.orientation]);
+    // final offset = useState<double>(0);
+    final formSent =
+        useState(GetStorage().read(UsedStrings.formSentKey) ?? false);
+    final page = useState<int>(initialPage);
+    // final int projectIndex = GetStorage().read('project-index') ?? 0;
+    useEffect(() {
+      GetStorage().listenKey(
+          UsedStrings.formSentKey, (value) => formSent.value = value);
 
-    final projectCTR = useState(CardSwiperController());
-    useEffect(
-        () => () {
-              projectCTR.value.dispose();
-            },
-        const []);
+      projectCTR.addListener(() {
+        page.value = projectCTR.page?.toInt() ?? 0;
+        GetStorage()
+            .write(UsedStrings.projectIndexKey, projectCTR.page?.toInt());
+      });
+      return null;
+    });
+
+    const Duration duration = Duration(milliseconds: 200);
+    const Curve curve = Curves.easeInBack;
+    final pageAnimating = useState(false);
+    scroll({required bool inOrOut}) async {
+      if (pageAnimating.value) return;
+      pageAnimating.value = true;
+      if (inOrOut)
+        await projectCTR.nextPage(duration: duration, curve: curve);
+      else
+        await projectCTR.previousPage(duration: duration, curve: curve);
+      pageAnimating.value = false;
+    }
+
     const space = SizedBox(
       height: 20,
       width: 20,
@@ -43,23 +74,25 @@ class StartPoint extends HookWidget {
 
     final List<Widget> children = [
       if (context.orientation == Orientation.portrait) ...[
-        const AvatarWidget(),
+        const HorizontalPadding(child: AvatarWidget()),
         space,
-        const ProfileWidget(),
+        const HorizontalPadding(child: ProfileWidget()),
       ],
       if (context.orientation == Orientation.landscape)
-        const Row(
-          children: [
-            Expanded(
-              flex: 4,
-              child: AvatarWidget(),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 5,
-              child: ProfileWidget(),
-            ),
-          ],
+        const HorizontalPadding(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 4,
+                child: AvatarWidget(),
+              ),
+              Spacer(),
+              Expanded(
+                flex: 5,
+                child: ProfileWidget(),
+              ),
+            ],
+          ),
         ),
 
       space,
@@ -69,40 +102,42 @@ class StartPoint extends HookWidget {
       ),
       space,
       ProjectList(
-        projectCTR: projectCTR.value,
+        // currentIndex: projectCTR.page!.toInt(),
+        projectCTR: projectCTR,
+        length: length, currentPage: page.value,
       ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GradientBorderGlassBox(
-            onlyTopRadius: false,
-            radius: 100,
-            inColor: kAltContainerColor,
-            child: IconButton(
-                onPressed: () {
-                  projectCTR.value..undo();
-                },
-                icon: FaIcon(
-                  FontAwesomeIcons.xmark,
-                  color: CupertinoColors.white,
-                )),
-          ),
-          space,
-          GradientBorderGlassBox(
-            onlyTopRadius: false,
-            radius: 100,
-            inColor: kAltContainerColor,
-            child: IconButton(
-                onPressed: () {
-                  projectCTR.value.swipeRight();
-                },
-                icon: FaIcon(
-                  FontAwesomeIcons.chevronRight,
-                  color: CupertinoColors.white,
-                )),
-          ),
-        ],
+      space,
+      HorizontalPadding(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GradientBorderGlassBox(
+              onlyTopRadius: false,
+              radius: 100,
+              // inColor: kAltContainerColor,
+              child: IconButton(
+                  onPressed: () => scroll(inOrOut: false),
+                  icon: FaIcon(
+                    FontAwesomeIcons.chevronLeft,
+                    color: CupertinoColors.white,
+                  )),
+            ),
+            space,
+            space,
+            GradientBorderGlassBox(
+              onlyTopRadius: false,
+              radius: 100,
+              // inColor: kAltContainerColor,
+              child: IconButton(
+                  onPressed: () => scroll(inOrOut: true),
+                  icon: FaIcon(
+                    FontAwesomeIcons.chevronRight,
+                    color: CupertinoColors.white,
+                  )),
+            ),
+          ],
+        ),
       ),
       space,
       const TitleWidget(
@@ -110,14 +145,12 @@ class StartPoint extends HookWidget {
       const SizedBox(
         height: 10,
       ),
-      Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final formSent = ref.watch(isFormSentProvider);
-          return AnimatedSwitcher(
-              duration: const Duration(milliseconds: 400),
-              child:
-                  formSent ? const ContactFormSent() : const ContactMeWidget());
-        },
+      HorizontalPadding(
+        child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            child: formSent.value
+                ? const ContactFormSent()
+                : const ContactMeWidget()),
       ),
       space,
       // SizedBox(
@@ -133,12 +166,12 @@ class StartPoint extends HookWidget {
       text: seoTagOne,
       child: BackgroundWidget(
         child: Window(
-          scaffoldKey: scaffoldKey,
           padding: EdgeInsets.only(
             top: context.height * .05,
             right: context.width * .05,
             left: context.width * .05,
           ),
+          scaffoldKey: scaffoldKey,
           child: Padding(
             padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
             child: CupertinoScrollbar(
@@ -151,7 +184,7 @@ class StartPoint extends HookWidget {
                   useAutomaticKeepAlive(wantKeepAlive: true);
                   return ListView.builder(
                     controller: scrollCTR,
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     shrinkWrap: true,
                     itemCount: children.length,
                     itemBuilder: (BuildContext context, int index) =>

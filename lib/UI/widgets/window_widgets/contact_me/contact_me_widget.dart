@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/helper/on_contact_submit.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/submit_button.dart';
@@ -46,17 +45,15 @@ class ContactMeWidget extends HookWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const TextByIconButton(),
-              Consumer(builder: (context, ref, _) {
-                return SubmitButton(
-                    onSubmit: () async => onSubmit(
-                          ref,
-                          controllers[0].text,
-                          controllers[1].text,
-                          controllers[2].text,
-                          controllers[3].text,
-                          controllers[4].text,
-                        ));
-              }),
+              SubmitButton(
+                  onSubmit: () async => onSubmit(
+                        // ref,
+                        controllers[0].text,
+                        controllers[1].text,
+                        controllers[2].text,
+                        controllers[3].text,
+                        controllers[4].text,
+                      )),
             ],
           ),
           backgroundColor: Colors.transparent,

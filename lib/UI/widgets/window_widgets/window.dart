@@ -38,19 +38,6 @@ class Window extends HookWidget {
 
     /// on hover is true else false, to give a little animation
     final hovered = useState(false);
-    final animationCTR = useAnimationController(duration: duration);
-    final animation =
-        useAnimation(Tween(begin: 0.0, end: 1.0).animate(animationCTR));
-
-    useEffect(
-      () {
-        ///Entry Animation
-        animationCTR.forward();
-
-        return null;
-      },
-      [],
-    );
 
     return Scaffold(
       key: scaffoldKey,
@@ -61,26 +48,22 @@ class Window extends HookWidget {
         child: SizedBox(
           height: height,
           width: width,
-          child: Opacity(
-            opacity: animation,
-            child: Padding(
-              padding: padding,
-              child: MouseRegion(
-                onHover: (p) =>
-                    isMobile ? hovered.value = !hovered.value : null,
-                onEnter: (p) => hovered.value = true,
-                onExit: (p) => hovered.value = false,
-                child: GradientBorderGlassBox(
-                  onlyTopRadius: onlyTopRadius,
-                  radius: radius,
-                  width: width,
-                  height: height,
-                  inColor: inColor,
-                  hovered: hovered.value,
-                  child: child,
-                ),
-                // if (aboutEnabled) const AboutButton(),
+          child: Padding(
+            padding: padding,
+            child: MouseRegion(
+              onHover: (p) => isMobile ? hovered.value = !hovered.value : null,
+              onEnter: (p) => hovered.value = true,
+              onExit: (p) => hovered.value = false,
+              child: GradientBorderGlassBox(
+                onlyTopRadius: onlyTopRadius,
+                radius: radius,
+                width: width,
+                height: height,
+                inColor: inColor,
+                hovered: hovered.value,
+                child: child,
               ),
+              // if (aboutEnabled) const AboutButton(),
             ),
           ),
         ),

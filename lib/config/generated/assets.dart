@@ -21,6 +21,7 @@ class Assets {
   static const String buttonsTextByIconButton =
       'lib/UI/widgets/buttons/text_by_icon_button.dart';
   static const String configColors = 'lib/config/colors.dart';
+  static const String configConsts = 'lib/config/consts.dart';
   static const String configEnvironmentVariables =
       'lib/config/environment_variables.dart';
   static const String configFontFamilies = 'lib/config/font_families.dart';
@@ -83,8 +84,6 @@ class Assets {
       'lib/UI/widgets/window_widgets/projects/project_view.dart';
   static const String projectsProjectWidget =
       'lib/UI/widgets/window_widgets/projects/project_widget.dart';
-  static const String providerFormSentProvider =
-      'lib/UI/provider/form_sent_provider.dart';
   static const String rive404 = 'assets/rive/404.riv';
   static const String riveFormSent = 'assets/rive/form_sent.riv';
   static const String riveLogo = 'assets/rive/logo.riv';
@@ -101,6 +100,8 @@ class Assets {
       'lib/UI/widgets/background_widget.dart';
   static const String widgetsGlassMorphism =
       'lib/UI/widgets/glass_morphism.dart';
+  static const String widgetsHorizontalPadding =
+      'lib/UI/widgets/horizontal_padding.dart';
   static const String widgetsMeasureSize = 'lib/UI/widgets/measure_size.dart';
   static const String windowWidgetsNotFoundWidget =
       'lib/UI/widgets/window_widgets/not_found_widget.dart';

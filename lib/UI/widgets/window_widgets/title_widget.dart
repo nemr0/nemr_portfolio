@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 
 import '../../../config/text_styles.dart';
+import '../horizontal_padding.dart';
 
 /// A title Widget with an icon using [FontAwesomeIcon]
 class TitleWidget extends StatelessWidget {
@@ -42,9 +43,11 @@ class TitleWidget extends StatelessWidget {
       ),
     ];
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: iconLeftAligned ? children : children.reversed.toList(),
+    return HorizontalPadding(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: iconLeftAligned ? children : children.reversed.toList(),
+      ),
     );
   }
 }

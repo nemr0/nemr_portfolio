@@ -11,9 +11,10 @@ class ProjectConfig extends Equatable {
   final String desc;
   final String id;
   final List<LinkButtonConfig>? icons;
-
+  final int index;
   const ProjectConfig({
     this.icons,
+    required this.index,
     required this.id,
     required this.url,
     required this.name,
@@ -22,6 +23,7 @@ class ProjectConfig extends Equatable {
 
   @override
   List<Object?> get props => [
+        index,
         url,
         name,
         desc,
@@ -32,6 +34,7 @@ class ProjectConfig extends Equatable {
 
 List<ProjectConfig> configs = [
   const ProjectConfig(
+    index: 0,
     id: Routes.projectHalaJary,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.png',
     name: 'Hala Jary',
@@ -44,6 +47,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
+    index: 1,
     id: Routes.projectLocalizationTextGenerator,
     url:
         'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.png',
@@ -72,6 +76,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
+    index: 2,
     id: Routes.projectDartDonut,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/donut.gif',
     name: Routes.projectDartDonut,
@@ -85,6 +90,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
+    index: 3,
     id: Routes.projectImIn,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.png',
     name: 'I\'m In',
@@ -115,6 +121,7 @@ Contributed by:
 - Deployed to Appstore and Play store.''',
   ),
   const ProjectConfig(
+      index: 4,
       id: Routes.projectUnigate,
       url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.png',
       name: 'Unigate',
@@ -143,5 +150,6 @@ GRADUATION PROJECT: Smart Attendance System using QR code
             link:
                 'https://drive.google.com/file/d/1FABAYYE2TmTTLfcWqyb93cnENMetus7f/view?usp=sharing/preview'),
       ]),
-  const ProjectConfig(id: 'id', url: 'url', name: 'name', desc: 'desc'),
+  const ProjectConfig(
+      index: 1000, id: 'id', url: 'url', name: 'name', desc: 'desc'),
 ];

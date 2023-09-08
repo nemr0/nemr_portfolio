@@ -2,16 +2,14 @@ import 'package:emailjs/emailjs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helper/show_error_dialog.dart';
-import 'package:nemr_portfolio/UI/provider/form_sent_provider.dart';
 import 'package:nemr_portfolio/UI/widgets/dialogs/recaptcha_dialog.dart';
 import 'package:nemr_portfolio/model/send_mail.dart';
 
 import '../start_point.dart';
 
 Future<void> onSubmit(
-  WidgetRef ref,
+  // WidgetRef ref,
   String company,
   String name,
   String phone,
@@ -46,7 +44,7 @@ Future<void> onSubmit(
     get.write('form_sent', true);
 
     /// change state
-    ref.read(isFormSentProvider.notifier).state = true;
+    // ref.read(isFormSentProvider.notifier).state = true;
   }
 
   /// on error
@@ -55,7 +53,7 @@ Future<void> onSubmit(
     get.write('form_sent', false);
 
     /// change state
-    ref.read(isFormSentProvider.notifier).state = false;
+    // ref.read(isFormSentProvider.notifier).state = false;
 
     /// get error
     String err;

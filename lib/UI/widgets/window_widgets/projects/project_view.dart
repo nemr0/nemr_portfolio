@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
@@ -13,6 +14,7 @@ import 'package:nemr_portfolio/config/text_styles.dart';
 import 'package:nemr_portfolio/model/project_config.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import '../../../../config/consts.dart';
 import '../../../../model/link_button_config.dart';
 
 class ProjectView extends HookWidget {
@@ -21,6 +23,10 @@ class ProjectView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    useEffect(() {
+      GetStorage().write(UsedStrings.projectIndexKey, config.index);
+      return null;
+    }, const []);
     final scrollCTR = useScrollController();
     final Widget image = Hero(
       transitionOnUserGestures: true,

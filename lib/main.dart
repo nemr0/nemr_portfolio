@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 import 'package:seo/seo.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -10,9 +9,7 @@ import 'UI/style/theme.dart';
 Future<void> main() async {
   setPathUrlStrategy();
   await GetStorage.init();
-  runApp(const ProviderScope(
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 //ignore: prefer-match-file-name
