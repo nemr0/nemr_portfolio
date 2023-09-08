@@ -1,5 +1,3 @@
-// import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_widget.dart';
@@ -24,7 +22,7 @@ class ProjectList extends StatelessWidget {
     return SizedBox(
       height: length,
       child: PageView.builder(
-        pageSnapping: false,
+        // pageSnapping: false,
         // scale: .7,
         physics: const BouncingScrollPhysics(
             decelerationRate: ScrollDecelerationRate.fast),
