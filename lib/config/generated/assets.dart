@@ -82,6 +82,8 @@ class Assets {
       'lib/UI/widgets/window_widgets/projects/project_list.dart';
   static const String projectsProjectView =
       'lib/UI/widgets/window_widgets/projects/project_view.dart';
+  static const String projectsProjectViewList =
+      'lib/UI/widgets/window_widgets/projects/project_view_list.dart';
   static const String projectsProjectWidget =
       'lib/UI/widgets/window_widgets/projects/project_widget.dart';
   static const String rive404 = 'assets/rive/404.riv';

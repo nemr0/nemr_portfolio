@@ -31,7 +31,7 @@ class StartPoint extends HookWidget {
 
     const String seoTagOne =
         'Flutter Developer Software Engineer Portfolio Omar Elnemr nemrdev Ui Ux User Interface User Experience State Management BloC Riverpod Provider GetX';
-    final initialPage = GetStorage().read(UsedStrings.projectIndexKey) ?? 0;
+    final int initialPage = GetStorage().read(UsedStrings.projectIndexKey) ?? 0;
     final projectCTR = usePageController(
         viewportFraction:
             (context.orientation == Orientation.landscape) ? 0.2 : 0.5,

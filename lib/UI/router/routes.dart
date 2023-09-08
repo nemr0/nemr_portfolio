@@ -1,5 +1,7 @@
 class Routes {
   /// /Projects/
+  static const String project = 'project';
+
   /// ---------------------------------------------
   /// localization_text_generator
   static const String projectLocalizationTextGenerator =

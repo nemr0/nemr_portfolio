@@ -18,21 +18,33 @@ import '../../../../config/consts.dart';
 import '../../../../model/link_button_config.dart';
 
 class ProjectView extends HookWidget {
-  const ProjectView({Key? key, required this.config}) : super(key: key);
+  const ProjectView({
+    Key? key,
+    required this.config,
+    required this.currentIndex,
+    required this.topScrollChanged,
+  }) : super(key: key);
   final ProjectConfig config;
-
+  final int currentIndex;
+  final Function(bool topScroll) topScrollChanged;
   @override
   Widget build(BuildContext context) {
+    useAutomaticKeepAlive();
     final topScroll = useState(true);
     useEffect(() {
-      GetStorage().write(UsedStrings.projectIndexKey, config.index);
+      topScroll.addListener(() => topScrollChanged.call(topScroll.value));
       return null;
     }, const []);
+    useEffect(() {
+      if (currentIndex == config.index)
+        GetStorage().write(UsedStrings.projectIndexKey, config.index);
+      return null;
+    }, [currentIndex]);
     final scrollCTR = useScrollController();
 
     final Widget image = Hero(
       transitionOnUserGestures: true,
-      tag: config.id,
+      tag: currentIndex == config.index ? config.id : config.index,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
@@ -160,6 +172,7 @@ class ProjectView extends HookWidget {
                         child: ListView(
                           controller: scrollCTR,
                           shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
                           children: [
                             SelectionArea(
                               child: Align(
