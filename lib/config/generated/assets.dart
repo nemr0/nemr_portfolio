@@ -86,6 +86,8 @@ class Assets {
       'lib/UI/widgets/window_widgets/projects/project_view_list.dart';
   static const String projectsProjectWidget =
       'lib/UI/widgets/window_widgets/projects/project_widget.dart';
+  static const String providerScrollOnTopProvider =
+      'lib/UI/widgets/provider/scroll_on_top_provider.dart';
   static const String rive404 = 'assets/rive/404.riv';
   static const String riveFormSent = 'assets/rive/form_sent.riv';
   static const String riveLogo = 'assets/rive/logo.riv';
