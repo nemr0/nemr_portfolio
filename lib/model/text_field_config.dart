@@ -72,7 +72,7 @@ List<TextFieldConfig> configs = [
     validator: validateEmail,
   ),
   const TextFieldConfig(
-    placeholder: 'Description (A Brief about what you need) :) ',
+    placeholder: 'Description (A Brief about what you need) :)\n\n\n',
     icon: CupertinoIcons.news_solid,
     storageKey: 'desc',
     inputType: TextInputType.multiline,

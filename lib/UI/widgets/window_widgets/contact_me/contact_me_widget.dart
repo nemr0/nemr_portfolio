@@ -76,6 +76,7 @@ class ContactMeWidget extends HookWidget {
               minLines: configs[index].minLines,
               placeholder: configs[index].placeholder,
               validator: configs[index].validator,
+
             ),
           ),
         ),

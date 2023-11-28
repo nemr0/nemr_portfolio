@@ -167,9 +167,9 @@ class StartPoint extends HookWidget {
       child: BackgroundWidget(
         child: Window(
           padding: EdgeInsets.only(
-            top: context.height * .05,
-            right: context.width * .05,
-            left: context.width * .05,
+            top: context.orientation == Orientation.portrait?context.height * .04:context.height * .07,
+            right: context.orientation == Orientation.portrait?context.height * .02:context.height * .05,
+            left: context.orientation == Orientation.portrait?context.height * .02:context.height * .05,
           ),
           scaffoldKey: scaffoldKey,
           child: Padding(
