@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart'
-    show CupertinoColors, CupertinoScrollbar, CupertinoTheme;
+    show CupertinoColors, CupertinoScrollbar;
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/link_button.dart';
+import 'package:nemr_portfolio/UI/widgets/image_error_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/provider/scroll_on_top_provider.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:nemr_portfolio/config/colors.dart';
@@ -31,7 +33,7 @@ class ProjectView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useAutomaticKeepAlive();
     final topScroll = ref.watch(scrollOnTopProvider);
-
+    final kind=useState<PointerDeviceKind?>(null);
     useEffect(() {
       if (currentIndex == config.index)
         GetStorage().write(UsedStrings.projectIndexKey, config.index);
@@ -48,13 +50,7 @@ class ProjectView extends HookConsumerWidget {
             placeholder: kTransparentImage,
             image: config.url,
             fit: BoxFit.cover,
-            imageErrorBuilder: (ctx, _, __) => Text(
-                  'Could Not Load Image',
-                  style:
-                      CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                            color: Theme.of(ctx).colorScheme.error,
-                          ),
-                ))),
+            imageErrorBuilder: (ctx, _, __) => const ImageErrorWidget())),
       ),
     );
     final Widget icons = Padding(
@@ -81,6 +77,9 @@ class ProjectView extends HookConsumerWidget {
     );
 
     return GestureDetector(
+      onTapDown: (details){
+        kind.value=details.kind;
+      },
       onVerticalDragUpdate: (details) {
         // int sensitivity = 10;
         if (details.delta.dy > 8) {
@@ -148,10 +147,10 @@ class ProjectView extends HookConsumerWidget {
                   final current = scrollNotification.metrics.pixels;
                   // final max=scrollNotification.metrics.maxScrollExtent;
                   final min = scrollNotification.metrics.minScrollExtent;
-                  if (current == min) {
-                    ref.read(scrollOnTopProvider.notifier).state = true;
-                  } else {
+                  if (current != min && kind.value == PointerDeviceKind.touch ) {
                     ref.read(scrollOnTopProvider.notifier).state = false;
+                  } else {
+                    ref.read(scrollOnTopProvider.notifier).state = true;
                   }
                   return false;
                 },

@@ -33,8 +33,22 @@ class ProjectConfig extends Equatable {
 }
 
 List<ProjectConfig> configs = [
-  const ProjectConfig(
+   ProjectConfig(
     index: 0,
+    id: Routes.projectHindawiBooks,
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_kotob.png',
+    name: 'هنداوي كتب',
+    desc: '''A Mobile App for Hindawi Foundation to bring books in arabic for free
+Contributed by:
+- More than 35% Performance boost. 
+- Numerous new features including stripe payment, storage check and more.''',
+    icons: [
+      kAppstoreLinkButtonConfig.copyWith(link: 'https://apps.apple.com/us/app/%D9%87%D9%86%D8%AF%D8%A7%D9%88%D9%8A-%D9%83%D8%AA%D8%A8/id1296718056'),
+      kPlayStoreLinkButtonConfig.copyWith(link: 'https://play.google.com/store/apps/details?id=org.hindawi.booksapp&hl=en&gl=US'),
+    ],
+  ),
+  const ProjectConfig(
+    index: 1,
     id: Routes.projectHalaJary,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.png',
     name: 'Hala Jary',
@@ -47,7 +61,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    index: 1,
+    index: 2,
     id: Routes.projectLocalizationTextGenerator,
     url:
         'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.png',
@@ -76,7 +90,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    index: 2,
+    index: 3,
     id: Routes.projectDartDonut,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/donut.gif',
     name: Routes.projectDartDonut,
@@ -90,7 +104,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    index: 3,
+    index: 4,
     id: Routes.projectImIn,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.png',
     name: 'I\'m In',
@@ -121,7 +135,7 @@ Contributed by:
 - Deployed to Appstore and Play store.''',
   ),
   const ProjectConfig(
-      index: 4,
+      index: 5,
       id: Routes.projectUnigate,
       url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.png',
       name: 'Unigate',

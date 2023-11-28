@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
+import 'package:nemr_portfolio/UI/widgets/image_error_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
@@ -63,42 +63,7 @@ class ProjectWidget extends StatelessWidget {
                                 image: config.url,
                                 fit: BoxFit.cover,
                                 width: length,
-                                imageErrorBuilder: (ctx, _, __) => Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Spacer(),
-                                          Expanded(
-                                            child: FaIcon(
-                                              FontAwesomeIcons
-                                                  .triangleExclamation,
-                                              size: 30,
-                                              color: kYellowColor,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: FittedBox(
-                                              child: Text(
-                                                'Could Not Load Image',
-                                                style:
-                                                    CupertinoTheme.of(context)
-                                                        .textTheme
-                                                        .textStyle
-                                                        .copyWith(
-                                                            color:
-                                                                kGradientColor),
-                                              ),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                        ],
-                                      ),
-                                    )),
+                                imageErrorBuilder: (ctx, _, __) =>const ImageErrorWidget()),
                           ),
                         ),
                       ),
@@ -112,6 +77,7 @@ class ProjectWidget extends StatelessWidget {
                       child: Text(
                         config.name,
                         style: kTSBody,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],

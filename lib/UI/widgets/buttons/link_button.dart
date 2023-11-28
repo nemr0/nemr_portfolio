@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' show Tooltip, TooltipState;
+import 'package:flutter/material.dart' show Tooltip,  TooltipTriggerMode, TooltipVisibility;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
@@ -32,17 +32,17 @@ enum ButtonSize {
 }
 
 class LinkButton extends HookWidget {
-  const LinkButton({super.key, required this.config});
-
+  const LinkButton({super.key,this.onPressed,  required this.config});
+  final VoidCallback? onPressed;
   final LinkButtonConfig config;
 
   @override
   Widget build(BuildContext context) {
-    final tooltipKey = GlobalKey<TooltipState>();
     final Decoration decoration = glassBoxDecoration(
       color: config.asset == null ? kContainerColor : config.color,
     );
     final onHoverSize = useState(ButtonSize.small);
+    final tooltipVisible=useState<bool>(false);
     final image = config.asset == null
         ? GlassMorphism(
             height: onHoverSize.value.size,
@@ -74,51 +74,61 @@ class LinkButton extends HookWidget {
       anchor: config.name,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
-        onEnter: (s) => !isMobile ? onHoverSize.value = ButtonSize.large : null,
-        onExit: (s) => onHoverSize.value = ButtonSize.small,
-        child: Tooltip(
-          key: tooltipKey,
-          textStyle: const TextStyle(color: CupertinoColors.white),
-          // triggerMode: TooltipTriggerMode.tap,
-          message: config.toolTipOn ? config.name : '',
-          decoration: config.toolTipOn
-              ? decoration
-              : const BoxDecoration(color: Color(0x00000000)),
-          child: CupertinoButton(
-            padding: EdgeInsets.zero,
-            onPressed: config.onPressed != null
-                ? () async {
-                    tooltipKey.currentState?.ensureTooltipVisible();
+        onEnter: (s)
+        {
+          tooltipVisible.value =true;
+          !isMobile ? onHoverSize.value = ButtonSize.large : null;},
+        onExit: (s) {
+          tooltipVisible.value=false;
+          onHoverSize.value = ButtonSize.small;
+        },
+        child: TooltipVisibility(
+          visible: tooltipVisible.value,
+          child: Tooltip(
+            textStyle: const TextStyle(color: CupertinoColors.white),
+            triggerMode: TooltipTriggerMode.manual,
+            // triggerMode: TooltipTriggerMode.tap,
+            message: config.toolTipOn ? config.name : '',
+            decoration: config.toolTipOn
+                ? decoration
+                : const BoxDecoration(color: Color(0x00000000)),
+            child: CupertinoButton(
+              padding: EdgeInsets.zero,
+              onPressed:
+            onPressed != null
+                  ? () async {
+                      // tooltipKey.currentState?.ensureTooltipVisible();
 
-                    if (!isMobile) {
-                      onHoverSize.value = ButtonSize.small;
-                      await Future.delayed(const Duration(milliseconds: 50));
-                    }
-                    onHoverSize.value = ButtonSize.large;
-                    await Future.delayed(const Duration(milliseconds: 100));
-                    // tooltipKey.currentState?.();
-                    onHoverSize.value = ButtonSize.small;
-
-                    config.onPressed?.call();
-                  }
-                : config.link == null
-                    ? null
-                    : () async {
-                        tooltipKey.currentState?.ensureTooltipVisible();
-
-                        if (!isMobile) {
-                          onHoverSize.value = ButtonSize.small;
-                          await Future.delayed(
-                              const Duration(milliseconds: 50));
-                        }
-                        onHoverSize.value = ButtonSize.large;
-                        await Future.delayed(const Duration(milliseconds: 100));
-                        // tooltipKey.currentState?.();
+                      if (!isMobile) {
                         onHoverSize.value = ButtonSize.small;
+                        await Future.delayed(const Duration(milliseconds: 50));
+                      }
+                      onHoverSize.value = ButtonSize.large;
+                      await Future.delayed(const Duration(milliseconds: 100));
+                      // tooltipKey.currentState?.();
+                      onHoverSize.value = ButtonSize.small;
 
-                        onLinkLaunch((config.link)!);
-                      },
-            child: image,
+                     onPressed!.call();
+                    }
+                  :
+              config.link == null
+                      ? null
+                      : () async {
+
+                          if (!isMobile) {
+                            onHoverSize.value = ButtonSize.small;
+                            await Future.delayed(
+                                const Duration(milliseconds: 50));
+                          }
+                          onHoverSize.value = ButtonSize.large;
+                          await Future.delayed(const Duration(milliseconds: 100));
+                          // tooltipKey.currentState?.();
+                          onHoverSize.value = ButtonSize.small;
+
+                          onLinkLaunch((config.link)!);
+                        },
+              child: image,
+            ),
           ),
         ),
       ),

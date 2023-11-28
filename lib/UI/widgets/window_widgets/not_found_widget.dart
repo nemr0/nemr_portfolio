@@ -50,9 +50,9 @@ class NotFoundWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: LinkButton(
+              child: LinkButton(onPressed: () => context.pop(),
                   config: LinkButtonConfig(
-                      onPressed: () => context.pop(),
+
                       name: 'Go Back Home',
                       color: kContainerColor,
                       icon: FontAwesomeIcons.house))),

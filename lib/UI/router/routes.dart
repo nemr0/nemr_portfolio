@@ -15,6 +15,7 @@ class Routes {
 
   /// Hala Jary
   static const String projectHalaJary = 'HalaJary';
+  static const String projectHindawiBooks = 'Hindawi-Books';
   static const String projectUnigate = 'Unigate';
 
   /// ---------------------------------------------
