@@ -76,162 +76,165 @@ class ProjectView extends HookConsumerWidget {
       ),
     );
 
-    return GestureDetector(
-      onTapDown: (details){
+    return MouseRegion(
+      onEnter: (details){
         kind.value=details.kind;
+        print(kind.value);
       },
-      onVerticalDragUpdate: (details) {
-        // int sensitivity = 10;
-        if (details.delta.dy > 8) {
-          context.pop();
-        }
-      },
-      child: Window(
-        radius: topScroll ? 40 : 0,
-        inColor: kAltContainerColor,
-        height: context.height,
-        duration: const Duration(milliseconds: 10),
-        padding: topScroll
-            ? EdgeInsets.only(
-                left: context.width * .02,
-                right: context.width * .02,
-                top: context.height * .03,
-              )
-            : EdgeInsets.zero,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            const SizedBox(
-              height: 8,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        icon: const FaIcon(
-                          FontAwesomeIcons.solidCircleXmark,
-                          color: kYellowColor,
+      child: GestureDetector(
+        onVerticalDragUpdate: (details) {
+          // int sensitivity = 10;
+          if (details.delta.dy > 8) {
+            context.pop();
+          }
+        },
+        child: Window(
+          radius: topScroll ? 40 : 0,
+          inColor: kAltContainerColor,
+          height: context.height,
+          duration: const Duration(milliseconds: 10),
+          padding: topScroll
+              ? EdgeInsets.only(
+                  left: context.width * .02,
+                  right: context.width * .02,
+                  top: context.height * .03,
+                )
+              : EdgeInsets.zero,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: const FaIcon(
+                            FontAwesomeIcons.solidCircleXmark,
+                            color: kYellowColor,
+                          ),
+                          onPressed: () => context.pop(),
                         ),
-                        onPressed: () => context.pop(),
                       ),
                     ),
                   ),
-                ),
-                const Expanded(
-                  flex: 2,
-                  child: Text(
-                    'Swipe Down to Close',
-                    style: kSwipeText,
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
+                  const Expanded(
+                    flex: 2,
+                    child: Text(
+                      'Swipe Down to Close',
+                      style: kSwipeText,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                    ),
                   ),
-                ),
-                const Spacer(),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Expanded(
-              child: NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification scrollNotification) {
-                  final current = scrollNotification.metrics.pixels;
-                  // final max=scrollNotification.metrics.maxScrollExtent;
-                  final min = scrollNotification.metrics.minScrollExtent;
-                  if (current != min && kind.value == PointerDeviceKind.touch ) {
-                    ref.read(scrollOnTopProvider.notifier).state = false;
-                  } else {
-                    ref.read(scrollOnTopProvider.notifier).state = true;
-                  }
-                  return false;
-                },
-                child: CupertinoScrollbar(
-                  thumbVisibility: true,
-                  controller: scrollCTR,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
-                        child: ListView(
-                          controller: scrollCTR,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
-                                child: FittedBox(
-                                  child: Text.rich(
-                                    TextSpan(
-                                      text:
-                                          'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
-                                      style: kTSBoldTitle.copyWith(
-                                          color: kPrimaryColor),
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              '${config.name.toUpperCase()}\n',
-                                          style: const TextStyle(
-                                            color: CupertinoColors.white,
+                  const Spacer(),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Expanded(
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (ScrollNotification scrollNotification) {
+                    final current = scrollNotification.metrics.pixels;
+                    // final max=scrollNotification.metrics.maxScrollExtent;
+                    final min = scrollNotification.metrics.minScrollExtent;
+                    if (current != min && kind.value == PointerDeviceKind.touch) {
+                      ref.read(scrollOnTopProvider.notifier).state = false;
+                    } else {
+                      ref.read(scrollOnTopProvider.notifier).state = true;
+                    }
+                    return false;
+                  },
+                  child: CupertinoScrollbar(
+                    thumbVisibility: true,
+                    controller: scrollCTR,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context)
+                              .copyWith(scrollbars: false),
+                          child: ListView(
+                            controller: scrollCTR,
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: FittedBox(
+                                    child: Text.rich(
+                                      TextSpan(
+                                        text:
+                                            'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
+                                        style: kTSBoldTitle.copyWith(
+                                            color: kPrimaryColor),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                '${config.name.toUpperCase()}\n',
+                                            style: const TextStyle(
+                                              color: CupertinoColors.white,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                      textAlign: TextAlign.start,
                                     ),
-                                    textAlign: TextAlign.start,
                                   ),
                                 ),
                               ),
-                            ),
-                            if (context.orientation ==
-                                Orientation.landscape) ...[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [desc, icons],
+                              if (context.orientation ==
+                                  Orientation.landscape) ...[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [desc, icons],
+                                      ),
                                     ),
-                                  ),
-                                  Expanded(child: image),
-                                ],
+                                    Expanded(child: image),
+                                  ],
+                                ),
+                              ],
+                              if (context.orientation ==
+                                  Orientation.portrait) ...[
+                                image,
+                                if (config.icons != null) icons,
+                                desc,
+                              ],
+                              const SizedBox(
+                                height: 50,
                               ),
                             ],
-                            if (context.orientation ==
-                                Orientation.portrait) ...[
-                              image,
-                              if (config.icons != null) icons,
-                              desc,
-                            ],
-                            const SizedBox(
-                              height: 50,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
