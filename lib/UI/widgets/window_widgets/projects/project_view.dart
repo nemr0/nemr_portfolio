@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoScrollbar;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
-import 'package:nemr_portfolio/UI/helper/is_mobile.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/link_button.dart';
 import 'package:nemr_portfolio/UI/widgets/image_error_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/provider/scroll_on_top_provider.dart';
