@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
+import 'package:nemr_portfolio/UI/helper/is_mobile.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/link_button.dart';
 import 'package:nemr_portfolio/UI/widgets/image_error_widget.dart';
 import 'package:nemr_portfolio/UI/widgets/provider/scroll_on_top_provider.dart';
@@ -145,7 +146,7 @@ class ProjectView extends HookConsumerWidget {
                   // final max=scrollNotification.metrics.maxScrollExtent;
                   final min = scrollNotification.metrics.minScrollExtent;
                   if (current != min
-                      // && isMobile
+                      && isMobile
                   ) {
                     ref.read(scrollOnTopProvider.notifier).state = false;
                   } else {
