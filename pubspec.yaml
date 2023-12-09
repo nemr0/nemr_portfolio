@@ -48,7 +48,6 @@ flutter:
     - html/
     - assets/
     - assets/icons/links_icons/
-    - lib/config/
   fonts:
     - family: Roboto Mono
       fonts:

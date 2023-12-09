@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart' show Tooltip,  TooltipTriggerMode, TooltipVisibility;
+import 'package:flutter/material.dart' show Tooltip, TooltipTriggerMode, TooltipVisibility;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
@@ -32,16 +32,17 @@ enum ButtonSize {
 }
 
 class LinkButton extends HookWidget {
-  const LinkButton({super.key,this.onPressed,  required this.config});
+  const LinkButton( {super.key,this.onPressed,  required this.config,this.buttonSize=ButtonSize.small,this.fromPVL=false, });
   final VoidCallback? onPressed;
   final LinkButtonConfig config;
-
+  final ButtonSize buttonSize;
+  final bool fromPVL;
   @override
   Widget build(BuildContext context) {
     final Decoration decoration = glassBoxDecoration(
       color: config.asset == null ? kContainerColor : config.color,
     );
-    final onHoverSize = useState(ButtonSize.small);
+    final onHoverSize = useState(buttonSize);
     final tooltipVisible=useState<bool>(false);
     final image = config.asset == null
         ? GlassMorphism(
@@ -61,7 +62,7 @@ class LinkButton extends HookWidget {
             width: onHoverSize.value.size,
             color: config.color,
             borderRadius: BorderRadius.circular(3),
-            child: usePrecacheImage(Image.asset(
+            child: usePrecacheImage(Image.network(
               config.asset!,
               fit: BoxFit.contain,
               height: onHoverSize.value.size - 10,
@@ -77,10 +78,16 @@ class LinkButton extends HookWidget {
         onEnter: (s)
         {
           tooltipVisible.value =true;
-          !isMobile ? onHoverSize.value = ButtonSize.large : null;},
+          if(!isMobile && !fromPVL) {
+          onHoverSize.value = ButtonSize.large;
+        }
+
+          },
         onExit: (s) {
           tooltipVisible.value=false;
-          onHoverSize.value = ButtonSize.small;
+          if(!fromPVL){
+            onHoverSize.value = ButtonSize.small;
+          }
         },
         child: TooltipVisibility(
           visible: tooltipVisible.value,
@@ -104,18 +111,20 @@ class LinkButton extends HookWidget {
                         await Future.delayed(const Duration(milliseconds: 50));
                       }
                       onHoverSize.value = ButtonSize.large;
-                      await Future.delayed(const Duration(milliseconds: 100));
-                      // tooltipKey.currentState?.();
-                      onHoverSize.value = ButtonSize.small;
+                      if(!fromPVL){
+                        await Future.delayed(const Duration(milliseconds: 100));
+                        // tooltipKey.currentState?.();
+                        onHoverSize.value = ButtonSize.small;
+                      }
 
-                     onPressed!.call();
+                      onPressed!.call();
                     }
                   :
               config.link == null
                       ? null
                       : () async {
 
-                          if (!isMobile) {
+                          if (!isMobile && buttonSize==ButtonSize.small) {
                             onHoverSize.value = ButtonSize.small;
                             await Future.delayed(
                                 const Duration(milliseconds: 50));
@@ -129,6 +138,55 @@ class LinkButton extends HookWidget {
                         },
               child: image,
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+class LinkButtonForPVL extends HookWidget {
+  const LinkButtonForPVL(  {super.key,this.addMoreSize=0, required this.onPressed,required this.name, required this.color, required this.asset,  this.buttonSize=ButtonSize.small, });
+  final VoidCallback onPressed;
+  final String name;
+  final Color color;
+  final String asset;
+  final double addMoreSize;
+  final ButtonSize buttonSize;
+  @override
+  Widget build(BuildContext context) {
+    final Decoration decoration = glassBoxDecoration(
+      color: color,
+    );
+    final tooltipVisible=useState<bool>(false);
+    final image = GlassMorphism(
+            height: buttonSize.size+addMoreSize,
+            width: buttonSize.size+addMoreSize,
+            color: color,
+            borderRadius: BorderRadius.circular(3),
+            child: usePrecacheImage(Image.network(
+              asset,
+              fit: BoxFit.contain,
+              height: buttonSize.size ,
+              width: buttonSize.size ,
+            )),
+          );
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (s)=> tooltipVisible.value =true,
+      onExit: (s) => tooltipVisible.value=false,
+      child: TooltipVisibility(
+        visible: tooltipVisible.value,
+        child: Tooltip(
+          textStyle: const TextStyle(color: CupertinoColors.white),
+          triggerMode: TooltipTriggerMode.manual,
+          // triggerMode: TooltipTriggerMode.tap,
+          message: name,
+          decoration: decoration,
+          child: CupertinoButton(
+            padding: EdgeInsets.zero,
+            onPressed: onPressed,
+            child: image,
           ),
         ),
       ),

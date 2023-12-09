@@ -16,7 +16,6 @@ class Window extends HookWidget {
     this.onlyTopRadius = true,
     this.radius = 20,
     required this.child,
-    this.duration = const Duration(milliseconds: 600),
     this.width,
     this.height,
     this.inColor = kContainerColor,
@@ -25,7 +24,6 @@ class Window extends HookWidget {
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final double? width;
   final double? height;
-  final Duration duration;
   final Widget child;
   final bool onlyTopRadius;
   final double radius;

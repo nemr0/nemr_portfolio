@@ -15,6 +15,7 @@ const CupertinoThemeData cupertinoTheme = CupertinoThemeData(
   primaryColor: kPrimaryColor,
 );
 final ThemeData theme = ThemeData(
+  bottomSheetTheme: BottomSheetThemeData(surfaceTintColor: Colors.transparent,modalElevation: 0,backgroundColor: Colors.transparent,shadowColor:  Colors.transparent,modalBackgroundColor:  Colors.transparent,modalBarrierColor:  Colors.transparent),
   useMaterial3: true,
   cupertinoOverrideTheme: cupertinoTheme,
   fontFamily: kRobotoMonoFamily,

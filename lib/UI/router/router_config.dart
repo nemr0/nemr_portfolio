@@ -32,13 +32,13 @@ final router = GoRouter(
 
           for (ProjectConfig config in configs)
             GoRoute(
-              path: 'project/${config.id}',
+              path: 'project/:id',
               name: config.id,
               pageBuilder: (context, state) => HeroPage(
                 key: state.pageKey,
                 filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                 builder: (BuildContext context) => ProjectViewList(
-                  index: config.index,
+                  id: state.pathParameters['id'].toString(),
                 ),
               ),
             ),

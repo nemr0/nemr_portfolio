@@ -32,25 +32,25 @@ class ProjectView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     useAutomaticKeepAlive();
     final topScroll = ref.watch(scrollOnTopProvider);
+    final scrollCTR = useScrollController();
+
     useEffect(() {
+
       if (currentIndex == config.index)
         GetStorage().write(UsedStrings.projectIndexKey, config.index);
       return null;
     }, [currentIndex]);
-    final scrollCTR = useScrollController();
 
-    final Widget image = Hero(
-      transitionOnUserGestures: true,
-      tag: config.id,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: config.url,
-            fit: BoxFit.cover,
-            imageErrorBuilder: (ctx, _, __) => const ImageErrorWidget())),
-      ),
+    final Widget image = ClipRRect(
+      borderRadius: BorderRadius.circular(30),
+      child: usePrecacheFadeInImage(FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: config.url,
+          fit: BoxFit.cover,
+          imageErrorBuilder: (ctx, _, __) => const ImageErrorWidget())),
     );
+
+
     final Widget icons = Padding(
       padding: const EdgeInsets.all(15.0),
       child: Wrap(
@@ -75,22 +75,22 @@ class ProjectView extends HookConsumerWidget {
     );
 
     return GestureDetector(
-      onVerticalDragUpdate: (details) {
+      onVerticalDragUpdate: (details) async {
         // int sensitivity = 10;
         if (details.delta.dy > 8) {
-          context.pop();
+            scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut).then((value) => context.pop());
+
         }
       },
       child: Window(
         radius: topScroll ? 40 : 0,
         inColor: kAltContainerColor,
         height: context.height,
-        duration: const Duration(milliseconds: 10),
         padding: topScroll
             ? EdgeInsets.only(
                 left: context.width * .02,
                 right: context.width * .02,
-                top: context.height * .03,
+                // top: context.height * (1/11),
               )
             : EdgeInsets.zero,
         child: Column(
@@ -116,7 +116,9 @@ class ProjectView extends HookConsumerWidget {
                           FontAwesomeIcons.solidCircleXmark,
                           color: kYellowColor,
                         ),
-                        onPressed: () => context.pop(),
+                        onPressed: () async {
+                        await  scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+                          context.pop();},
                       ),
                     ),
                   ),
@@ -142,7 +144,8 @@ class ProjectView extends HookConsumerWidget {
                   final current = scrollNotification.metrics.pixels;
                   // final max=scrollNotification.metrics.maxScrollExtent;
                   final min = scrollNotification.metrics.minScrollExtent;
-                  if (current != min && isMobile) {
+                  if (current != min && isMobile
+                  ) {
                     ref.read(scrollOnTopProvider.notifier).state = false;
                   } else {
                     ref.read(scrollOnTopProvider.notifier).state = true;

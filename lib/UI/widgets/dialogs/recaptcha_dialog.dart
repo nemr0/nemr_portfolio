@@ -1,6 +1,6 @@
 //ignore_for_file:avoid_web_libraries_in_flutter
 import 'dart:html';
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

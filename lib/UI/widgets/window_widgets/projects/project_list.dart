@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_widget.dart';
 
 import '../../../../model/project_config.dart';
 
-class ProjectList extends StatelessWidget {
+class ProjectList extends ConsumerWidget {
   const ProjectList({
     super.key,
     required this.projectCTR,
@@ -18,15 +18,14 @@ class ProjectList extends StatelessWidget {
   // final int currentIndex;
   final int currentPage;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return SizedBox(
       height: length,
       child: PageView.builder(
         // pageSnapping: false,
-        // scale: .7,
         physics: const BouncingScrollPhysics(
             decelerationRate: ScrollDecelerationRate.fast),
-
+        // onPageChanged: (v)=>cachedIndexProvider.setState(ref, v),
         controller: projectCTR,
         // numberOfCardsDisplayed: configs.length - 2,
         itemBuilder: (ctx, i) => ProjectWidget(

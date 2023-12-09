@@ -31,7 +31,7 @@ Future<void> onSubmit(
   }
   GetStorage get = GetStorage();
   SendMail mailer = SendMail();
-
+try{
   /// sending two mails together
   List<EmailJSResponseStatus> emails = await Future.wait([
     mailer.welcome(name, email, reCaptchaToken),
@@ -52,20 +52,18 @@ Future<void> onSubmit(
     /// save to local storage
     get.write('form_sent', false);
 
-    /// change state
-    // ref.read(isFormSentProvider.notifier).state = false;
-
-    /// get error
-    String err;
-    if (emails.first.status != 200) {
-      err = emails.first.toString();
-    } else {
-      err = emails.last.toString();
-    }
 
     /// show error
     SchedulerBinding.instance.addPostFrameCallback(
-        (timeStamp) => showErrorDialog(scaffoldKey.currentContext!, err));
+        (timeStamp) => showErrorDialog(scaffoldKey.currentContext!, 'An Error Happened, Please Try Again Later!'));
   }
+}
+catch (e){
+
+  /// show error
+  /// show error
+  SchedulerBinding.instance.addPostFrameCallback(
+          (timeStamp) => showErrorDialog(scaffoldKey.currentContext!, 'An Error Happened, Please Try Again Later!'));
+}
   return;
 }

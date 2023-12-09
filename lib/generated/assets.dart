@@ -27,12 +27,12 @@ class Assets {
   static const String dialogsErrorDialog = 'lib/UI/widgets/dialogs/error_dialog.dart';
   static const String dialogsRecaptchaDialog = 'lib/UI/widgets/dialogs/recaptcha_dialog.dart';
   static const String extensionsContextConfig = 'lib/UI/helper/extensions/context_config.dart';
+  static const String extensionsProviderExtension = 'lib/UI/helper/extensions/provider_extension.dart';
   static const String extensionsStringExtension = 'lib/UI/helper/extensions/string_extension.dart';
   static const String generatedAssets = 'lib/config/generated/assets.dart';
   static const String helperIsMobile = 'lib/UI/helper/is_mobile.dart';
   static const String helperOnContactSubmit = 'lib/UI/helper/on_contact_submit.dart';
   static const String helperShowErrorDialog = 'lib/UI/helper/show_error_dialog.dart';
-  static const String hooksFormValidatorHook = 'lib/UI/helper/hooks/form_validator_hook.dart';
   static const String hooksPrecacheImageHook = 'lib/UI/helper/hooks/precache_image_hook.dart';
   static const String htmlRecaptcha = 'html/recaptcha.html';
   static const String iconsAvatar = 'assets/icons/avatar.png';
