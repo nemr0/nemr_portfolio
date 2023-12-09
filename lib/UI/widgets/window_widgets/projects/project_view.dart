@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart' show CupertinoColors, CupertinoScrollbar;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
@@ -28,6 +29,10 @@ class ProjectView extends HookConsumerWidget {
   }) : super(key: key);
   final ProjectConfig config;
   final int currentIndex;
+  scrollAndPop(ScrollController scrollCTR,BuildContext context){
+    scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+    Future.delayed(Duration(milliseconds: 300),() =>context.canPop()?context.pop():null);
+  }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     useAutomaticKeepAlive();
@@ -78,8 +83,7 @@ class ProjectView extends HookConsumerWidget {
       onVerticalDragUpdate: (details) async {
         // int sensitivity = 10;
         if (details.delta.dy > 8) {
-            scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut).then((value) => context.pop());
-
+          scrollAndPop(scrollCTR, context);
         }
       },
       child: Window(
@@ -116,9 +120,7 @@ class ProjectView extends HookConsumerWidget {
                           FontAwesomeIcons.solidCircleXmark,
                           color: kYellowColor,
                         ),
-                        onPressed: () async {
-                        await  scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
-                          context.pop();},
+                        onPressed: () =>scrollAndPop(scrollCTR, context),
                       ),
                     ),
                   ),
@@ -144,7 +146,8 @@ class ProjectView extends HookConsumerWidget {
                   final current = scrollNotification.metrics.pixels;
                   // final max=scrollNotification.metrics.maxScrollExtent;
                   final min = scrollNotification.metrics.minScrollExtent;
-                  if (current != min && isMobile
+                  if (current != min
+                      // && isMobile
                   ) {
                     ref.read(scrollOnTopProvider.notifier).state = false;
                   } else {
