@@ -27,11 +27,14 @@ class MyApp extends StatelessWidget {
       tree: WidgetTree(context: context),
 
       /// Material App
-      child: MaterialApp.router(
-        routerConfig: router,
-        debugShowCheckedModeBanner: false,
-        title: 'Omar Elnemr',
-        theme: theme,
+      child: InteractiveViewer(
+        
+        child: MaterialApp.router(
+          routerConfig: router,
+          debugShowCheckedModeBanner: false,
+          title: 'Omar Elnemr',
+          theme: theme,
+        ),
       ),
     );
   }

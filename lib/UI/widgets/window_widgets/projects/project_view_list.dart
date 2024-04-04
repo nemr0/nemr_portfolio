@@ -23,10 +23,10 @@ class ProjectViewList extends HookConsumerWidget {
     final scrollOnTop = ref.watch(scrollOnTopProvider);
 
     final pageViewCTR = usePageController(
-        initialPage: configs.indexWhere((element) => element.id == id),
+        initialPage: configs.indexWhere((element) => element.route == id),
         viewportFraction: scrollOnTop ? 0.9 : 1,
         keys: [scrollOnTop]);
-    final cachedIndex=useState(configs.indexWhere((element) => element.id == id));
+    final cachedIndex=useState(configs.indexWhere((element) => element.route == id));
 
     return Column(
       children: [
@@ -48,7 +48,7 @@ class ProjectViewList extends HookConsumerWidget {
             onPageChanged: (v) {
               cachedIndex.value=v;
               // cachedIndexProvider.setState(ref, v);
-              context.goNamed(configs[v].id, pathParameters: {'id': configs[v].id});
+              context.goNamed(configs[v].route, pathParameters: {'id': configs[v].route});
             },
             itemCount: configs.length - 1,
           ),

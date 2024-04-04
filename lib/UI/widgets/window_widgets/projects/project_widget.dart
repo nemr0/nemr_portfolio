@@ -40,8 +40,8 @@ class ProjectWidget extends ConsumerWidget {
                 onTap: () {
                   // cachedIndexProvider.setState(ref,config.index);
                   context.goNamed(
-                    config.id,
-                        pathParameters: {'id':config.id}
+                    config.route,
+                        pathParameters: {'id':config.route}
                     );
                 },
                 radius: 10,

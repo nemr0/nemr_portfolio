@@ -33,7 +33,7 @@ final router = GoRouter(
           for (ProjectConfig config in configs)
             GoRoute(
               path: 'project/:id',
-              name: config.id,
+              name: config.route,
               pageBuilder: (context, state) => HeroPage(
                 key: state.pageKey,
                 filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),

@@ -9,11 +9,11 @@ class ProjectConfig extends Equatable {
   final String url;
   final String name;
   final String desc;
-  final String id;
+  final String route;
   final List<LinkButtonConfig>? icons;
   const ProjectConfig({
     this.icons,
-    required this.id,
+    required this.route,
     required this.url,
     required this.name,
     required this.desc,
@@ -24,7 +24,7 @@ class ProjectConfig extends Equatable {
         url,
         name,
         desc,
-        id,
+        route,
         icons,
       ];
 }
@@ -32,9 +32,9 @@ class ProjectConfig extends Equatable {
 List<ProjectConfig> configs = [
 
    ProjectConfig(
-    id: Routes.projectHindawiReaders,
+    route: Routes.projectHindawiReaders,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_readers.png',
-    name: 'هنداوي قراءات',
+    name: ' هنداوي قراءات - Hindawi Readers',
     desc: '''- Hindawi Readers is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
 
 - I contributed to Hindawi Books by:
@@ -46,9 +46,9 @@ List<ProjectConfig> configs = [
       kPlayStoreLinkButtonConfig.copyWith(link: 'https://play.google.com/store/apps/details?id=hindawi.readers&hl=en&gl=US'),
     ],
   ), ProjectConfig(
-    id: Routes.projectHindawiBooks,
+    route: Routes.projectHindawiBooks,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_kotob.png',
-    name: 'هنداوي كتب',
+    name: 'هنداوي كتب - Hindawi Books',
     desc: '''- Hindawi Books is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
     
 - I contributed to Hindawi Books by:
@@ -62,9 +62,9 @@ List<ProjectConfig> configs = [
       kPlayStoreLinkButtonConfig.copyWith(link: 'https://play.google.com/store/apps/details?id=org.hindawi.booksapp&hl=en&gl=US'),
     ],
   ), ProjectConfig(
-    id: Routes.projectHindawiPoems,
+    route: Routes.projectHindawiPoems,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_poems.png',
-    name: 'هنداوي قصائد',
+    name: 'هنداوي قصائد - Hindawi Poems',
     desc: '''- Hindawi poems is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
 
 - I contributed to Hindawi Poems by:
@@ -78,7 +78,7 @@ List<ProjectConfig> configs = [
     ],
   ),
   const ProjectConfig(
-    id: Routes.projectHalaJary,
+    route: Routes.projectHalaJary,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.png',
     name: 'Hala Jary',
     desc: '''A Web-App in Flutter Web-view
@@ -90,10 +90,10 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    id: Routes.projectLocalizationTextGenerator,
+    route: Routes.projectLocalizationTextGenerator,
     url:
         'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.png',
-    name: Routes.projectLocalizationTextGenerator,
+    name: 'Localization Text Generator',
     desc:
         '''A Dart CLI Tool that can help you generate json file for all texts in all screens in a Flutter project to implement localization.
         
@@ -118,9 +118,9 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    id: Routes.projectDartDonut,
+    route: Routes.projectDartDonut,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/donut.gif',
-    name: Routes.projectDartDonut,
+    name: 'Dart Donut',
     desc:
         'An Implementation of donut.c in dart using zBuffer algorithm this uses the exact same logic implemented by a1kon.',
     icons: [
@@ -131,7 +131,7 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    id: Routes.projectImIn,
+    route: Routes.projectImIn,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.png',
     name: 'I\'m In',
     icons: [
@@ -161,7 +161,7 @@ Contributed by:
 - Deployed to Appstore and Play store.''',
   ),
   const ProjectConfig(
-      id: Routes.projectUnigate,
+      route: Routes.projectUnigate,
       url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.png',
       name: 'Unigate',
       desc: '''
@@ -190,5 +190,5 @@ GRADUATION PROJECT: Smart Attendance System using QR code
                 'https://drive.google.com/file/d/1FABAYYE2TmTTLfcWqyb93cnENMetus7f/view?usp=sharing/preview'),
       ]),
   const ProjectConfig(
-      id: '1000', url: 'url', name: 'name', desc: 'desc'),
+      route: '1000', url: 'url', name: 'name', desc: 'desc'),
 ];
