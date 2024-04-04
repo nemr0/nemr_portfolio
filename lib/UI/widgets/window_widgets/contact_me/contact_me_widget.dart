@@ -25,10 +25,11 @@ class ContactMeWidget extends HookWidget {
     // [companyCTR, nameCTR, phoneCTR, emailCTR, descCTR];
     double rightPaddingOfTextField() {
       if (context.orientation == Orientation.landscape) {
-        return context.width * .08;
+        print(  context.width * .55);
+        return (context.width * .55)>500?500:context.width*.55;
       }
 
-      return context.width * .04;
+      return context.width * .96;
     }
 
     return Form(
@@ -37,46 +38,52 @@ class ContactMeWidget extends HookWidget {
         padding: EdgeInsets.only(
           top: 8.0,
           bottom: 8.0,
-          right: rightPaddingOfTextField(),
         ),
-        child: CupertinoFormSection.insetGrouped(
-          footer: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const TextByIconButton(),
-              SubmitButton(
-                  onSubmit: () async => onSubmit(
-                        // ref,
-                        controllers[0].text,
-                        controllers[1].text,
-                        controllers[2].text,
-                        controllers[3].text,
-                        controllers[4].text,
-                      )),
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          children: List<Widget>.generate(
-            configs.length,
-            (index) => CupertinoTextFormFieldRow(
-              inputFormatters: configs[index].inputFormatters,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              // autofocus: true,
-              keyboardType: configs[index].inputType,
-              style: kTSAgreement,
-              decoration: const BoxDecoration(color: Colors.transparent),
-              prefix: Icon(
-                configs[index].icon,
-              ),
-              onChanged: (v) => storage.write(configs[index].storageKey, v),
-              textInputAction: configs[index].inputAction,
-              controller: controllers[index],
-              maxLines: configs[index].maxLines,
-              minLines: configs[index].minLines,
-              placeholder: configs[index].placeholder,
-              validator: configs[index].validator,
+        child: Align(
+          alignment: Alignment.centerLeft,
 
+          child: SizedBox(
+            width:rightPaddingOfTextField(),
+            child: CupertinoFormSection.insetGrouped(
+              footer: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const TextByIconButton(),
+                  SubmitButton(
+                      onSubmit: () async => onSubmit(
+                            // ref,
+                            controllers[0].text,
+                            controllers[1].text,
+                            controllers[2].text,
+                            controllers[3].text,
+                            controllers[4].text,
+                          )),
+                ],
+              ),
+              backgroundColor: Colors.transparent,
+              children: List<Widget>.generate(
+                configs.length,
+                (index) => CupertinoTextFormFieldRow(
+                  inputFormatters: configs[index].inputFormatters,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // autofocus: true,
+                  keyboardType: configs[index].inputType,
+                  style: kTSAgreement,
+                  decoration: const BoxDecoration(color: Colors.transparent),
+                  prefix: Icon(
+                    configs[index].icon,
+                  ),
+                  onChanged: (v) => storage.write(configs[index].storageKey, v),
+                  textInputAction: configs[index].inputAction,
+                  controller: controllers[index],
+                  maxLines: configs[index].maxLines,
+                  minLines: configs[index].minLines,
+                  placeholder: configs[index].placeholder,
+                  validator: configs[index].validator,
+
+                ),
+              ),
             ),
           ),
         ),

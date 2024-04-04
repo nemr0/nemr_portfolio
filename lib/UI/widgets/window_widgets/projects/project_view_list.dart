@@ -23,10 +23,10 @@ class ProjectViewList extends HookConsumerWidget {
     final scrollOnTop = ref.watch(scrollOnTopProvider);
 
     final pageViewCTR = usePageController(
-        initialPage: configs.where((element) => element.id == id).first.index,
+        initialPage: configs.indexWhere((element) => element.id == id),
         viewportFraction: scrollOnTop ? 0.9 : 1,
         keys: [scrollOnTop]);
-    final cachedIndex=useState(configs.where((element) => element.id == id).first.index);
+    final cachedIndex=useState(configs.indexWhere((element) => element.id == id));
 
     return Column(
       children: [
@@ -77,16 +77,16 @@ class OverlayMenu extends ConsumerWidget {
         alignment: WrapAlignment.center,
         children: [
           for (ProjectConfig config in configs)
-            if (config.index != 1000)
+            if (configs.indexOf(config) != configs.length-1)
               LinkButtonForPVL(
                 addMoreSize: context.height*.009,
                   buttonSize:
                   // cachedIndex == config.index
-               index == config.index   ? ButtonSize.large
+               index == configs.indexOf(config)   ? ButtonSize.large
                       :
                   ButtonSize.small,
                   onPressed: () {
-                    pageViewCTR.animateToPage(config.index,
+                    pageViewCTR.animateToPage(configs.indexOf(config),
                         duration: Duration(milliseconds: 200),
                         curve: Curves.bounceInOut);
                     // cachedIndexProvider.setState(ref, config.index);

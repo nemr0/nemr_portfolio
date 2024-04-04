@@ -40,8 +40,8 @@ class ProjectView extends HookConsumerWidget {
 
     useEffect(() {
 
-      if (currentIndex == config.index)
-        GetStorage().write(UsedStrings.projectIndexKey, config.index);
+      if (currentIndex == configs.indexOf(config))
+        GetStorage().write(UsedStrings.projectIndexKey, configs.indexOf(config));
       return null;
     }, [currentIndex]);
 

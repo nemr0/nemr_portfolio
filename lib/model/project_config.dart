@@ -11,10 +11,8 @@ class ProjectConfig extends Equatable {
   final String desc;
   final String id;
   final List<LinkButtonConfig>? icons;
-  final int index;
   const ProjectConfig({
     this.icons,
-    required this.index,
     required this.id,
     required this.url,
     required this.name,
@@ -23,7 +21,6 @@ class ProjectConfig extends Equatable {
 
   @override
   List<Object?> get props => [
-        index,
         url,
         name,
         desc,
@@ -33,22 +30,54 @@ class ProjectConfig extends Equatable {
 }
 
 List<ProjectConfig> configs = [
+
    ProjectConfig(
-    index: 0,
+    id: Routes.projectHindawiReaders,
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_readers.png',
+    name: 'هنداوي قراءات',
+    desc: '''- Hindawi Readers is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
+
+- I contributed to Hindawi Books by:
+    * Lead development of the whole app by translating requirements and user stories into code.
+
+- Hindawi Reader is a children targeted stories app for various ages till 16 years with over 1000+ Arabic stories.''',
+    icons: [
+      kAppstoreLinkButtonConfig.copyWith(link: 'https://apps.apple.com/us/app/%D9%87%D9%86%D8%AF%D8%A7%D9%88%D9%8A-%D9%82%D8%B1%D8%A7%D8%A1%D8%A7%D8%AA/id6470289133'),
+      kPlayStoreLinkButtonConfig.copyWith(link: 'https://play.google.com/store/apps/details?id=hindawi.readers&hl=en&gl=US'),
+    ],
+  ), ProjectConfig(
     id: Routes.projectHindawiBooks,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_kotob.png',
     name: 'هنداوي كتب',
-    desc: '''A Mobile App for Hindawi Foundation to bring books in arabic for free
-Contributed by:
-- More than 35% Performance boost. 
-- Numerous new features including stripe payment, storage check and more.''',
+    desc: '''- Hindawi Books is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
+    
+- I contributed to Hindawi Books by:
+
+    * Boosted performance with over 60%.
+    * Added Social Login. (Facebook, Apple and google)
+    
+- Hindawi Books is one of most valuable resources of Hindawi Foundation that brings thousands of books for free in Arabic all over the middle east.''',
     icons: [
       kAppstoreLinkButtonConfig.copyWith(link: 'https://apps.apple.com/us/app/%D9%87%D9%86%D8%AF%D8%A7%D9%88%D9%8A-%D9%83%D8%AA%D8%A8/id1296718056'),
       kPlayStoreLinkButtonConfig.copyWith(link: 'https://play.google.com/store/apps/details?id=org.hindawi.booksapp&hl=en&gl=US'),
     ],
+  ), ProjectConfig(
+    id: Routes.projectHindawiPoems,
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_poems.png',
+    name: 'هنداوي قصائد',
+    desc: '''- Hindawi poems is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
+
+- I contributed to Hindawi Poems by:
+    * Transition of Poems native app (swift for iOS and java for android) into a fully performant flutter app.
+    * Added Background playing for poems audios.
+
+- Hindawi Poems is an app with a large library of Arabic poems from different cultures of Arabic poems.''',
+    icons: [
+      kAppstoreLinkButtonConfig.copyWith(link: 'https://apps.apple.com/us/app/%D9%87%D9%86%D8%AF%D8%A7%D9%88%D9%8A-%D9%82%D8%B5%D8%A7%D8%A6%D8%AF/id1550905064'),
+      kPlayStoreLinkButtonConfig.copyWith(link: 'https://play.google.com/store/apps/details?id=com.nagwa.poems&hl=en&gl=US'),
+    ],
   ),
   const ProjectConfig(
-    index: 1,
     id: Routes.projectHalaJary,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.png',
     name: 'Hala Jary',
@@ -61,7 +90,6 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    index: 2,
     id: Routes.projectLocalizationTextGenerator,
     url:
         'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.png',
@@ -90,7 +118,6 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    index: 3,
     id: Routes.projectDartDonut,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/donut.gif',
     name: Routes.projectDartDonut,
@@ -104,7 +131,6 @@ Contributed by:
     ],
   ),
   ProjectConfig(
-    index: 4,
     id: Routes.projectImIn,
     url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.png',
     name: 'I\'m In',
@@ -135,7 +161,6 @@ Contributed by:
 - Deployed to Appstore and Play store.''',
   ),
   const ProjectConfig(
-      index: 5,
       id: Routes.projectUnigate,
       url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.png',
       name: 'Unigate',
@@ -165,5 +190,5 @@ GRADUATION PROJECT: Smart Attendance System using QR code
                 'https://drive.google.com/file/d/1FABAYYE2TmTTLfcWqyb93cnENMetus7f/view?usp=sharing/preview'),
       ]),
   const ProjectConfig(
-      index: 1000, id: 'id', url: 'url', name: 'name', desc: 'desc'),
+      id: '1000', url: 'url', name: 'name', desc: 'desc'),
 ];

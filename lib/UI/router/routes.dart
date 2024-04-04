@@ -15,7 +15,13 @@ class Routes {
 
   /// Hala Jary
   static const String projectHalaJary = 'HalaJary';
+  /// Hindawi Books
   static const String projectHindawiBooks = 'Hindawi-Books';
+  /// Hindawi Readers
+  static const String projectHindawiReaders = 'Hindawi-Readers';
+  /// Hindawi Poems
+  static const String projectHindawiPoems = 'Hindawi-Poems';
+  /// Unigate
   static const String projectUnigate = 'Unigate';
 
   /// ---------------------------------------------

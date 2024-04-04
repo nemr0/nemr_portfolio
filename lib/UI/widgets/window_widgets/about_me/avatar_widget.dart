@@ -1,7 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:nemr_portfolio/UI/helper/extensions/context_config.dart';
 import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 
@@ -12,7 +10,7 @@ import '../../buttons/about_button.dart';
 import 'avatar_icon.dart';
 import '../../buttons/link_button.dart';
 
-class AvatarWidget extends HookWidget {
+class AvatarWidget extends StatelessWidget {
   const AvatarWidget({
     Key? key,
     this.aboutEnabled = true,
@@ -20,30 +18,8 @@ class AvatarWidget extends HookWidget {
   final bool aboutEnabled;
   @override
   Widget build(BuildContext context) {
-    const duration = Duration(seconds: 1);
-    final uWidth = context.orientation == Orientation.landscape
-        ? context.width * .4
-        : context.width * .6;
-    final animationCTR = useAnimationController(
-      duration: duration,
-      upperBound: uWidth * .035,
-      animationBehavior: AnimationBehavior.preserve,
-    );
-    useEffect(
-      () {
-        animationCTR.forward();
-        animationCTR.addStatusListener((status) {
-          if (status == AnimationStatus.completed) {
-            animationCTR.reverse();
-          } else if (status == AnimationStatus.dismissed) {
-            animationCTR.forward();
-          }
-        });
 
-        return null;
-      },
-      [],
-    );
+
 
     return GradientBorderGlassBox(
       inColor: kAltContainerColor,
@@ -78,7 +54,7 @@ class AvatarWidget extends HookWidget {
                           ),
                           // text: 'Omar Elnemr',
                           AnimatedTextKit(
-                            pause: duration,
+                            pause: Duration(seconds: 1),
                             animatedTexts: [
                               // TypewriterAnimatedText(
                               //   'Software Engineer',
@@ -126,20 +102,12 @@ class AvatarWidget extends HookWidget {
                     ),
                   ),
                   Flexible(
-                    child: AnimatedBuilder(
-                      animation: animationCTR,
-                      builder: (
-                        BuildContext context,
-                        Widget? child,
-                      ) {
-                        return CustomPaint(
-                          size: Size(
-                            15,
-                            (animationCTR.value * 2.2).toDouble(),
-                          ),
-                          painter: NamePainter(),
-                        );
-                      },
+                    child: CustomPaint(
+                      size: Size(
+                        15,
+                        44,
+                      ),
+                      painter: NamePainter(),
                     ),
                   ),
                 ],
