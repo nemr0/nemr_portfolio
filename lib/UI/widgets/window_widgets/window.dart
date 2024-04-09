@@ -32,7 +32,6 @@ class Window extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// shows if the widget is minimized using passed provider
 
     /// on hover is true else false, to give a little animation
     final hovered = useState(false);
