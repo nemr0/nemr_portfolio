@@ -8,6 +8,7 @@ import 'package:nemr_portfolio/UI/widgets/glass_morphism.dart';
 import 'package:nemr_portfolio/UI/widgets/buttons/text_by_icon_button.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/config/text_styles.dart';
+import 'package:nemr_portfolio/generated/assets.dart';
 
 class ReCaptchaDialog extends HookWidget {
   const ReCaptchaDialog({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class ReCaptchaDialog extends HookWidget {
           (int viewId) => IFrameElement()
             ..style.height = '100%'
             ..style.width = '100%'
-            ..src = '/assets/html/recaptcha.html'
+            ..src = '/${Assets.htmlRecaptcha}'
             ..style.border = 'none',
         );
         window.onMessage.listen((msg) {

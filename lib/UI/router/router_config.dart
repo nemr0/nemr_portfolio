@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' deferred as hook;
 import 'package:go_router/go_router.dart';
 import 'package:nemr_portfolio/UI/router/routes.dart';
-import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_view_list.dart'
-    deferred as projectListView;
+import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_view_list.dart' deferred as projectListView;
 
 import '../../model/project_config.dart';
 import '../helper/deferred_widget.dart';
@@ -18,26 +17,18 @@ final GoRouter router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => DeferredWidget(key: ValueKey('sp'),
-        loadLibrary: sp.loadLibrary,
-        builder:()=> sp.StartPoint()),
+        builder: (context, state) => DeferredWidget(
+            key: ValueKey('sp'),
+            loadLibrary: sp.loadLibrary,
+            builder: () => sp.StartPoint()),
         pageBuilder: (context, state) => CupertinoPage(
-            key: state.pageKey,
-            child: DeferredWidget(key: ValueKey('sp'),
-                loadLibrary: sp.loadLibrary,
-                builder:()=> sp.StartPoint()),),
+          key: state.pageKey,
+          child: DeferredWidget(
+              key: ValueKey('sp'),
+              loadLibrary: sp.loadLibrary,
+              builder: () => sp.StartPoint()),
+        ),
         routes: [
-          // for (ProjectConfig config in configs)
-          //   GoRoute(
-          //     path: 'project/${config.id}',
-          //     name: config.id,
-          //     pageBuilder: (context, state) => HeroPage(
-          //       key: state.pageKey,
-          //       filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-          //       builder: (BuildContext context) => ProjectView(config: config),
-          //     ),
-          //   ),
-
           for (ProjectConfig config in configs)
             GoRoute(
               path: 'project/:id',
@@ -45,13 +36,13 @@ final GoRouter router = GoRouter(
               pageBuilder: (context, state) => HeroPage(
                 key: state.pageKey,
                 filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-                builder: (BuildContext context) =>
-                    DeferredWidget(
-                      key: ValueKey(state.pathParameters['id'].toString()),
-                      builder:()=> projectListView.ProjectViewList(
-                                        id: state.pathParameters['id'].toString(),
-                                      ), loadLibrary: projectListView.loadLibrary,
-                    ),
+                builder: (BuildContext context) => DeferredWidget(
+                  key: ValueKey(state.pathParameters['id'].toString()),
+                  builder: () => projectListView.ProjectViewList(
+                    id: state.pathParameters['id'].toString(),
+                  ),
+                  loadLibrary: projectListView.loadLibrary,
+                ),
               ),
             ),
 
@@ -62,7 +53,9 @@ final GoRouter router = GoRouter(
               key: state.pageKey,
               builder: (context) => DeferredWidget(
                 key: ValueKey('aboutMe'),
-                builder: ()=>aboutMe.AboutMeDialog(), loadLibrary: aboutMe.loadLibrary, ),
+                builder: () => aboutMe.AboutMeDialog(),
+                loadLibrary: aboutMe.loadLibrary,
+              ),
               filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
             ),
           ),
@@ -71,9 +64,17 @@ final GoRouter router = GoRouter(
             name: Routes.error,
             pageBuilder: (context, state) => HeroPage(
               key: state.pageKey,
-              builder: (context) => DeferredWidget(key:ValueKey('notFound'),builder:()=> notFound.NotFoundWidget(), loadLibrary: notFound.loadLibrary,),
+              builder: (context) => DeferredWidget(
+                key: ValueKey('notFound'),
+                builder: () => notFound.NotFoundWidget(),
+                loadLibrary: notFound.loadLibrary,
+              ),
             ),
-            builder: (context, state) => DeferredWidget(key:ValueKey('notFound'),builder:()=> notFound.NotFoundWidget(), loadLibrary: notFound.loadLibrary,),
+            builder: (context, state) => DeferredWidget(
+              key: ValueKey('notFound'),
+              builder: () => notFound.NotFoundWidget(),
+              loadLibrary: notFound.loadLibrary,
+            ),
           ),
           // GoRoute(path: Routes.contactMe)
         ],
@@ -81,21 +82,19 @@ final GoRouter router = GoRouter(
     ],
     // errorPageBuilder: (context,state)=>,
     errorBuilder: (context, state) {
-
-
-
       return DeferredWidget(
         builder: () => hook.HookBuilder(builder: (context) {
           hook.useEffect(() {
             // use a post frame callback to perform your navigation after
             // the build frame has finished
-            WidgetsBinding.instance
-                .addPostFrameCallback((timeStamp) => context.goNamed(Routes.error));
+            WidgetsBinding.instance.addPostFrameCallback(
+                (timeStamp) => context.goNamed(Routes.error));
             return null;
           });
           // you must return a widget anyway
           return const SizedBox.shrink();
         }),
-        loadLibrary: hook.loadLibrary,  key: ValueKey('notFound404'),
+        loadLibrary: hook.loadLibrary,
+        key: ValueKey('notFound404'),
       );
     });

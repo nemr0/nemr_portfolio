@@ -1,6 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:nemr_portfolio/UI/helper/hooks/precache_image_hook.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:rive/rive.dart';
 
@@ -16,7 +17,7 @@ class AvatarIcon extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final isHovered = useState<bool>(false);
-
+    final image = usePrecacheImage(Image.asset(Assets.iconsAvatar));
     return AnimatedSize(
       duration: const Duration(milliseconds: 100),
       child: AvatarGlow(
@@ -31,7 +32,7 @@ class AvatarIcon extends HookWidget {
             child: CircleAvatar(
               radius: isHovered.value ? 40 : 50,
               backgroundColor: kPrimaryColor,
-              backgroundImage: const AssetImage(Assets.iconsAvatar),
+              backgroundImage: image.image,
             ),
           ),
         ),

@@ -62,7 +62,7 @@ class LinkButton extends HookWidget {
             width: onHoverSize.value.size,
             color: config.color,
             borderRadius: BorderRadius.circular(3),
-            child: usePrecacheImage(Image.network(
+            child: usePrecacheImage(Image.asset(
               config.asset!,
               fit: BoxFit.contain,
               height: onHoverSize.value.size - 10,
