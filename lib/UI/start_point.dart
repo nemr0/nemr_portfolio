@@ -34,7 +34,7 @@ class StartPoint extends HookWidget {
     final int initialPage = GetStorage().read(UsedStrings.projectIndexKey) ?? 0;
     final projectCTR = usePageController(
         viewportFraction:
-            (context.orientation == Orientation.landscape) ? 0.2 : 0.5,
+            (!context.portrait) ? 0.2 : 0.5,
         initialPage: initialPage,
         keys: [context.orientation]);
     // final offset = useState<double>(0);
@@ -57,10 +57,10 @@ class StartPoint extends HookWidget {
     const Duration duration = Duration(milliseconds: 200);
     const Curve curve = Curves.easeInBack;
     final pageAnimating = useState(false);
-    scroll({required bool inOrOut}) async {
+    scroll({required bool next}) async {
       if (pageAnimating.value) return;
       pageAnimating.value = true;
-      if (inOrOut)
+      if (next)
         await projectCTR.nextPage(duration: duration, curve: curve);
       else
         await projectCTR.previousPage(duration: duration, curve: curve);
@@ -73,12 +73,12 @@ class StartPoint extends HookWidget {
     );
 
     final List<Widget> children = [
-      if (context.orientation == Orientation.portrait) ...[
+      if (context.portrait) ...[
         const HorizontalPadding(child: AvatarWidget()),
         space,
         const HorizontalPadding(child: ProfileWidget()),
       ],
-      if (context.orientation == Orientation.landscape)
+      if (!context.portrait)
         const HorizontalPadding(
           child: Row(
             children: [
@@ -117,7 +117,7 @@ class StartPoint extends HookWidget {
               radius: 100,
               // inColor: kAltContainerColor,
               child: IconButton(
-                  onPressed: () => scroll(inOrOut: false),
+                  onPressed: () => scroll(next: false),
                   icon: FaIcon(
                     FontAwesomeIcons.chevronLeft,
                     color: CupertinoColors.white,
@@ -130,7 +130,7 @@ class StartPoint extends HookWidget {
               radius: 100,
               // inColor: kAltContainerColor,
               child: IconButton(
-                  onPressed: () => scroll(inOrOut: true),
+                  onPressed: () => scroll(next: true),
                   icon: FaIcon(
                     FontAwesomeIcons.chevronRight,
                     color: CupertinoColors.white,
@@ -165,11 +165,12 @@ class StartPoint extends HookWidget {
     return Seo.text(
       text: seoTagOne,
       child: BackgroundWidget(
+        key: ValueKey('Background'),
         child: Window(
           padding: EdgeInsets.only(
-            top: context.orientation == Orientation.portrait?context.height * .04:context.height * .07,
-            right: context.orientation == Orientation.portrait?context.height * .02:context.height * .05,
-            left: context.orientation == Orientation.portrait?context.height * .02:context.height * .05,
+            top: context.portrait?context.height * .04:context.height * .07,
+            right: context.portrait?context.height * .02:context.height * .05,
+            left: context.portrait?context.height * .02:context.height * .05,
           ),
           scaffoldKey: scaffoldKey,
           child: Padding(

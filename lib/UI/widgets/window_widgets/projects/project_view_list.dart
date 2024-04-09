@@ -9,7 +9,6 @@ import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_view.d
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:nemr_portfolio/model/project_config.dart';
 
-// final cachedIndexProvider = StateProvider((ref) => 0);
 
 class ProjectViewList extends HookConsumerWidget {
   const ProjectViewList({
@@ -72,7 +71,7 @@ class OverlayMenu extends ConsumerWidget {
     // final cachedIndex = ref.watch(cachedIndexProvider);
 
     return SizedBox(
-      height: context.orientation==Orientation.portrait?context.height * (1 / 11):context.height * (2 / 15),
+      height: context.portrait?context.height * (1 / 11):context.height * (2 / 15),
       child: Wrap(
         alignment: WrapAlignment.center,
         children: [

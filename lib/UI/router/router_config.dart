@@ -9,7 +9,7 @@ import 'package:nemr_portfolio/UI/widgets/window_widgets/projects/project_view_l
 
 import '../../model/project_config.dart';
 import '../helper/deferred_widget.dart';
-import '../start_point.dart' ;
+import '../start_point.dart' deferred as sp;
 import '../widgets/dialogs/about_me_dialog.dart' deferred as aboutMe;
 import '../widgets/window_widgets/not_found_widget.dart' deferred as notFound;
 import 'cupertino_modal_popup_page.dart';
@@ -18,10 +18,14 @@ final GoRouter router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) =>const StartPoint(),
+        builder: (context, state) => DeferredWidget(key: ValueKey('sp'),
+        loadLibrary: sp.loadLibrary,
+        builder:()=> sp.StartPoint()),
         pageBuilder: (context, state) => CupertinoPage(
             key: state.pageKey,
-            child: StartPoint(),),
+            child: DeferredWidget(key: ValueKey('sp'),
+                loadLibrary: sp.loadLibrary,
+                builder:()=> sp.StartPoint()),),
         routes: [
           // for (ProjectConfig config in configs)
           //   GoRoute(

@@ -24,7 +24,7 @@ class ContactMeWidget extends HookWidget {
             text: storage.read(configs[index].storageKey)));
     // [companyCTR, nameCTR, phoneCTR, emailCTR, descCTR];
     double rightPaddingOfTextField() {
-      if (context.orientation == Orientation.landscape) {
+      if (!context.portrait) {
         print(  context.width * .55);
         return (context.width * .55)>500?500:context.width*.55;
       }

@@ -28,9 +28,9 @@ class ProjectView extends HookConsumerWidget {
   }) : super(key: key);
   final ProjectConfig config;
   final int currentIndex;
-  scrollAndPop(ScrollController scrollCTR,BuildContext context){
-    scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
-    Future.delayed(Duration(milliseconds: 300),() =>context.canPop()?context.pop():null);
+  scrollAndPop(ScrollController scrollCTR,BuildContext context) async {
+    await scrollCTR.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+    if(context.canPop()) context.pop();
   }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -177,7 +177,7 @@ class ProjectView extends HookConsumerWidget {
                                   child: Text.rich(
                                     TextSpan(
                                       text:
-                                          'PROJECT:${context.orientation == Orientation.portrait ? '\n' : ' '}',
+                                          'PROJECT:${context.portrait ? '\n' : ' '}',
                                       style: kTSBoldTitle.copyWith(
                                           color: kPrimaryColor),
                                       children: [
@@ -195,8 +195,7 @@ class ProjectView extends HookConsumerWidget {
                                 ),
                               ),
                             ),
-                            if (context.orientation ==
-                                Orientation.landscape) ...[
+                            if (!context.portrait) ...[
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -214,8 +213,7 @@ class ProjectView extends HookConsumerWidget {
                                 ],
                               ),
                             ],
-                            if (context.orientation ==
-                                Orientation.portrait) ...[
+                            if (context.portrait) ...[
                               image,
                               if (config.icons != null) icons,
                               desc,

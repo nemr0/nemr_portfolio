@@ -51,15 +51,6 @@
 
   <title>Omar ElNemr</title>
   <link rel="manifest" href="manifest.json">
-  <!--               ASSETS/              -->
-<!--  <link rel="preload" href="https://nemr.dev/assets/background.png" as="fetch" crossorigin>-->
-
-  <!--               /RIVE FILES/           -->
-<!--  <link rel="preload" href="https://nemr.dev/assets/assets/rive/switch.riv" as="fetch" crossorigin>-->
-<!--  <link rel="preload" href="https://nemr.dev/assets/assets/rive/404.riv" as="fetch" crossorigin>-->
-<!--  <link rel="preload" href="https://nemr.dev/assets/assets/rive/form_sent.riv" as="fetch" crossorigin>-->
-
-<!--  <link rel="preload" href="https://nemr.dev/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf" as="fetch" crossorigin>-->
 
   <script>
     // The value below is injected by flutter build, do not touch.
@@ -67,6 +58,7 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
 </head>
 <body style="
    background-color: #2f2f2f;
@@ -81,7 +73,7 @@
   width: 100vw;
   position: absolute;
   opacity: 1;
-  transition: opacity .4s ease-out;
+  transition: opacity .1s ease-out;
   background-image: url('assets/background.png');
   margin: 0;
 }
@@ -210,7 +202,7 @@
           loaderContent.style.opacity="0";
           loaderBg.style.opacity="0";
 
-           delay(300).then(()=>appRunner.runApp());
+           delay(100).then(()=>appRunner.runApp());
 
           });
         }
