@@ -161,7 +161,6 @@ class StartPoint extends HookWidget {
     //   return null;
     // }, const []);
     final scrollCTR = useScrollController();
-
     return Seo.text(
       text: seoTagOne,
       child: BackgroundWidget(

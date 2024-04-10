@@ -25,7 +25,6 @@ class ContactMeWidget extends HookWidget {
     // [companyCTR, nameCTR, phoneCTR, emailCTR, descCTR];
     double rightPaddingOfTextField() {
       if (!context.portrait) {
-        print(  context.width * .55);
         return (context.width * .55)>500?500:context.width*.55;
       }
 

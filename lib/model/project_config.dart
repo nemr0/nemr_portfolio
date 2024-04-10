@@ -33,7 +33,7 @@ List<ProjectConfig> configs = [
 
    ProjectConfig(
     route: Routes.projectHindawiReaders,
-    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_readers.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_readers.webp',
     name: ' هنداوي قراءات - Hindawi Readers',
     desc: '''- Hindawi Readers is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
 
@@ -47,7 +47,7 @@ List<ProjectConfig> configs = [
     ],
   ), ProjectConfig(
     route: Routes.projectHindawiBooks,
-    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_kotob.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_kotob.webp',
     name: 'هنداوي كتب - Hindawi Books',
     desc: '''- Hindawi Books is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
     
@@ -63,7 +63,7 @@ List<ProjectConfig> configs = [
     ],
   ), ProjectConfig(
     route: Routes.projectHindawiPoems,
-    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_poems.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/hindawi_poems.webp',
     name: 'هنداوي قصائد - Hindawi Poems',
     desc: '''- Hindawi poems is one of "Hindawi Foundation" products which is a non-profit organization aimed at spreading knowledge and culture and instilling a love of reading among Arabic speakers.
 
@@ -79,7 +79,7 @@ List<ProjectConfig> configs = [
   ),
   const ProjectConfig(
     route: Routes.projectHalaJary,
-    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/halajary.webp',
     name: 'Hala Jary',
     desc: '''A Web-App in Flutter Web-view
 Contributed by:
@@ -92,7 +92,7 @@ Contributed by:
   ProjectConfig(
     route: Routes.projectLocalizationTextGenerator,
     url:
-        'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.png',
+        'https://nemr0.github.io/nemr_portfolio/uploaded_assets/localization_text_generator.webp',
     name: 'Localization Text Generator',
     desc:
         '''A Dart CLI Tool that can help you generate json file for all texts in all screens in a Flutter project to implement localization.
@@ -132,7 +132,7 @@ Contributed by:
   ),
   ProjectConfig(
     route: Routes.projectImIn,
-    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.png',
+    url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/imin.webp',
     name: 'I\'m In',
     icons: [
       kDribbleLinkButtonConfig.copyWith(
@@ -162,7 +162,7 @@ Contributed by:
   ),
   const ProjectConfig(
       route: Routes.projectUnigate,
-      url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.png',
+      url: 'https://nemr0.github.io/nemr_portfolio/uploaded_assets/unigate.webp',
       name: 'Unigate',
       desc: '''
 GRADUATION PROJECT: Smart Attendance System using QR code 

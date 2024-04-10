@@ -39,36 +39,8 @@ class LinkButton extends HookWidget {
   final bool fromPVL;
   @override
   Widget build(BuildContext context) {
-    final Decoration decoration = glassBoxDecoration(
-      color: config.asset == null ? kContainerColor : config.color,
-    );
     final onHoverSize = useState(buttonSize);
     final tooltipVisible=useState<bool>(false);
-    final image = config.asset == null
-        ? GlassMorphism(
-            height: onHoverSize.value.size,
-            width: onHoverSize.value.size,
-            color: kContainerColor,
-            child: Center(
-              child: FaIcon(
-                config.icon,
-                color: CupertinoColors.white,
-                size: onHoverSize.value.size - 10,
-              ),
-            ),
-          )
-        : GlassMorphism(
-            height: onHoverSize.value.size,
-            width: onHoverSize.value.size,
-            color: config.color,
-            borderRadius: BorderRadius.circular(3),
-            child: usePrecacheImage(Image.asset(
-              config.asset!,
-              fit: BoxFit.contain,
-              height: onHoverSize.value.size - 10,
-              width: onHoverSize.value.size - 10,
-            )),
-          );
 
     return Seo.link(
       href: config.link ?? '',
@@ -97,7 +69,9 @@ class LinkButton extends HookWidget {
             // triggerMode: TooltipTriggerMode.tap,
             message: config.toolTipOn ? config.name : '',
             decoration: config.toolTipOn
-                ? decoration
+                ? glassBoxDecoration(
+              color: config.asset == null ? kContainerColor : config.color,
+            )
                 : const BoxDecoration(color: Color(0x00000000)),
             child: CupertinoButton(
               padding: EdgeInsets.zero,
@@ -136,7 +110,31 @@ class LinkButton extends HookWidget {
 
                           onLinkLaunch((config.link)!);
                         },
-              child: image,
+              child: config.asset == null
+                  ? GlassMorphism(
+                height: onHoverSize.value.size,
+                width: onHoverSize.value.size,
+                color: kContainerColor,
+                child: Center(
+                  child: FaIcon(
+                    config.icon,
+                    color: CupertinoColors.white,
+                    size: onHoverSize.value.size - 10,
+                  ),
+                ),
+              )
+                  : GlassMorphism(
+                height: onHoverSize.value.size,
+                width: onHoverSize.value.size,
+                color: config.color,
+                borderRadius: BorderRadius.circular(3),
+                child: usePrecacheImage(Image.asset(
+                  config.asset!,
+                  fit: BoxFit.contain,
+                  height: onHoverSize.value.size - 10,
+                  width: onHoverSize.value.size - 10,
+                )),
+              ),
             ),
           ),
         ),
@@ -158,18 +156,18 @@ class LinkButtonForPVL extends HookWidget {
       color: color,
     );
     final tooltipVisible=useState<bool>(false);
-    final image = GlassMorphism(
-            height: buttonSize.size+addMoreSize,
-            width: buttonSize.size+addMoreSize,
-            color: color,
-            borderRadius: BorderRadius.circular(3),
-            child: usePrecacheImage(Image.network(
-              asset,
-              fit: BoxFit.contain,
-              height: buttonSize.size ,
-              width: buttonSize.size ,
-            )),
-          );
+    // final image = GlassMorphism(
+    //         height: buttonSize.size+addMoreSize,
+    //         width: buttonSize.size+addMoreSize,
+    //         color: color,
+    //         borderRadius: BorderRadius.circular(3),
+    //         child: usePrecacheImage(Image.network(
+    //           asset,
+    //           fit: BoxFit.contain,
+    //           height: buttonSize.size ,
+    //           width: buttonSize.size ,
+    //         )),
+    //       );
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -186,7 +184,18 @@ class LinkButtonForPVL extends HookWidget {
           child: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: onPressed,
-            child: image,
+            child: GlassMorphism(
+              height: buttonSize.size+addMoreSize,
+              width: buttonSize.size+addMoreSize,
+              color: color,
+              borderRadius: BorderRadius.circular(3),
+              child: usePrecacheImage(Image.network(
+                asset,
+                fit: BoxFit.contain,
+                height: buttonSize.size ,
+                width: buttonSize.size ,
+              )),
+            ),
           ),
         ),
       ),

@@ -19,7 +19,7 @@ class BackgroundWidget extends StatelessWidget {
           RepaintBoundary(
             child: FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
-              image: const NetworkImage('/assets/background.png'),
+              image: const NetworkImage('/assets/background.webp'),
               height: double.infinity,
               width: double.infinity,
               fit: BoxFit.cover,

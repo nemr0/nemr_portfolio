@@ -3,14 +3,14 @@ class Assets {
   Assets._();
 
   static const String htmlRecaptcha = 'html/recaptcha.html';
-  static const String iconsAvatar = 'assets/icons/avatar.png';
-  static const String linksIconsEmailjs = 'assets/icons/links_icons/emailjs.png';
-  static const String linksIconsFlutter = 'assets/icons/links_icons/flutter.png';
-  static const String linksIconsFlutterHooks = 'assets/icons/links_icons/flutter_hooks.png';
-  static const String linksIconsFlutterRiverpod = 'assets/icons/links_icons/flutter_riverpod.png';
-  static const String linksIconsLOVE = 'assets/icons/links_icons/LOVE.png';
-  static const String linksIconsRive = 'assets/icons/links_icons/rive.png';
-  static const String linksIconsVercel = 'assets/icons/links_icons/vercel.png';
+  static const String iconsAvatar = 'assets/icons/avatar.webp';
+  static const String linksIconsEmailjs = 'assets/icons/links_icons/emailjs.webp';
+  static const String linksIconsFlutter = 'assets/icons/links_icons/flutter.webp';
+  static const String linksIconsFlutterHooks = 'assets/icons/links_icons/flutter_hooks.webp';
+  static const String linksIconsFlutterRiverpod = 'assets/icons/links_icons/flutter_riverpod.webp';
+  static const String linksIconsLOVE = 'assets/icons/links_icons/LOVE.webp';
+  static const String linksIconsRive = 'assets/icons/links_icons/rive.webp';
+  static const String linksIconsVercel = 'assets/icons/links_icons/vercel.webp';
   static const String rive404 = 'assets/rive/404.riv';
   static const String riveFormSent = 'assets/rive/form_sent.riv';
 
