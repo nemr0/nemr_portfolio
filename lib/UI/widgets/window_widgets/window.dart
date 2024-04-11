@@ -11,7 +11,6 @@ import '../../helper/is_mobile.dart';
 /// Window Widget
 class Window extends HookWidget {
   const Window({
-    this.scaffoldKey,
     super.key,
     this.onlyTopRadius = true,
     this.radius = 20,
@@ -21,7 +20,6 @@ class Window extends HookWidget {
     this.inColor = kContainerColor,
     this.padding = EdgeInsets.zero,
   });
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final double? width;
   final double? height;
   final Widget child;
@@ -37,7 +35,6 @@ class Window extends HookWidget {
     final hovered = useState(false);
 
     return Scaffold(
-      key: scaffoldKey,
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.transparent,
       body: Align(

@@ -16,7 +16,6 @@ import 'package:nemr_portfolio/UI/widgets/window_widgets/window.dart';
 import 'package:nemr_portfolio/config/consts.dart';
 import 'package:seo/html/seo_widget.dart';
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 // final pageCTRProvider=Provider((ref) => PageController(viewportFraction: 0.4));
 /// Where everything is rendered
@@ -171,7 +170,6 @@ class StartPoint extends HookWidget {
             right: context.portrait?context.height * .02:context.height * .05,
             left: context.portrait?context.height * .02:context.height * .05,
           ),
-          scaffoldKey: scaffoldKey,
           child: Padding(
             padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
             child: CupertinoScrollbar(

@@ -20,6 +20,10 @@ String? validateMobile(String? phone) {
   } else if (!regExp.hasMatch(phone)) {
     return 'Please Enter Valid Phone Number, exp: 201111111111';
   }
+  else if(phone.length<11){
+    return 'Please Enter Your Full Phone Number with country code';
+
+  }
 
   return null;
 }

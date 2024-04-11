@@ -25,7 +25,7 @@ class ContactMeWidget extends HookWidget {
     // [companyCTR, nameCTR, phoneCTR, emailCTR, descCTR];
     double rightPaddingOfTextField() {
       if (!context.portrait) {
-        return (context.width * .55)>500?500:context.width*.55;
+        return (context.width * .55) > 500 ? 500 : context.width * .55;
       }
 
       return context.width * .96;
@@ -40,9 +40,8 @@ class ContactMeWidget extends HookWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-
           child: SizedBox(
-            width:rightPaddingOfTextField(),
+            width: rightPaddingOfTextField(),
             child: CupertinoFormSection.insetGrouped(
               footer: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -51,7 +50,7 @@ class ContactMeWidget extends HookWidget {
                   const TextByIconButton(),
                   SubmitButton(
                       onSubmit: () async => onSubmit(
-                            // ref,
+                            context,
                             controllers[0].text,
                             controllers[1].text,
                             controllers[2].text,
@@ -73,15 +72,17 @@ class ContactMeWidget extends HookWidget {
                   prefix: Icon(
                     configs[index].icon,
                   ),
-
-                  onChanged: (v) => storage.write(configs[index].storageKey, v),
+                  onChanged: (v) {
+                    if (configs[index].validator == null ||
+                        configs[index].validator!(controllers[index].text) ==
+                            null) storage.write(configs[index].storageKey, v);
+                  },
                   textInputAction: configs[index].inputAction,
                   controller: controllers[index],
                   maxLines: configs[index].maxLines,
                   minLines: configs[index].minLines,
                   placeholder: configs[index].placeholder,
                   validator: configs[index].validator,
-
                 ),
               ),
             ),

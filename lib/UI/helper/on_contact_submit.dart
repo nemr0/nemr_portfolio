@@ -6,10 +6,9 @@ import 'package:nemr_portfolio/UI/helper/show_error_dialog.dart';
 import 'package:nemr_portfolio/UI/widgets/dialogs/recaptcha_dialog.dart';
 import 'package:nemr_portfolio/model/send_mail.dart';
 
-import '../start_point.dart';
 
 Future<void> onSubmit(
-  // WidgetRef ref,
+  BuildContext context,
   String company,
   String name,
   String phone,
@@ -18,13 +17,13 @@ Future<void> onSubmit(
 ) async {
   String? reCaptchaToken = await showCupertinoDialog(
     barrierDismissible: true,
-    context: scaffoldKey.currentContext!,
+    context: context,
     builder: (context) => const ReCaptchaDialog(),
   );
   if (reCaptchaToken == null) {
     SchedulerBinding.instance.addPostFrameCallback(
       (timeStamp) => showErrorDialog(
-          scaffoldKey.currentContext!, 'I guess You\'re a Robot :('),
+          context, 'I guess You\'re a Robot :('),
     );
 
     return;
@@ -55,7 +54,7 @@ try{
 
     /// show error
     SchedulerBinding.instance.addPostFrameCallback(
-        (timeStamp) => showErrorDialog(scaffoldKey.currentContext!, 'An Error Happened, Please Try Again Later!'));
+        (timeStamp) => showErrorDialog(context, 'An Error Happened, Please Try Again Later!'));
   }
 }
 catch (e){
@@ -63,7 +62,7 @@ catch (e){
   /// show error
   /// show error
   SchedulerBinding.instance.addPostFrameCallback(
-          (timeStamp) => showErrorDialog(scaffoldKey.currentContext!, 'An Error Happened, Please Try Again Later!'));
+          (timeStamp) => showErrorDialog(context, 'An Error Happened, Please Try Again Later!'));
 }
   return;
 }

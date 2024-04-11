@@ -6,6 +6,7 @@ import 'package:url_strategy/url_strategy.dart';
 
 import 'UI/router/router_config.dart';
 import 'UI/style/theme.dart';
+// final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
 Future<void> main() async {
   setPathUrlStrategy();
