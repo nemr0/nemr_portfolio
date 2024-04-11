@@ -1,4 +1,5 @@
 //ignore_for_file:avoid_web_libraries_in_flutter
+import 'dart:async';
 import 'dart:html';
 import 'dart:ui_web' as ui;
 
@@ -16,22 +17,25 @@ class ReCaptchaDialog extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final createdViewId = useState('map_element');
+    late final StreamSubscription<MessageEvent> subscription;
     useEffect(
       () {
-        // ignore:undefined_prefixed_name
         ui.platformViewRegistry.registerViewFactory(
           createdViewId.value,
           (int viewId) => IFrameElement()
+            ..name='recaptcha-container'
             ..style.height = '100%'
             ..style.width = '100%'
             ..src = '/${Assets.htmlRecaptcha}'
             ..style.border = 'none',
         );
-        window.onMessage.listen((msg) {
+        subscription=window.onMessage.listen((msg) {
           Navigator.pop<String>(context, msg.data); //msg.data is captcha token
         });
 
-        return null;
+        return (){
+          subscription.cancel();
+        };
       },
       [],
     );

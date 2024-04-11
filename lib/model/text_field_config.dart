@@ -5,10 +5,11 @@ import 'package:flutter/services.dart';
 import '../config/validators.dart';
 
 class TextFieldConfig extends Equatable {
-  const TextFieldConfig({
+  const TextFieldConfig( {
     this.inputFormatters = const [],
     this.maxLines = 1,
     this.minLines = 1,
+    this.autofillHints=const [],
     required this.placeholder,
     required this.storageKey,
     required this.icon,
@@ -16,7 +17,7 @@ class TextFieldConfig extends Equatable {
     this.inputType = TextInputType.text,
     this.validator,
   });
-
+  final List<String> autofillHints;
   final TextInputType inputType;
   final String placeholder;
   final String storageKey;
@@ -43,12 +44,16 @@ class TextFieldConfig extends Equatable {
 
 List<TextFieldConfig> configs = [
   const TextFieldConfig(
+    autofillHints: [AutofillHints.organizationName],
     placeholder: 'Company',
     storageKey: 'company',
+    inputType: TextInputType.name,
     // inputFormatters: [FilteringTextInputFormatter.],
     icon: CupertinoIcons.house_alt_fill,
   ),
   const TextFieldConfig(
+    autofillHints: [AutofillHints.givenName,AutofillHints.name,AutofillHints.nickname],
+
     placeholder: 'Name *',
     storageKey: 'name',
     inputType: TextInputType.name,
@@ -56,15 +61,19 @@ List<TextFieldConfig> configs = [
     validator: validateName,
   ),
   TextFieldConfig(
+    autofillHints: [AutofillHints.telephoneNumber],
+
     placeholder: 'Phone * exp: 201111111111',
     icon: CupertinoIcons.phone_fill,
-    inputType:
-        const TextInputType.numberWithOptions(signed: true, decimal: true),
+    inputType: const TextInputType.numberWithOptions(signed: true, decimal: true),
     storageKey: 'phone',
+
     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
     validator: validateMobile,
   ),
   const TextFieldConfig(
+    autofillHints: [AutofillHints.email],
+
     placeholder: 'Email *',
     icon: CupertinoIcons.mail_solid,
     inputType: TextInputType.emailAddress,
@@ -72,6 +81,7 @@ List<TextFieldConfig> configs = [
     validator: validateEmail,
   ),
   const TextFieldConfig(
+
     placeholder: 'Description (A Brief about what you need) :)\n\n\n',
     icon: CupertinoIcons.news_solid,
     storageKey: 'desc',

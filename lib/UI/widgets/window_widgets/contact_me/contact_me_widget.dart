@@ -64,15 +64,16 @@ class ContactMeWidget extends HookWidget {
               children: List<Widget>.generate(
                 configs.length,
                 (index) => CupertinoTextFormFieldRow(
+                  autofillHints: configs[index].autofillHints,
                   inputFormatters: configs[index].inputFormatters,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // autofocus: true,
                   keyboardType: configs[index].inputType,
                   style: kTSAgreement,
                   decoration: const BoxDecoration(color: Colors.transparent),
                   prefix: Icon(
                     configs[index].icon,
                   ),
+
                   onChanged: (v) => storage.write(configs[index].storageKey, v),
                   textInputAction: configs[index].inputAction,
                   controller: controllers[index],
