@@ -98,15 +98,15 @@ class GradientBorderGlassBox extends StatelessWidget {
     return Center(
       child: ClipRRect(
         borderRadius: onlyTopRadius
-            ? BorderRadius.vertical(top: cirRadius)
+            ? BorderRadius.only(topLeft: cirRadius)
             : BorderRadius.all(cirRadius),
         child: Container(
           width: width,
           height: height,
           decoration: boxDecoration(color: inColor).copyWith(
             borderRadius: onlyTopRadius
-                ? BorderRadius.vertical(
-                    top: cirRadius,
+                ? BorderRadius.only(
+                    topLeft: cirRadius,
                   )
                 : BorderRadius.all(cirRadius),
             border: GradientBoxBorder(

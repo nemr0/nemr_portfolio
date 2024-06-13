@@ -171,22 +171,19 @@ class StartPoint extends HookWidget {
             right: context.portrait?context.height * .02:context.height * .05,
             left: context.portrait?context.height * .02:context.height * .05,
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
-            child: CupertinoScrollbar(
-              thumbVisibility: true,
-              controller: scrollCTR,
-              child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: ListView.builder(
-                  controller: scrollCTR,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  shrinkWrap: true,
-                  itemCount: children.length,
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) => children[index],
-                ),
+          child: CupertinoScrollbar(
+            thumbVisibility: false,
+            controller: scrollCTR,
+            child: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: ListView.builder(
+                controller: scrollCTR,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                shrinkWrap: true,
+                itemCount: children.length,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) => children[index],
               ),
             ),
           ),

@@ -23,9 +23,6 @@ class ProjectList extends ConsumerWidget {
     return SizedBox(
       height: length,
       child: PageView.builder(
-        // pageSnapping: false,
-        physics: const BouncingScrollPhysics(
-            decelerationRate: ScrollDecelerationRate.fast),
         controller: projectCTR,
         itemBuilder: (ctx, i) => ProjectWidget(
           current: i == currentPage,
