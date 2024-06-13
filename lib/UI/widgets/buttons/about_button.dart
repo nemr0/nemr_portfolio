@@ -14,7 +14,7 @@ class AboutButton extends StatelessWidget {
     return Tooltip(
       message: 'About',
       textStyle: kTSAgreement,
-      decoration: glassBoxDecoration(
+      decoration: boxDecoration(
         color: kPrimaryColor.withOpacity(.35),
       ),
       child: CupertinoButton(

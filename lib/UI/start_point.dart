@@ -185,8 +185,7 @@ class StartPoint extends HookWidget {
                   shrinkWrap: true,
                   itemCount: children.length,
                   physics: BouncingScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) =>
-                      children[index],
+                  itemBuilder: (BuildContext context, int index) => children[index],
                 ),
               ),
             ),

@@ -100,37 +100,34 @@ class GradientBorderGlassBox extends StatelessWidget {
         borderRadius: onlyTopRadius
             ? BorderRadius.vertical(top: cirRadius)
             : BorderRadius.all(cirRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaY: 4, sigmaX: 4),
-          child: Container(
-            width: width,
-            height: height,
-            decoration: glassBoxDecoration(color: inColor).copyWith(
-              borderRadius: onlyTopRadius
-                  ? BorderRadius.vertical(
-                      top: cirRadius,
-                    )
-                  : BorderRadius.all(cirRadius),
-              border: GradientBoxBorder(
-                width: 1,
-                gradient: LinearGradient(
-                  colors: hovered
-                      ? [borderColor, k7Gradient, borderColor]
-                      : [k7Gradient, borderColor, k7Gradient],
-                ),
+        child: Container(
+          width: width,
+          height: height,
+          decoration: boxDecoration(color: inColor).copyWith(
+            borderRadius: onlyTopRadius
+                ? BorderRadius.vertical(
+                    top: cirRadius,
+                  )
+                : BorderRadius.all(cirRadius),
+            border: GradientBoxBorder(
+              width: 1,
+              gradient: LinearGradient(
+                colors: hovered
+                    ? [borderColor, k7Gradient, borderColor]
+                    : [k7Gradient, borderColor, k7Gradient],
               ),
             ),
-            // BoxDecoration(
-            //   color: inColor,
-
-            // ),
-            child: InkWell(
-                onTap: onTap,
-                mouseCursor: onTap == null
-                    ? SystemMouseCursors.basic
-                    : SystemMouseCursors.click,
-                child: child),
           ),
+          // BoxDecoration(
+          //   color: inColor,
+
+          // ),
+          child: InkWell(
+              onTap: onTap,
+              mouseCursor: onTap == null
+                  ? SystemMouseCursors.basic
+                  : SystemMouseCursors.click,
+              child: child),
         ),
       ),
     );
