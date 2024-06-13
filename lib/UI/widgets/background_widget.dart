@@ -12,14 +12,15 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return ColoredBox(
       color: kBgColor,
       child: Stack(
         children: [
           RepaintBoundary(
             child: FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
-              image: const NetworkImage('/assets/background.webp'),
+              image: const AssetImage('assets/images/background.webp'),
+              fadeInDuration: Duration(milliseconds: 200),
               height: double.infinity,
               width: double.infinity,
               fit: BoxFit.cover,

@@ -46,7 +46,8 @@ class StartPoint extends HookWidget {
           UsedStrings.formSentKey, (value) => formSent.value = value);
 
       projectCTR.addListener(() {
-        page.value = projectCTR.page?.toInt() ?? 0;
+
+        page.value = projectCTR.page?.round() ?? 0;
         GetStorage()
             .write(UsedStrings.projectIndexKey, projectCTR.page?.toInt());
       });

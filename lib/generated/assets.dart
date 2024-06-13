@@ -4,6 +4,7 @@ class Assets {
 
   static const String htmlRecaptcha = 'html/recaptcha.html';
   static const String iconsAvatar = 'assets/icons/avatar.webp';
+  static const String imagesBackground = 'assets/images/background.webp';
   static const String linksIconsEmailjs = 'assets/icons/links_icons/emailjs.webp';
   static const String linksIconsFlutter = 'assets/icons/links_icons/flutter.webp';
   static const String linksIconsFlutterHooks = 'assets/icons/links_icons/flutter_hooks.webp';
