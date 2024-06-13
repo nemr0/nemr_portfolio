@@ -34,14 +34,15 @@ class ProjectView extends HookConsumerWidget {
   }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    useAutomaticKeepAlive();
     final topScroll = ref.watch(scrollOnTopProvider);
     final scrollCTR = useScrollController();
 
     useEffect(() {
 
-      if (currentIndex == configs.indexOf(config))
-        GetStorage().write(UsedStrings.projectIndexKey, configs.indexOf(config));
+      if (currentIndex == configs.indexOf(config)) {
+        GetStorage()
+            .write(UsedStrings.projectIndexKey, configs.indexOf(config));
+      }
       return null;
     }, [currentIndex]);
 

@@ -175,14 +175,13 @@ class StartPoint extends HookWidget {
             thumbVisibility: false,
             controller: scrollCTR,
             child: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: ListView.builder(
                 controller: scrollCTR,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 shrinkWrap: true,
                 itemCount: children.length,
-                physics: BouncingScrollPhysics(),
+                physics: ClampingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) => children[index],
               ),
             ),

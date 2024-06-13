@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nemr_portfolio/UI/widgets/image_error_widget.dart';
 import 'package:nemr_portfolio/config/colors.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -20,6 +21,7 @@ class BackgroundWidget extends StatelessWidget {
             child: FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
               image: const AssetImage('assets/images/background.webp'),
+              imageErrorBuilder: (_,__,___)=>ImageErrorWidget(),
               fadeInDuration: Duration(milliseconds: 200),
               height: double.infinity,
               width: double.infinity,

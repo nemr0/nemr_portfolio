@@ -20,8 +20,7 @@ class ImageErrorWidget extends StatelessWidget {
             Spacer(),
             Expanded(
               child: FaIcon(
-                FontAwesomeIcons
-                    .triangleExclamation,
+                FontAwesomeIcons.triangleExclamation,
                 size: 30,
                 color: kYellowColor,
               ),

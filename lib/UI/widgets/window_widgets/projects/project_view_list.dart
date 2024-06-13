@@ -36,7 +36,7 @@ class ProjectViewList extends HookConsumerWidget {
           flex: 11,
           child: PageView.builder(
             physics: scrollOnTop
-                ? ClampingScrollPhysics()
+                ? PageScrollPhysics()
                 : NeverScrollableScrollPhysics(),
             allowImplicitScrolling: true,
             controller: pageViewCTR,
@@ -46,7 +46,6 @@ class ProjectViewList extends HookConsumerWidget {
             ),
             onPageChanged: (v) {
               cachedIndex.value=v;
-              // cachedIndexProvider.setState(ref, v);
               context.goNamed(configs[v].route, pathParameters: {'id': configs[v].route});
             },
             itemCount: configs.length - 1,
