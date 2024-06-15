@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -18,7 +18,8 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <!-- Primary Meta Tags -->
+  <meta name="description" content="A new Flutter project.">
+
   <title>Omar ElNemr</title>
   <meta name="title" content="Omar ElNemr">
   <meta name="description" content="Mobile App Developer / Flutter Developer / Short-Content Creator / Design Enthusiastic / Software Engineer, Check Out My Portfolio Here.">
@@ -49,33 +50,19 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Omar ElNemr</title>
   <link rel="manifest" href="manifest.json">
 
-  <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
-  </script>
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
 </head>
 <body style="
-   background-color: #2f2f2f;
- overflow: hidden;
+background-color: #2f2f2f;
+overflow: hidden;
 ">
 <style>
   .background{
- overflow: hidden;
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  opacity: 1;
-  transition: opacity .1s ease-out;
-  background-image: url('assets/background.webp');
-  margin: 0;
+  color:#2f2f2f
 }
    .loader-container {
   display: flex;
@@ -180,44 +167,26 @@
 
 
 </style>
+  <script src="flutter_bootstrap.js" async>
 
-
-  <script>
-
-  function delay(time){
-  return new Promise(resolve => setTimeout(resolve,time));
-  }
-    window.addEventListener('load', function(ev) {
-    var loaderContent=document.querySelector('#loader-content');
-    var loaderBg=document.querySelector('#loader-bg');
-      // Download main.dart.js
-
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-
-          loaderContent.style.opacity="0";
-          loaderBg.style.opacity="0";
-
-           delay(100).then(()=>appRunner.runApp());
-
-          });
-        }
-      });
+  </script>
+<script>
+     window.addEventListener('flutter-first-frame', function() {
+      document.querySelector('.loader-container').style.opacity = '0';
+      document.querySelector('.background').style.opacity = '0';
+      setTimeout(function() {
+        document.querySelector('.loader-container').style.display = 'none';
+        document.querySelector('.background').style.display = 'none';
+      }, 100); // Match this timeout with your transition duration
     });
   </script>
-
-<div class="background" id="loader-bg">
+<div class="background">
 </div>
-<div class="loader-container" id="loader-content">
+<div class="loader-container">
   <div class="loader">
     <div class="spinner"></div>
     <div class="thinker"></div>
   </div>
 </div>
-
 </body>
 </html>

@@ -29,6 +29,21 @@ BoxDecoration glassBoxDecoration(
       ),
     );
 
+BoxDecoration boxDecoration(
+
+        /// use a color with 35% opacity
+        {
+  required Color color,
+  double radius = 10,
+  BorderRadius? borderRadius,
+}) =>
+    BoxDecoration(
+        border:
+            Border.all(color: CupertinoColors.white.withOpacity(.1), width: 1),
+        color: color,
+        borderRadius: borderRadius ??=
+            BorderRadius.all(Radius.circular(radius)));
+
 /// Glass Morphism Effect For Button Icons
 class GlassMorphism extends StatelessWidget {
   const GlassMorphism({
@@ -52,6 +67,7 @@ class GlassMorphism extends StatelessWidget {
   final Color? glassColor;
   final BorderRadius borderRadius;
   final EdgeInsets padding;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

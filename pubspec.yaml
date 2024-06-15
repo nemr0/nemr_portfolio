@@ -46,7 +46,7 @@ flutter:
     - assets/icons/
     - assets/rive/
     - html/
-    - assets/
+    - assets/images/
     - assets/icons/links_icons/
   fonts:
     - family: Roboto Mono

@@ -19,15 +19,11 @@ class ProjectList extends ConsumerWidget {
   final int currentPage;
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+
     return SizedBox(
       height: length,
       child: PageView.builder(
-        // pageSnapping: false,
-        physics: const BouncingScrollPhysics(
-            decelerationRate: ScrollDecelerationRate.fast),
-        // onPageChanged: (v)=>cachedIndexProvider.setState(ref, v),
         controller: projectCTR,
-        // numberOfCardsDisplayed: configs.length - 2,
         itemBuilder: (ctx, i) => ProjectWidget(
           current: i == currentPage,
           config: configs[i],
